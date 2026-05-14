@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "western-pond-turtle",
+    "commonName": "Western Pond Turtle",
+    "scientificName": "Actinemys marmorata",
+    "taxonomicGroup": "vertebrate",
+    "family": "Emydidae",
+    "ecoRegions": ["WV", "WC"],
+    "counties": ["Lane", "Benton", "Linn"],
+    "orbicRank": "S2",
+    "federalStatus": "C",
+    "lat": 44.1,
+    "lng": -123.2,
+    "inatTaxonId": 39532,
+    "description": "Oregon's only native freshwater turtle.",
+    "habitat": "Ponds, slow rivers, and wetlands with basking sites."
+  },
+  {
+    "slug": "kincaids-lupine",
+    "commonName": "Kincaid's Lupine",
+    "scientificName": "Lupinus oreganus",
+    "taxonomicGroup": "vascular_plant",
+    "family": "Fabaceae",
+    "ecoRegions": ["WV"],
+    "counties": ["Benton", "Lane", "Polk"],
+    "orbicRank": "S2",
+    "federalStatus": "LT",
+    "lat": 44.5,
+    "lng": -123.3,
+    "inatTaxonId": 53094,
+    "description": "A perennial lupine restricted to Willamette Valley prairies.",
+    "habitat": "Native prairie and oak savanna remnants."
+  },
+  {
+    "slug": "oregon-spotted-frog",
+    "commonName": "Oregon Spotted Frog",
+    "scientificName": "Rana pretiosa",
+    "taxonomicGroup": "vertebrate",
+    "family": "Ranidae",
+    "ecoRegions": ["WV", "WC", "KM"],
+    "counties": ["Jackson", "Klamath", "Lane"],
+    "orbicRank": "S2",
+    "federalStatus": "LT",
+    "isAquatic": true,
+    "lat": 42.3,
+    "lng": -122.1,
+    "inatTaxonId": 65988,
+    "description": "One of the most aquatic native frogs in North America.",
+    "habitat": "Wetlands, shallow ponds, and slow streams."
+  }
+]
