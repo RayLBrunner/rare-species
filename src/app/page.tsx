@@ -1,9 +1,19 @@
-export default function Home() {
-  const message = "Hello ORBIC Capstone Team";
+import Hero from "../components/Hero";
+import SpeciesCategories from "../components/ExploreBySpecies";
+import ExploreByHabitat from "../components/ExploreByHabitat";
+import ExploreMap from "../components/ExploreMap";
 
+export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-zinc-50">
-      <h1 className="text-3xl font-bold text-zinc-900">{message}</h1>
-    </main>
+    <>
+      <Hero />
+      <main className="w-full px-6 pt-8">
+        <div className="space-y-4">
+          <SpeciesCategories />
+          <ExploreByHabitat />
+          <ExploreMap />
+        </div>
+      </main>
+    </>
   );
 }
