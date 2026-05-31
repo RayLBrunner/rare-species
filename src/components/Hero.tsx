@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Hero = () => {
   return (
     <section className="flex min-h-[420px] flex-col justify-between overflow-hidden bg-[#032014] px-6 py-6 text-white sm:px-8 md:flex-row md:items-center md:px-16 md:py-12">
@@ -19,7 +21,10 @@ const Hero = () => {
         </p>
 
         <div className="mt-3 flex flex-col items-start gap-3 sm:mt-5 md:mt-7 md:flex-row md:items-center md:gap-5">
-          <button className="group w-full border border-white bg-[#16873d] px-4 py-3 text-left transition hover:bg-[#1b9947] sm:w-auto sm:px-5 sm:py-4">
+          <Link
+            href="/quiz"
+            className="group block w-full border border-white bg-[#16873d] px-4 py-3 text-left transition hover:bg-[#1b9947] sm:w-auto sm:px-5 sm:py-4"
+          >
             <div className="text-[15px] font-semibold sm:text-[18px]">
               Find your species →
             </div>
@@ -27,14 +32,14 @@ const Hero = () => {
             <div className="mt-1 text-xs text-[#b7d2c2] sm:text-sm">
               6 questions • 2 minutes
             </div>
-          </button>
+          </Link>
 
-          <a
-            href="#browse"
+          <Link
+            href="/species"
             className="text-sm text-[#7fc49b] transition hover:text-white"
           >
             Browse all 1,859 →
-          </a>
+          </Link>
         </div>
       </div>
 
