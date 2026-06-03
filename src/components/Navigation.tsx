@@ -24,7 +24,7 @@ export default function Navigation() {
 
   return (
     <nav className="sticky top-0 z-50 bg-[#032014] text-white">
-      <div className="flex items-center justify-between px-6 py-4 sm:px-8 md:px-16">
+      <div className="mx-auto w-full max-w-7xl flex items-center justify-between px-6 py-4 sm:px-8 md:px-16">
         <Link href="/" className="font-bold text-lg">
           ORBIC
         </Link>
