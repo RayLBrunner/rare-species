@@ -11,8 +11,8 @@ export default function HabitatCard({ icon, title, count }: HabitatCardProps) {
         <span className="text-xl">{icon}</span>
 
         <div>
-          <h3 className="text-sm font-bold leading-tight">{title}</h3>
-          <p className="text-[11px] text-gray-600">{count} species</p>
+          <h3 className="font-heading text-m font-bold leading-tight">{title}</h3>
+          <p className="font-body text-[13px] text-gray-600">{count} species</p>
         </div>
       </div>
     </div>

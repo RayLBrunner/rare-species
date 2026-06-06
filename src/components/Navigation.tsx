@@ -23,9 +23,9 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#032014] text-white">
+    <nav className="font-body sticky top-0 z-50 bg-[#032014] text-white">
       <div className="mx-auto w-full max-w-7xl flex items-center justify-between px-6 py-4 sm:px-8 md:px-16">
-        <Link href="/" className="font-bold text-lg">
+        <Link href="/" className="font-heading font-bold text-xl">
           ORBIC
         </Link>
         <ul className="flex gap-6">
@@ -33,7 +33,7 @@ export default function Navigation() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`transition ${
+                className={`font-body transition ${
                   isActive(link.href)
                     ? "border-b-2 border-[#16873d] font-semibold text-[#6fc08f]"
                     : "hover:text-[#6fc08f]"
