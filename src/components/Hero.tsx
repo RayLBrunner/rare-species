@@ -8,7 +8,7 @@ const Hero = () => {
           Oregon Biodiversity Information Center
         </p>
 
-        <h1 className="text-[34px] font-bold leading-[0.95] tracking-[-1px] sm:text-[48px] md:text-[72px] md:leading-[0.92] md:tracking-[-3px]">
+        <h1 className="font-heading text-[34px] font-bold leading-[0.95] tracking-[-1px] sm:text-[48px] md:text-[72px] md:leading-[0.92] md:tracking-[-3px]">
           Oregon has
           <br />
           1,859 rare
@@ -16,14 +16,14 @@ const Hero = () => {
           species.
         </h1>
 
-        <p className="mt-2 text-[16px] text-[#b7d2c2] sm:mt-5 sm:text-[20px] md:mt-7">
+        <p className="font-body mt-2 text-[16px] text-[#b7d2c2] sm:mt-5 sm:text-[20px] md:mt-7">
           One has your name on it.
         </p>
 
         <div className="mt-3 flex flex-col items-start gap-3 sm:mt-5 md:mt-7 md:flex-row md:items-center md:gap-5">
           <Link
             href="/quiz"
-            className="group block w-full border border-white bg-[#16873d] px-4 py-3 text-left transition hover:bg-[#1b9947] sm:w-auto sm:px-5 sm:py-4"
+            className="font-body group block w-full border border-white bg-[#16873d] px-4 py-3 text-left transition hover:bg-[#1b9947] sm:w-auto sm:px-5 sm:py-4"
           >
             <div className="text-[15px] font-semibold sm:text-[18px]">
               Find your species →
@@ -36,7 +36,7 @@ const Hero = () => {
 
           <Link
             href="/species"
-            className="text-sm text-[#7fc49b] transition hover:text-white"
+            className="font-body text-sm text-[#7fc49b] transition hover:text-white"
           >
             Browse all 1,859 →
           </Link>
@@ -52,13 +52,13 @@ const Hero = () => {
           <div className="h-[185px] bg-[#ddd9d2]" />
 
           <div className="bg-[#062517] p-4">
-            <h3 className="text-[15px] font-semibold">Kincaid&apos;s Lupine</h3>
+            <h3 className="font-heading text-[15px] font-semibold">Kincaid&apos;s Lupine</h3>
 
-            <p className="mt-1 text-xs italic text-[#b7d2c2]">
+            <p className="font-scientific mt-1 text-xs italic text-[#b7d2c2]">
               Lupinus oreganus
             </p>
 
-            <div className="mt-4 inline-block bg-[#cf234c] px-2 py-1 text-[10px] font-bold tracking-wide text-white">
+            <div className="font-body mt-4 inline-block bg-[#cf234c] px-2 py-1 text-[10px] font-bold tracking-wide text-white">
               ORBIC LIST 1
             </div>
           </div>

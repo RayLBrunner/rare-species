@@ -6,6 +6,7 @@ import ExploreMap from "../components/ExploreMap";
 export default function Home() {
   return (
     <>
+    <div className="mx-auto w-full max-w-7xl">
       <Hero />
       <main className="w-full px-6 pt-8">
         <div className="space-y-4">
@@ -14,6 +15,7 @@ export default function Home() {
           <ExploreMap />
         </div>
       </main>
+      </div>
     </>
   );
 }
