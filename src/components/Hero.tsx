@@ -43,7 +43,10 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative mt-10 hidden md:mr-10 md:block">
+      <Link
+        href="/species/kincaids-lupine"
+        className="group relative mt-10 hidden md:mr-10 md:block"
+      >
         <div className="absolute left-6 top-6 h-[290px] w-[260px] border border-[#1f5a3d] bg-[#0b3524]" />
 
         <div className="absolute left-3 top-3 h-[290px] w-[260px] border border-[#2a6948] bg-[#11412d]" />
@@ -52,7 +55,9 @@ const Hero = () => {
           <div className="h-[185px] bg-[#ddd9d2]" />
 
           <div className="bg-[#062517] p-4">
-            <h3 className="font-heading text-[15px] font-semibold">Kincaid&apos;s Lupine</h3>
+            <h3 className="font-heading text-[15px] font-semibold">
+              Kincaid&apos;s Lupine
+            </h3>
 
             <p className="font-scientific mt-1 text-xs italic text-[#b7d2c2]">
               Lupinus oreganus
@@ -63,7 +68,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     </section>
   );
 };
