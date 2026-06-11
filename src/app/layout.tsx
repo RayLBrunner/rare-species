@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -21,6 +21,13 @@ const sourceSans = Source_Sans_3({
 export const metadata: Metadata = {
   title: "ORBIC - Oregon Field Guide",
   description: "Discover rare species in Oregon",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({
