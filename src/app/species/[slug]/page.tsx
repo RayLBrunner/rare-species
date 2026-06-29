@@ -4,9 +4,9 @@ import StatusRankBar from "@/components/species/StatusRankBar";
 
 export default function SpeciesPage() {
   return (
-    <main>
+    <main className="w-full">
+      <SpeciesHero />
       <div className="mx-auto w-full max-w-7xl">
-        <SpeciesHero />
         <StatusRankBar />
         <SpeciesOverview />
       </div>
