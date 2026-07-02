@@ -16,7 +16,6 @@ interface NavSection {
 }
 
 const MAIN_NAV_LINKS: NavLink[] = [
-  { label: "Discover", href: "/", description: "Explore species by habitat or landscape" },
   { label: "Browse Species", href: "/species", description: "Full index with filters" },
   { label: "Take the Quiz", href: "/quiz", description: "Find your species match" },
   { label: "About ORBIC", href: "/about", description: "50 years of rare species tracking" },

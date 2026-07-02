@@ -5,7 +5,7 @@ const Hero = () => {
     <section className="w-full overflow-hidden bg-[#032014] text-white">
       <div className="mx-auto flex min-h-[420px] w-full max-w-7xl flex-col justify-between px-6 py-6 sm:px-8 md:flex-row md:items-center md:px-16 md:py-12">
         {" "}
-        <div className="max-w-[520px]">
+        <div className="relative z-10 max-w-[520px]">
           <p className="mb-3 text-[11px] tracking-wide text-[#6fc08f] sm:mb-4 sm:text-xs">
             Oregon Biodiversity Information Center
           </p>
