@@ -2,21 +2,50 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 interface NavLink {
   label: string;
   href: string;
+  description?: string;
 }
 
-const NAV_LINKS: NavLink[] = [
-  { label: "Browse Species", href: "/species" },
-  { label: "Take the Quiz", href: "/quiz" },
-  { label: "About ORBIC", href: "/about" },
-  { label: "Sponsor a Species", href: "/contact" },
+interface NavSection {
+  title: string;
+  links: NavLink[];
+}
+
+const MAIN_NAV_LINKS: NavLink[] = [
+  { label: "Browse Species", href: "/species", description: "Full index with filters" },
+  { label: "Take the Quiz", href: "/quiz", description: "Find your species match" },
+  { label: "About ORBIC", href: "/about", description: "50 years of rare species tracking" },
+  { label: "Sponsor a Species", href: "/", description: "Support conservation — Fall 2026" },
+];
+
+const MORE_NAV_LINKS: NavLink[] = [
+  { label: "Data Request", href: "/" },
+  { label: "Accessibility", href: "/" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
 
   const isActive = (href: string): boolean => {
     return pathname === href || pathname.startsWith(href + "/");
@@ -28,9 +57,11 @@ export default function Navigation() {
         <Link href="/" className="font-heading font-bold text-xl">
           ORBIC
         </Link>
-        <ul className="flex gap-6">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
+
+        {/* Desktop Navigation */}
+        <ul className="hidden md:flex gap-6">
+          {MAIN_NAV_LINKS.map((link) => (
+            <li key={link.label}>
               <Link
                 href={link.href}
                 className={`font-body text-sm transition ${
@@ -44,6 +75,107 @@ export default function Navigation() {
             </li>
           ))}
         </ul>
+
+        {/* Mobile Hamburger Button */}
+        <button
+          className="md:hidden relative z-50 flex flex-col gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#6fc08f] p-2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+        >
+          <span
+            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              isMenuOpen ? "rotate-45 translate-y-2" : ""
+            }`}
+          ></span>
+          <span
+            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              isMenuOpen ? "opacity-0" : ""
+            }`}
+          ></span>
+          <span
+            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              isMenuOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          ></span>
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 md:hidden z-40"
+          onClick={() => setIsMenuOpen(false)}
+          aria-hidden="true"
+        ></div>
+      )}
+
+      {/* Mobile Menu Panel */}
+      <div
+        className={`fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-[#032014] transform transition-transform duration-300 ease-out z-40 md:hidden overflow-y-auto ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Menu Header */}
+        <div className="px-6 py-4 border-b border-[#16873d]">
+          <span className="font-heading font-bold text-lg">ORBIC</span>
+        </div>
+
+        {/* Navigation Section */}
+        <div className="px-6 py-6 border-b border-[#16873d]">
+          <h2 className="font-body text-xs font-semibold text-[#999] uppercase tracking-wider mb-4">
+            Navigation
+          </h2>
+          <ul className="space-y-4">
+            {MAIN_NAV_LINKS.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className={`block transition ${
+                    isActive(link.href)
+                      ? "text-[#6fc08f]"
+                      : "text-white hover:text-[#6fc08f]"
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span className="font-heading font-bold text-base">{link.label}</span>
+                  {link.description && (
+                    <p className="text-xs text-[#999] mt-1">{link.description}</p>
+                  )}
+                  <div className="flex justify-end">
+                    <svg className="w-4 h-4 text-[#6fc08f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* More Section */}
+        <div className="px-6 py-6">
+          <h2 className="font-body text-xs font-semibold text-[#999] uppercase tracking-wider mb-4">
+            More
+          </h2>
+          <ul className="space-y-3">
+            {MORE_NAV_LINKS.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className={`block transition ${
+                    isActive(link.href)
+                      ? "text-[#6fc08f]"
+                      : "text-white hover:text-[#6fc08f]"
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </nav>
   );
