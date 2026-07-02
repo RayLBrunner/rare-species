@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface SpeciesCardProps {
   title: string;
   subtitle: string;
@@ -15,7 +17,13 @@ export default function SpeciesCard({
     <div className="border-2 border-black bg-white">
       <div className="h-[95px] bg-[#e7e2da] sm:h-[130px]">
         {image && (
-          <img src={image} alt={title} className="h-full w-full object-cover" />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 140px, 25vw"
+            className="object-cover"
+          />
         )}
       </div>
 
