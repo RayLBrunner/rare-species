@@ -9,10 +9,10 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
-  { label: "Browse", href: "/species" },
-  { label: "Quiz", href: "/quiz" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Browse Species", href: "/species" },
+  { label: "Take the Quiz", href: "/quiz" },
+  { label: "About ORBIC", href: "/about" },
+  { label: "Sponsor a Species", href: "/contact" },
 ];
 
 export default function Navigation() {
@@ -33,7 +33,7 @@ export default function Navigation() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`font-body transition ${
+                className={`font-body text-sm transition ${
                   isActive(link.href)
                     ? "border-b-2 border-[#16873d] font-semibold text-[#6fc08f]"
                     : "hover:text-[#6fc08f]"
