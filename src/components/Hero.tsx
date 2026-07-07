@@ -1,11 +1,21 @@
 import Link from "next/link";
+import Image from "next/image";
 
-const Hero = () => {
+export default function Hero() {
   return (
-    <section className="w-full overflow-hidden bg-[#032014] text-white">
-      <div className="mx-auto flex min-h-[420px] w-full max-w-7xl flex-col justify-between px-6 py-6 sm:px-8 md:flex-row md:items-center md:px-16 md:py-12">
-        {" "}
-        <div className="relative z-10 max-w-[520px]">
+    <section className="relative w-full overflow-hidden bg-[#032014] text-white">
+      <Image
+        src="/images/eco-region/BlueMountains_USFS_PublicDomain_23304904443_d7a074063d_o.jpg"
+        alt="Oregon forest landscape"
+        fill
+        priority
+        className="object-cover"
+      />
+
+      <div className="absolute inset-0 bg-[#032014]/45" />
+
+      <div className="relative z-10 mx-auto flex min-h-[420px] w-full max-w-7xl flex-col px-6 py-6 sm:px-8 md:justify-center md:px-16 md:py-12">
+        <div className="max-w-[520px]">
           <p className="mb-3 text-[11px] tracking-wide text-[#6fc08f] sm:mb-4 sm:text-xs">
             Oregon Biodiversity Information Center
           </p>
@@ -44,35 +54,7 @@ const Hero = () => {
             </Link>
           </div>
         </div>
-        <Link
-          href="/species/kincaids-lupine"
-          className="group relative mt-10 hidden md:mr-10 md:block"
-        >
-          <div className="absolute left-6 top-6 h-[290px] w-[260px] border border-[#1f5a3d] bg-[#0b3524]" />
-
-          <div className="absolute left-3 top-3 h-[290px] w-[260px] border border-[#2a6948] bg-[#11412d]" />
-
-          <div className="relative z-10 w-[260px] overflow-hidden border border-[#d8d8d8] bg-[#062517]">
-            <div className="h-[185px] bg-[#ddd9d2]" />
-
-            <div className="bg-[#062517] p-4">
-              <h3 className="font-heading text-[15px] font-semibold">
-                Kincaid&apos;s Lupine
-              </h3>
-
-              <p className="font-scientific mt-1 text-xs italic text-[#b7d2c2]">
-                Lupinus oreganus
-              </p>
-
-              <div className="font-body mt-4 inline-block bg-[#cf234c] px-2 py-1 text-[10px] font-bold tracking-wide text-white">
-                ORBIC LIST 1
-              </div>
-            </div>
-          </div>
-        </Link>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}
