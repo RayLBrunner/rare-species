@@ -10,11 +10,6 @@ interface NavLink {
   description?: string;
 }
 
-interface NavSection {
-  title: string;
-  links: NavLink[];
-}
-
 const MAIN_NAV_LINKS: NavLink[] = [
   { label: "Browse Species", href: "/species", description: "Full index with filters" },
   { label: "Take the Quiz", href: "/quiz", description: "Find your species match" },
@@ -33,15 +28,12 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
+
     return () => {
       document.body.style.overflow = "unset";
     };
