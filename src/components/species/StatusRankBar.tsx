@@ -34,20 +34,6 @@ export default function StatusRankBar() {
         </div>
 
         <>
-          <div className="mt-3 flex flex-wrap gap-2 md:hidden">
-            <span className="font-body bg-[#c71945] px-3 py-1 text-[10px] font-bold text-white">
-              G1 Crit. Imperiled globally
-            </span>
-
-            <span className="font-body bg-[#d6420f] px-3 py-1 text-[10px] font-bold text-white">
-              ESA: Threatened
-            </span>
-
-            <span className="font-body bg-[#c71945] px-3 py-1 text-[10px] font-bold text-white">
-              ORBIC List 1
-            </span>
-          </div>
-
           <div className="hidden md:grid md:grid-cols-3 md:gap-2">
             <div className="min-w-[95px] border-2 border-black bg-white p-3">
               <p className="font-body text-sm font-bold text-[#c71945]">G1</p>
