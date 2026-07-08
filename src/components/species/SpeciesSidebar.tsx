@@ -2,7 +2,7 @@ export default function SpeciesSidebar() {
   return (
     <>
       <div className="space-y-3 lg:hidden">
-        <button className="font-body w-full border-b-4 border-black bg-[#15803d] px-4 py-4 text-sm font-bold text-white">
+        <button className="cursor-pointer font-body w-full border-b-4 border-black bg-[#15803d] px-4 py-4 text-sm font-bold text-white">
           Sponsor this species →
         </button>
 
@@ -12,7 +12,7 @@ export default function SpeciesSidebar() {
       </div>
       <aside className="hidden border-l border-[#d8d8d8] bg-white p-6 lg:block">
         <div className="border-2 border-black border-b-4 bg-[#15803d] p-4 text-white">
-          <h2 className="font-body text-base font-bold">
+          <h2 className="cursor-pointer font-body text-base font-bold">
             Sponsor this species
           </h2>
 

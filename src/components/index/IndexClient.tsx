@@ -11,7 +11,7 @@ import SpeciesIndexToolbar from "./SpeciesIndexToolbar";
 export type SpeciesView = "grid" | "list";
 
 export default function IndexClient() {
-  const [view, setView] = useState<SpeciesView>("grid");
+  const [view, setView] = useState<SpeciesView>("list");
   const [isAdvancedFiltersOpen, setIsAdvancedFiltersOpen] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ export default function IndexClient() {
         onOpenFilters={() => setIsAdvancedFiltersOpen(true)}
       />
 
-      <SpeciesFilters/>
+      <SpeciesFilters />
 
       <ConservationRankBar />
 

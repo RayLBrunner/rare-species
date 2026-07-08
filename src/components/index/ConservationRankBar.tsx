@@ -108,7 +108,7 @@ export default function ConservationRankBar() {
               onClick={() => toggleRank(rank.short)}
               className={`${rank.color} cursor-pointer px-2 py-2 text-white transition hover:brightness-110 ${
                 isSelected
-                  ? "z-10 ring-2 ring-black ring-inset shadow-[inset_0_0_0_2px_#ffffff]"
+                  ? "z-10 ring-2 ring-white ring-inset shadow-[inset_0_0_0_2px_#ffffff]"
                   : ""
               }`}
             >
