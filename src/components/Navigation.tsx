@@ -11,10 +11,26 @@ interface NavLink {
 }
 
 const MAIN_NAV_LINKS: NavLink[] = [
-  { label: "Browse Species", href: "/species", description: "Full index with filters" },
-  { label: "Take the Quiz", href: "/quiz", description: "Find your species match" },
-  { label: "About ORBIC", href: "/about", description: "50 years of rare species tracking" },
-  { label: "Sponsor a Species", href: "/", description: "Support conservation — Fall 2026" },
+  {
+    label: "Browse Species",
+    href: "/species",
+    description: "Full index with filters",
+  },
+  {
+    label: "Take the Quiz",
+    href: "/quiz",
+    description: "Find your species match",
+  },
+  {
+    label: "About ORBIC",
+    href: "/about",
+    description: "50 years of rare species tracking",
+  },
+  {
+    label: "Sponsor a Species",
+    href: "/",
+    description: "Support conservation — Fall 2026",
+  },
 ];
 
 const MORE_NAV_LINKS: NavLink[] = [
@@ -130,13 +146,27 @@ export default function Navigation() {
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <span className="font-heading font-bold text-base">{link.label}</span>
+                  <span className="font-heading font-bold text-base">
+                    {link.label}
+                  </span>
                   {link.description && (
-                    <p className="text-xs text-[#999] mt-1">{link.description}</p>
+                    <p className="text-xs text-[#999] mt-1">
+                      {link.description}
+                    </p>
                   )}
                   <div className="flex justify-end">
-                    <svg className="w-4 h-4 text-[#6fc08f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <svg
+                      className="w-4 h-4 text-[#6fc08f]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
                     </svg>
                   </div>
                 </Link>
