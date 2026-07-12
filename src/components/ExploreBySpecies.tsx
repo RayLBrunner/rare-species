@@ -1,5 +1,4 @@
 import SpeciesCard from "./SpeciesCard";
-import Link from "next/link";
 
 const categories = [
   {
@@ -33,12 +32,7 @@ export default function SpeciesCategories() {
     <section>
       <div className="mb-3 flex items-center justify-between">
         <p className="font-heading text-lg font-bold">Browse by Species</p>
-        <Link
-          href="/species"
-          className="font-body z-40 cursor-pointer text-[13px]"
-        >
-          View all →
-        </Link>{" "}
+        <button className="font-body text-[13px]">View all →</button>
       </div>
 
       <div className="flex gap-3 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 md:grid-cols-4 md:overflow-visible">
