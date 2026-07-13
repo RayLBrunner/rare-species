@@ -4,7 +4,6 @@
  * Defines the Species interface and associated types for the Oregon Rare
  * Species Selection Guide based on Ray's ORBIC_List_27062026 snapshot.
  */
-
 // ============================================================
 // Export Type Definitions
 // ============================================================
