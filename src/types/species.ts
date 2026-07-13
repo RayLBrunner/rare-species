@@ -9,11 +9,24 @@
 // Export Type Definitions
 // ============================================================
 
-export type List = string; // TBD — exact list values pending confirmation
+export type List = "vascular" | "nonVascular" | "vertebrate" | "invertebrate" | "fungi";
 
-export type Category1 = string; // TBD — e.g. "Vascular Plant", "Vertebrate"
+export type Category1 = 
+  | "fishes" | "amphibians" | "mammals" | "reptiles" | "birds" 
+  | "worms" | "molluscs" | "arthropods" | "seaStars" 
+  | "kelpAndAlgae" | "bryophytes" | "fungiAndLichen" 
+  | "vascularPlants" | "other";
 
-export type Category2 = string; // TBD — subcategory values pending confirmation
+export type Category2 = 
+  | "lampreys" | "sharks" | "rayFinnedFishes" | "amphibians" 
+  | "mammals" | "reptiles" | "birds" | "flatworms" | "earthworms" 
+  | "gastropods" | "bivalves" | "branchiopods" | "malacostracans" 
+  | "springtails" | "insects" | "arachnids" | "millipedes" 
+  | "seaStars" | "brownAlgae" | "redAlgae" | "greenAlgae" 
+  | "liverworts" | "hornworts" | "mosses" | "lichen" 
+  | "basidiomyceteFungi" | "ascomyceteFungi" | "zygomyeteFungi" 
+  | "dicotPlants" | "ferns" | "monocotPlants" | "lycophytes" 
+  | "conifers" | "other";
 
 export type GlobalRank = "G1" | "G2" | "G3" | "G4" | "G5" | "GH" | "GX" | "other";
 
