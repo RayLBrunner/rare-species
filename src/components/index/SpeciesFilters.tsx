@@ -1,88 +1,47 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { filterRows, dropdownOptions } from "./FilterData";
 
-const filterRows = [
+const mobileTaxonomyFilters = [
   {
-    label: "Taxonomy",
-    filters: [
-      "All species",
-      "Plants",
-      "Animals",
-      "Fungi",
-      "Phylum +",
-      "Class +",
-      "Order +",
-      "Family +",
-      "Genus +",
-      "Var / Subsp. +",
-    ],
+    label: "Vascular Plants",
+    filterName: "Vascular Plants +",
   },
   {
-    label: "Status",
-    filters: [
-      "Critically imperiled",
-      "ESA listed",
-      "ORBIC list +",
-      "ODFW strategy +",
-      "Species list +",
-    ],
+    label: "Nonvascular Plants and Fungi",
+    filterName: "Nonvascular Plants and Fungi +",
   },
   {
-    label: "Geography",
-    filters: [
-      "Coast Range",
-      "West Cascades",
-      "East Cascades",
-      "Willamette Valley",
-      "Blue Mountains",
-      "Klamath Mtns",
-      "Columbia Plateau",
-      "Basin & Range",
-      "County +",
-      "Other states +",
-    ],
+    label: "Vertebrate Animals",
+    filterName: "Vertebrate Animals +",
+  },
+  {
+    label: "Invertebrate Animals",
+    filterName: "Invertebrate Animals +",
   },
 ];
 
-const dropdownOptions: Record<string, string[]> = {
-  "Phylum +": ["Tracheophyta", "Bryophyta", "Ascomycota", "Chordata"],
-  "Class +": ["Magnoliopsida", "Liliopsida", "Pinopsida", "Amphibia"],
-  "Order +": ["Fabales", "Lamiales", "Pinales", "Anura", "Lepidoptera"],
-  "Family +": [
-    "Fabaceae",
-    "Pinaceae",
-    "Ranidae",
-    "Lycaenidae",
-    "Scrophulariaceae",
-  ],
-  "Genus +": ["Lupinus", "Pinus", "Rana", "Icaricia", "Castilleja"],
-  "Var / Subsp. +": ["var. oreganus", "ssp. fenderi", "var. umbellata"],
-  "ORBIC list +": ["List 1", "List 2", "List 3", "List 4"],
-  "ODFW strategy +": ["Strategy Species", "Sensitive", "Watch List"],
-  "Species list +": ["Federal ESA", "State Listed", "ORBIC Tracked"],
-  "County +": ["Benton", "Clackamas", "Lane", "Linn", "Marion", "Multnomah"],
-  "Other states +": ["Washington", "California", "Idaho", "Nevada"],
-};
+interface SpeciesFiltersProps {
+  selectedFilters: Record<string, string[]>;
+  selectedDropdownOptions: Record<string, string[]>;
+  onToggleFilter: (rowLabel: string, filterName: string) => void;
+  onToggleDropdownOption: (filterName: string, option: string) => void;
+  onToggleAllDropdownOptions: (filterName: string) => void;
+}
 
-export default function SpeciesFilters() {
-  const [selectedFilters, setSelectedFilters] = useState<
-    Record<string, string[]>
-  >({
-    Taxonomy: ["All species"],
-    Status: [],
-    Geography: [],
-  });
-
+export default function SpeciesFilters({
+  selectedFilters,
+  selectedDropdownOptions,
+  onToggleFilter,
+  onToggleDropdownOption,
+  onToggleAllDropdownOptions,
+}: SpeciesFiltersProps) {
   const filtersRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
-
-  const [selectedDropdownOptions, setSelectedDropdownOptions] = useState<
-    Record<string, string[]>
-  >({});
 
   const openDropdown = (filterName: string, button: HTMLButtonElement) => {
     const rect = button.getBoundingClientRect();
@@ -105,48 +64,11 @@ export default function SpeciesFilters() {
   const toggleFilter = (rowLabel: string, filterName: string) => {
     setActiveDropdown(null);
 
-    setSelectedFilters((current) => {
-      const currentRow = current[rowLabel] ?? [];
-
-      if (rowLabel === "Taxonomy" && filterName === "All species") {
-        return {
-          ...current,
-          Taxonomy: ["All species"],
-        };
-      }
-
-      const withoutAllSpecies =
-        rowLabel === "Taxonomy"
-          ? currentRow.filter((filter) => filter !== "All species")
-          : currentRow;
-
-      const nextRow = withoutAllSpecies.includes(filterName)
-        ? withoutAllSpecies.filter((filter) => filter !== filterName)
-        : [...withoutAllSpecies, filterName];
-
-      return {
-        ...current,
-        [rowLabel]:
-          rowLabel === "Taxonomy" && nextRow.length === 0
-            ? ["All species"]
-            : nextRow,
-      };
-    });
+    onToggleFilter(rowLabel, filterName);
   };
 
   const toggleDropdownOption = (filterName: string, option: string) => {
-    setSelectedDropdownOptions((current) => {
-      const currentOptions = current[filterName] ?? [];
-
-      const nextOptions = currentOptions.includes(option)
-        ? currentOptions.filter((currentOption) => currentOption !== option)
-        : [...currentOptions, option];
-
-      return {
-        ...current,
-        [filterName]: nextOptions,
-      };
-    });
+    onToggleDropdownOption(filterName, option);
   };
 
   useEffect(() => {
@@ -187,21 +109,29 @@ export default function SpeciesFilters() {
             All
           </button>
 
-          {["Plants", "Animals", "Fungi"].map((filter) => {
-            const isSelected =
-              selectedFilters.Taxonomy?.includes(filter) ?? false;
+          {mobileTaxonomyFilters.map((filter) => {
+            const options = dropdownOptions[filter.filterName] ?? [];
+
+            const selectedOptions =
+              selectedDropdownOptions[filter.filterName] ?? [];
+
+            const areAllOptionsSelected =
+              options.length > 0 &&
+              options.every((option) => selectedOptions.includes(option));
 
             return (
               <button
-                key={filter}
+                key={filter.filterName}
                 type="button"
-                aria-pressed={isSelected}
-                onClick={() => toggleFilter("Taxonomy", filter)}
+                aria-pressed={areAllOptionsSelected}
+                onClick={() => onToggleAllDropdownOptions(filter.filterName)}
                 className={`cursor-pointer border-2 border-black px-3 py-1.5 text-[10px] font-bold ${
-                  isSelected ? "bg-black text-white" : "bg-white text-black"
+                  areAllOptionsSelected
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
                 }`}
               >
-                {filter}
+                {filter.label}
               </button>
             );
           })}
@@ -213,7 +143,6 @@ export default function SpeciesFilters() {
               label: "Endangered",
               icon: "◆",
             },
-            { row: "Geography", value: "Coast Range", label: "Coast" },
             { row: "Geography", value: "OR Endemic", label: "OR Endemic" },
           ].map((filter) => {
             const isSelected =
@@ -322,6 +251,29 @@ export default function SpeciesFilters() {
           </div>
 
           <div className="max-h-56 space-y-2 overflow-y-auto">
+            {(() => {
+              const options = dropdownOptions[activeDropdown];
+
+              const allSelected =
+                options.length > 0 &&
+                options.every((option) =>
+                  selectedDropdownOptions[activeDropdown]?.includes(option),
+                );
+
+              return (
+                <button
+                  type="button"
+                  aria-pressed={allSelected}
+                  onClick={() => onToggleAllDropdownOptions(activeDropdown)}
+                  className={`mb-2 w-full cursor-pointer border-2 border-black px-3 py-2 text-left text-xs font-bold ${
+                    allSelected ? "bg-black text-white" : "bg-white text-black"
+                  }`}
+                >
+                  All
+                </button>
+              );
+            })()}
+
             {dropdownOptions[activeDropdown].map((option) => {
               const isChecked =
                 selectedDropdownOptions[activeDropdown]?.includes(option) ??

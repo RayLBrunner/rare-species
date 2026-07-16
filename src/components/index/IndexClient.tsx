@@ -7,12 +7,15 @@ import SpeciesFilters from "./SpeciesFilters";
 import SpeciesIndexGrid from "./SpeciesIndexGrid";
 import SpeciesIndexList from "./SpeciesIndexList";
 import SpeciesIndexToolbar from "./SpeciesIndexToolbar";
+import useSpeciesFilters from "./useSpeciesFilters";
 
 export type SpeciesView = "grid" | "list";
 
 export default function IndexClient() {
   const [view, setView] = useState<SpeciesView>("list");
   const [isAdvancedFiltersOpen, setIsAdvancedFiltersOpen] = useState(false);
+
+  const filters = useSpeciesFilters();
 
   return (
     <>
@@ -22,14 +25,17 @@ export default function IndexClient() {
         onOpenFilters={() => setIsAdvancedFiltersOpen(true)}
       />
 
-      <SpeciesFilters />
+      <SpeciesFilters {...filters} />
 
       <ConservationRankBar />
 
       {view === "grid" ? <SpeciesIndexGrid /> : <SpeciesIndexList />}
 
       {isAdvancedFiltersOpen && (
-        <AdvancedFiltersModal onClose={() => setIsAdvancedFiltersOpen(false)} />
+        <AdvancedFiltersModal
+          onClose={() => setIsAdvancedFiltersOpen(false)}
+          {...filters}
+        />
       )}
     </>
   );
