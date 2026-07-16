@@ -8,14 +8,21 @@
 // Export Type Definitions
 // ============================================================
 
-export type List = "vascular" | "nonVascular" | "vertebrate" | "invertebrate" | "fungi";
+// Broad taxonomic categories based on the actual CSV and conversion script output.
+export type List = 
+  | "invertebrateAnimals"
+  | "nonvascularPlantsAndFungi"
+  | "vascularPlants"
+  | "vertebrateAnimals"
 
+// Generalized Taxon Type. Derived from iNaturalist/ORBIC categories.
 export type Category1 = 
   | "fishes" | "amphibians" | "mammals" | "reptiles" | "birds" 
   | "worms" | "molluscs" | "arthropods" | "seaStars" 
   | "kelpAndAlgae" | "bryophytes" | "fungiAndLichen" 
   | "vascularPlants" | "other";
 
+// Less Generalized Taxon Type. Refined biological subgroups.
 export type Category2 = 
   | "lampreys" | "sharks" | "rayFinnedFishes" | "amphibians" 
   | "mammals" | "reptiles" | "birds" | "flatworms" | "earthworms" 
@@ -27,29 +34,45 @@ export type Category2 =
   | "dicotPlants" | "ferns" | "monocotPlants" | "lycophytes" 
   | "conifers" | "other";
 
-export type GlobalRank = "G1" | "G2" | "G3" | "G4" | "G5" | "GH" | "GX" | "other";
+/** Ranks combine into complex values (e.g. G2G3, G2Q) so they are kept as strings. */
+export type GlobalRank = string; 
 
-export type OrbicRank = "S1" | "S2" | "S3" | "S4" | "S5" | "SH" | "SX";
+/** Renamed from OrbicRank and changed to string to handle range ranks (e.g. S1S2). */
+export type StateRank = string;
 
+/** Federal legal status codes under the ESA. */
 export type FederalRank =
-  | "LE"   // Listed Endangered
-  | "LT"   // Listed Threatened
+  | "E"    // Endangered
+  | "T"    // Threatened
   | "PE"   // Proposed Endangered
   | "PT"   // Proposed Threatened
   | "C"    // Candidate
   | "SOC"  // Species of Concern
-  | "none";
+  | "PS"   // Partial Status
+  | "UR"   // Under Review
+  | "DL"   // Delisted
+  | "PDL"; // Proposed Delisted
 
+/** Oregon state legal status codes. */
 export type StateStatus =
   | "LE"   // Listed Endangered
   | "LT"   // Listed Threatened
-  | "none";
+  | "PE"   // Proposed Endangered
+  | "PT"   // Proposed Threatened
+  | "C"    // Candidate (Plants)
+  | "SC"   // Species of Concern
+  | "S"    // Sensitive
+  | "SGCN" // Species of Greatest Conservation Need
+  | "SCIN"; // Species of Great Information Need
 
 export type OrbicList = "1" | "2" | "3" | "4" ;
 
-export type OrEndemic = "Y" | "N";
+/** Endemic status derived from the conversion script. */
+export type OrEndemic = "yes" | "no" | "breedingPopulationOnly" | "probable";
 
-export type EcoRegion = "BM" | "BR" | "CB" | "CR" | "EC" | "KM" | "WC" | "WV"; // TBD — may change
+/** Standardized codes for Oregon's ecoregions, including Marine and Estuarine. */
+export type EcoRegion = "BM" | "BR" | "CB" | "CR" | "EC" | "KM" | "WC" | "WV" | "ME";
+
 
 // ============================================================
 // Species Interface
@@ -65,7 +88,7 @@ export interface Species {
   category1: Category1;                  // Generalized Taxon Type
   category2: Category2;                  // Less Generalized Taxon Type
   list: List;                            // Broad ORBIC List grouping
-  listYear?: number;                     // Raw: LIST_YEAR (The book year used)
+  listYear?: string;                     // Raw: LIST_YEAR (The book year used)
   family: string;                        // Raw: FAMILY
   taxonOrder?: string;                   // Raw: ORDER
   taxonClass?: string;                   // Raw: CLASS
@@ -83,7 +106,7 @@ export interface Species {
 
   // --- Conservation Status ---
   globalRank: GlobalRank;                // Raw: G_RANK
-  stateRank: OrbicRank;                  // Raw: S_RANK
+  stateRank: StateRank;                  // Raw: S_RANK
   federalRank?: FederalRank;             // Raw: FED
   stateStatus?: StateStatus;             // Raw: STATE
   orbicList?: OrbicList;                 // Raw: ORBIC_LIST (List status 1-4)
@@ -101,7 +124,7 @@ export interface Species {
   otherStates?: string;                  // Raw: OTHER_STATES (Includes countries for NV plants)
 
   // --- External Links ---
-  iNaturalistId?: number;                // Raw: INATURALIST_ID
+  iNaturalistId?: string;                // Raw: INATURALIST_ID
   iNaturalistLink?: string;              // Link to iNat Taxon Page
   nsEexplorerLink?: string;              // Link to NatureServe Explorer
   oregonFloraId?: string;                // Raw: OREGONFLORA_ID
