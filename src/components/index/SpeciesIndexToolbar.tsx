@@ -1,23 +1,32 @@
+"use client";
+
 import type { SpeciesView } from "./IndexClient";
 
 interface SpeciesIndexToolbarProps {
   view: SpeciesView;
   setView: (view: SpeciesView) => void;
   onOpenFilters: () => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
 }
 
 export default function SpeciesIndexToolbar({
   view,
   setView,
   onOpenFilters,
+  searchQuery,
+  onSearchChange,
 }: SpeciesIndexToolbarProps) {
   return (
     <div className="mb-3 space-y-2 md:flex md:gap-3 md:space-y-0">
       <div className="relative w-full">
         <input
           type="text"
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && onSearchChange(searchQuery)}
           placeholder="Search rare species..."
-          className="font-body w-full border-4 border-black px-4 py-3 pl-9 text-xs outline-none md:text-sm"
+          className="font-body w-full border-4 border-black px-4 py-3 pl-9 text-xs outline-none"
         />
       </div>
 
