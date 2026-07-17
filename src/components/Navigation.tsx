@@ -8,6 +8,8 @@ interface NavLink {
   label: string;
   href: string;
   description?: string;
+  target?: string;
+  isButton?: boolean;
 }
 
 const MAIN_NAV_LINKS: NavLink[] = [
@@ -28,8 +30,10 @@ const MAIN_NAV_LINKS: NavLink[] = [
   },
   {
     label: "Sponsor a Species",
-    href: "/",
+    href: "https://www.givecampus.com/campaigns/50223/donations/new?designation=institutefornaturalresources",
     description: "Support conservation — Fall 2026",
+    target: "_blank",
+    isButton: true,
   },
 ];
 
@@ -62,7 +66,7 @@ export default function Navigation() {
   return (
     <nav className="font-body sticky top-0 z-50 bg-[#032014] text-white">
       <div className="mx-auto w-full max-w-7xl flex items-center justify-between px-6 py-4 sm:px-8 md:px-16">
-        <Link href="/" className="font-heading font-bold text-xl">
+        <Link href="/" className="font-heading font-bold text-xl transition hover:text-[#6fc08f]">
           ORBIC
         </Link>
 
@@ -72,11 +76,17 @@ export default function Navigation() {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className={`font-body text-sm transition ${
-                  isActive(link.href)
-                    ? "border-b-2 border-[#16873d] font-semibold text-[#6fc08f]"
-                    : "hover:text-[#6fc08f]"
-                }`}
+                target={link.target}
+                rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+                className={
+                  link.isButton
+                    ? "font-body text-sm bg-black text-white px-4 py-2 rounded border border-white transition hover:bg-gray-900"
+                    : `font-body text-sm transition ${
+                        isActive(link.href)
+                          ? "border-b-2 border-[#16873d] font-semibold text-[#6fc08f]"
+                          : "hover:text-[#6fc08f]"
+                      }`
+                }
               >
                 {link.label}
               </Link>
@@ -139,6 +149,8 @@ export default function Navigation() {
               <li key={link.label}>
                 <Link
                   href={link.href}
+                  target={link.target}
+                  rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
                   className={`block transition ${
                     isActive(link.href)
                       ? "text-[#6fc08f]"
