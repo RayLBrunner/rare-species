@@ -35,7 +35,7 @@ export type StateStatus =
 
 export type OrbicList = string; // TBD — exact ORBIC list names pending confirmation
 
-export type OrEndemic = "Y" | "N";
+export type OrEndemic = "Yes" | "No" | "Probable" | "Breeding" | "None";
 
 export type EcoRegion = "BM" | "BR" | "CB" | "CR" | "EC" | "KM" | "WC" | "WV"; // TBD — may change
 
