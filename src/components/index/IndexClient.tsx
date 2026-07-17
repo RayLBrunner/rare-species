@@ -66,6 +66,54 @@ const COUNTY_MAP: Record<string, string> = {
   "Yamhill": "Yamh",
 };
 
+const TAXONOMY_OPTION_MAP: Record<string, string> = {
+  // Vascular Plants
+  "Vascular Plants": "vascularPlants",
+  "Conifers": "conifers",
+  "Dicot Plants": "dicotPlants",
+  "Ferns": "ferns",
+  "Lycophytes": "lycophytes",
+  "Monocot Plants": "monocotPlants",
+  // Nonvascular Plants and Fungi
+  "Bryophtes": "bryophytes",
+  "Fungi and Lichen": "fungiAndLichen",
+  "Kelp and Algae": "kelpAndAlgae",
+  "Ascomycete Fungi": "ascomyceteFungi",
+  "Basidiomycete Fungi": "basidiomyceteFungi",
+  "Brown Algae": "brownAlgae",
+  "Green Algae": "greenAlgae",
+  "Hornworts": "hornworts",
+  "Lichen": "lichen",
+  "Liverworts": "liverworts",
+  "Mosses": "mosses",
+  "Red Algae": "redAlgae",
+  "Zygomyete Fungi": "zygomyeteFungi",
+  // Vertebrate Animals
+  "Amphibians": "amphibians",
+  "Birds": "birds",
+  "Fishes": "fishes",
+  "Mammals": "mammals",
+  "Reptiles": "reptiles",
+  "Lampreys": "lampreys",
+  "Ray-finned Fishes": "rayFinnedFishes",
+  "Sharks": "sharks",
+  // Invertebrate Animals
+  "Arthropods": "arthropods",
+  "Molluscs": "molluscs",
+  "Worms": "worms",
+  "Arachnids": "arachnids",
+  "Bivalves": "bivalves",
+  "Branchiopods": "branchiopods",
+  "EarthWorms": "earthworms",
+  "FlatWorms": "flatworms",
+  "Gastropods": "gastropods",
+  "Insects": "insects",
+  "Malacostracans": "malacostracans",
+  "Millipedes": "millipedes",
+  "Sea Stars": "seaStars",
+  "Springtails": "springtails",
+};
+
 const RANK_BAR_MAP: Record<string, string> = {
   "5X": "SX",
   S1: "S1",
@@ -94,7 +142,7 @@ function applyFilters(
 
   return species.filter((item) => {
     // SEARCH
-    if (q && !item.commonName.toLowerCase().includes(q)) return false;
+    if (q && !(item.commonName ?? "").toLowerCase().includes(q)) return false;
 
     // TAXONOMY
     const taxonomyIsAll = selectedFilters.Taxonomy?.includes("All species");
@@ -110,7 +158,10 @@ function applyFilters(
       );
       if (selectedTaxonOptions.length > 0) {
         const itemCategories = [item.category1, item.category2].filter(Boolean);
-        if (!selectedTaxonOptions.some((opt) => itemCategories.includes(opt)))
+        const selectedTaxonCamel = selectedTaxonOptions.map(
+          (opt) => TAXONOMY_OPTION_MAP[opt] ?? opt,
+        );
+        if (!selectedTaxonCamel.some((val) => itemCategories.includes(val)))
           return false;
       }
     }
@@ -167,7 +218,7 @@ function applyFilters(
     }
 
     // GEOGRAPHY — OR Endemic
-    if (selectedFilters.Geography?.includes("OR Endemic") && !item.orEndemic)
+    if (selectedFilters.Geography?.includes("OR Endemic") && item.orEndemic !== "Yes")
       return false;
 
     // GEOGRAPHY — Ecoregion
