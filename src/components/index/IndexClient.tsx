@@ -28,90 +28,90 @@ const ECOREGION_MAP: Record<string, string> = {
 };
 
 const COUNTY_MAP: Record<string, string> = {
-  "Baker": "Bake",
-  "Benton": "Bent",
-  "Clackamas": "Clac",
-  "Clatsop": "Clat",
-  "Columbia": "Colu",
-  "Coos": "Coos",
-  "Crook": "Croo",
-  "Curry": "Curr",
-  "Deschutes": "Desc",
-  "Douglas": "Doug",
-  "Gilliam": "Gill",
-  "Grant": "Gran",
-  "Harney": "Harn",
+  Baker: "Bake",
+  Benton: "Bent",
+  Clackamas: "Clac",
+  Clatsop: "Clat",
+  Columbia: "Colu",
+  Coos: "Coos",
+  Crook: "Croo",
+  Curry: "Curr",
+  Deschutes: "Desc",
+  Douglas: "Doug",
+  Gilliam: "Gill",
+  Grant: "Gran",
+  Harney: "Harn",
   "Hood River": "Hood",
-  "Jackson": "Jack",
-  "Jefferson": "Jeff",
-  "Josephine": "Jose",
-  "Klamath": "Klam",
-  "Lake": "Lake",
-  "Lane": "Lane",
-  "Lincoln": "Linc",
-  "Linn": "Linn",
-  "Malheur": "Malh",
-  "Marion": "Mari",
-  "Morrow": "Morr",
-  "Multnomah": "Mult",
-  "Polk": "Polk",
-  "Sherman": "Sher",
-  "Tillamook": "Till",
-  "Umatilla": "Umat",
-  "Union": "Unio",
-  "Wallowa": "Wall",
-  "Wasco": "Wasc",
-  "Washington": "Wash",
-  "Wheeler": "Whee",
-  "Yamhill": "Yamh",
+  Jackson: "Jack",
+  Jefferson: "Jeff",
+  Josephine: "Jose",
+  Klamath: "Klam",
+  Lake: "Lake",
+  Lane: "Lane",
+  Lincoln: "Linc",
+  Linn: "Linn",
+  Malheur: "Malh",
+  Marion: "Mari",
+  Morrow: "Morr",
+  Multnomah: "Mult",
+  Polk: "Polk",
+  Sherman: "Sher",
+  Tillamook: "Till",
+  Umatilla: "Umat",
+  Union: "Unio",
+  Wallowa: "Wall",
+  Wasco: "Wasc",
+  Washington: "Wash",
+  Wheeler: "Whee",
+  Yamhill: "Yamh",
 };
 
 const TAXONOMY_OPTION_MAP: Record<string, string> = {
   // Vascular Plants
   "Vascular Plants": "vascularPlants",
-  "Conifers": "conifers",
+  Conifers: "conifers",
   "Dicot Plants": "dicotPlants",
-  "Ferns": "ferns",
-  "Lycophytes": "lycophytes",
+  Ferns: "ferns",
+  Lycophytes: "lycophytes",
   "Monocot Plants": "monocotPlants",
   // Nonvascular Plants and Fungi
-  "Bryophtes": "bryophytes",
+  Bryophtes: "bryophytes",
   "Fungi and Lichen": "fungiAndLichen",
   "Kelp and Algae": "kelpAndAlgae",
   "Ascomycete Fungi": "ascomyceteFungi",
   "Basidiomycete Fungi": "basidiomyceteFungi",
   "Brown Algae": "brownAlgae",
   "Green Algae": "greenAlgae",
-  "Hornworts": "hornworts",
-  "Lichen": "lichen",
-  "Liverworts": "liverworts",
-  "Mosses": "mosses",
+  Hornworts: "hornworts",
+  Lichen: "lichen",
+  Liverworts: "liverworts",
+  Mosses: "mosses",
   "Red Algae": "redAlgae",
   "Zygomyete Fungi": "zygomyeteFungi",
   // Vertebrate Animals
-  "Amphibians": "amphibians",
-  "Birds": "birds",
-  "Fishes": "fishes",
-  "Mammals": "mammals",
-  "Reptiles": "reptiles",
-  "Lampreys": "lampreys",
+  Amphibians: "amphibians",
+  Birds: "birds",
+  Fishes: "fishes",
+  Mammals: "mammals",
+  Reptiles: "reptiles",
+  Lampreys: "lampreys",
   "Ray-finned Fishes": "rayFinnedFishes",
-  "Sharks": "sharks",
+  Sharks: "sharks",
   // Invertebrate Animals
-  "Arthropods": "arthropods",
-  "Molluscs": "molluscs",
-  "Worms": "worms",
-  "Arachnids": "arachnids",
-  "Bivalves": "bivalves",
-  "Branchiopods": "branchiopods",
-  "EarthWorms": "earthworms",
-  "FlatWorms": "flatworms",
-  "Gastropods": "gastropods",
-  "Insects": "insects",
-  "Malacostracans": "malacostracans",
-  "Millipedes": "millipedes",
+  Arthropods: "arthropods",
+  Molluscs: "molluscs",
+  Worms: "worms",
+  Arachnids: "arachnids",
+  Bivalves: "bivalves",
+  Branchiopods: "branchiopods",
+  EarthWorms: "earthworms",
+  FlatWorms: "flatworms",
+  Gastropods: "gastropods",
+  Insects: "insects",
+  Malacostracans: "malacostracans",
+  Millipedes: "millipedes",
   "Sea Stars": "seaStars",
-  "Springtails": "springtails",
+  Springtails: "springtails",
 };
 
 const RANK_BAR_MAP: Record<string, string> = {
@@ -127,7 +127,12 @@ function parseAbbreviations(value: string | undefined): string[] {
   if (!value) return [];
   return value
     .split(", ")
-    .map((part) => part.replace(/\s*\([^)]*\)/, "").replace("?", "").trim())
+    .map((part) =>
+      part
+        .replace(/\s*\([^)]*\)/, "")
+        .replace("?", "")
+        .trim(),
+    )
     .filter(Boolean);
 }
 
@@ -161,7 +166,11 @@ function applyFilters(
         const selectedTaxonCamel = selectedTaxonOptions.map(
           (opt) => TAXONOMY_OPTION_MAP[opt] ?? opt,
         );
-        if (!selectedTaxonCamel.some((val) => itemCategories.includes(val)))
+        if (
+          !selectedTaxonCamel.some((val) =>
+            (itemCategories as string[]).includes(val),
+          )
+        )
           return false;
       }
     }
@@ -218,7 +227,10 @@ function applyFilters(
     }
 
     // GEOGRAPHY — OR Endemic
-    if (selectedFilters.Geography?.includes("OR Endemic") && item.orEndemic !== "Yes")
+    if (
+      selectedFilters.Geography?.includes("OR Endemic") &&
+      item.orEndemic !== "yes"
+    )
       return false;
 
     // GEOGRAPHY — Ecoregion
@@ -245,7 +257,9 @@ function applyFilters(
 
     // S-RANK BAR
     if (selectedRanks.length > 0) {
-      const rankAbbrs = selectedRanks.map((r) => RANK_BAR_MAP[r]).filter(Boolean);
+      const rankAbbrs = selectedRanks
+        .map((r) => RANK_BAR_MAP[r])
+        .filter(Boolean);
       if (!rankAbbrs.some((abbr) => (item.stateRank ?? "").includes(abbr)))
         return false;
     }
@@ -314,12 +328,18 @@ export default function IndexClient({ species }: IndexClientProps) {
         setView={setView}
         onOpenFilters={() => setIsAdvancedFiltersOpen(true)}
         searchQuery={searchQuery}
-        onSearchChange={(q) => { setCurrentPage(1); setSearchQuery(q); }}
+        onSearchChange={(q) => {
+          setCurrentPage(1);
+          setSearchQuery(q);
+        }}
       />
 
       <SpeciesFilters {...filters} />
 
-      <ConservationRankBar selectedRanks={selectedRanks} onToggleRank={onToggleRank} />
+      <ConservationRankBar
+        selectedRanks={selectedRanks}
+        onToggleRank={onToggleRank}
+      />
 
       {filteredSpecies.length === 0 ? (
         <p className="font-body py-16 text-center text-sm text-[#6d6d6d]">
@@ -349,9 +369,7 @@ export default function IndexClient({ species }: IndexClientProps) {
 
             <button
               type="button"
-              onClick={() =>
-                setCurrentPage((p) => Math.min(p + 1, totalPages))
-              }
+              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
               className="px-3 py-1 border border-black disabled:opacity-30 hover:bg-black hover:text-white transition"
             >
