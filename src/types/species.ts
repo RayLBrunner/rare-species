@@ -68,7 +68,7 @@ export type StateStatus =
 export type OrbicList = "1" | "2" | "3" | "4" ;
 
 /** Endemic status derived from the conversion script. */
-export type OrEndemic = "yes" | "no" | "breedingPopulationOnly" | "probable";
+export type OrEndemic = "yes" | "no" | "probable" | "breedingPopulationOnly";
 
 /** Standardized codes for Oregon's ecoregions, including Marine and Estuarine. */
 export type EcoRegion = "BM" | "BR" | "CB" | "CR" | "EC" | "KM" | "WC" | "WV" | "ME";

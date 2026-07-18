@@ -4,5 +4,5 @@ import type { Species } from "@/types/species";
 const allSpecies = data as unknown as Species[];
 
 export function getAllSpecies(): Species[] {
-  return allSpecies;
+  return allSpecies.filter((s) => s.slug && s.commonName);
 }
