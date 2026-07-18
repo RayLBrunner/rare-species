@@ -7,9 +7,15 @@ import re
 INPUT_CSV = "raw_data/ORBIC_List_09072026.csv"
 OUTPUT_JSON = "src/data/species.json"
 
-def generate_slug(element_id):
-    # TODO: update slug to include latin name if present
-    return element_id
+def generate_slug(element_id, scientific_name):
+    if not scientific_name or scientific_name.strip() == "":
+        return element_id
+    
+    name = scientific_name.lower()
+    name = re.sub(r'[^a-z0-9\s-]', '', name)
+    name = re.sub(r'\s+', '-', name.strip())
+    
+    return f"{element_id}-{name}"
 
 def parse_empty(value):
     # Empty strings should be None so TypeScript can handle them as null
@@ -38,7 +44,7 @@ records = []
 with open(INPUT_CSV, newline="", encoding="utf-8") as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        row['slug'] = generate_slug(row['elementGlobalId'])
+        row['slug'] = generate_slug(row['elementGlobalId'], row['scientificName'])
         row['orEndemic'] = parse_empty(row['orEndemic'])
         row['featureMe'] = parse_feature_me(row['featureMe'])
         row['category1'] = to_camel_case(row['category1'])
