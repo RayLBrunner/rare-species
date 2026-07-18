@@ -30,14 +30,6 @@ body {
   position: relative;
 }
 
-.featured-species-slider .slick-prev {
-  left: -15px;
-}
-
-.featured-species-slider .slick-next {
-  right: -15px;
-}
-
 .featured-species-slider .slick-prev,
 .featured-species-slider .slick-next {
   width: 52px;
@@ -46,7 +38,7 @@ body {
   padding: 0;
   border: 2px solid #032014;
   border-radius: 50%;
-  background: #15803d;
+  background: #032014;
 }
 
 .featured-species-slider .slick-prev::before,
