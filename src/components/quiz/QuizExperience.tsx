@@ -217,8 +217,8 @@ export default function QuizExperience() {
 
   return (
     <div className="font-body flex w-full flex-1 flex-col bg-white">
-      <header className="bg-[#0a2818] px-6 py-4 text-white">
-        <div className="flex items-center justify-between gap-3">
+      <header className="bg-[#0a2818] text-white">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-6 py-4 sm:px-8 md:px-16">
           <p className="font-heading text-sm font-semibold sm:text-base">ORBIC · Which Oregon rare species are you?</p>
           <button
             type="button"
@@ -236,37 +236,39 @@ export default function QuizExperience() {
 
       {status === 'question' && currentQuestion && (
           <>
-            <div className="flex flex-wrap items-center gap-3 border-b border-[#e7e2d2] bg-[#f6f3ea] px-6 py-3">
-              <div className="flex items-center gap-2">
-                {quizQuestions.map((question, index) => {
-                  const step = index + 1;
-                  const isComplete = index < currentQuestionIndex;
-                  const isActive = index === currentQuestionIndex;
+            <div className="border-b border-[#e7e2d2] bg-[#f6f3ea]">
+              <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center gap-3 px-6 py-3 sm:px-8 md:px-16">
+                <div className="flex items-center gap-2">
+                  {quizQuestions.map((question, index) => {
+                    const step = index + 1;
+                    const isComplete = index < currentQuestionIndex;
+                    const isActive = index === currentQuestionIndex;
 
-                  return (
-                    <div
-                      key={question.id}
-                      className={`font-body flex h-7 w-7 items-center justify-center rounded-sm border text-xs font-semibold ${
-                        isComplete
-                          ? 'border-[#16873d] bg-[#16873d] text-white'
-                          : isActive
-                            ? 'border-[#1a1a1a] bg-[#1a1a1a] text-white'
-                            : 'border-[#1a1a1a]/30 bg-white text-[#1a1a1a]'
-                      }`}
-                    >
-                      {isComplete ? '✓' : step}
-                    </div>
-                  );
-                })}
+                    return (
+                      <div
+                        key={question.id}
+                        className={`font-body flex h-7 w-7 items-center justify-center rounded-sm border text-xs font-semibold ${
+                          isComplete
+                            ? 'border-[#16873d] bg-[#16873d] text-white'
+                            : isActive
+                              ? 'border-[#1a1a1a] bg-[#1a1a1a] text-white'
+                              : 'border-[#1a1a1a]/30 bg-white text-[#1a1a1a]'
+                        }`}
+                      >
+                        {isComplete ? '✓' : step}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="font-body ml-auto text-sm font-semibold text-[#16873d]">{currentQuestion.countLabel}</div>
               </div>
-              <div className="font-body ml-auto text-sm font-semibold text-[#16873d]">{currentQuestion.countLabel}</div>
             </div>
 
-            <div className="px-6 py-8 sm:px-10 sm:py-10">
+            <div className="mx-auto w-full max-w-7xl px-6 py-8 sm:px-8 sm:py-10 md:px-16">
               <h2 className="font-heading text-2xl font-bold text-[#032014] sm:text-3xl">{currentQuestion.prompt}</h2>
               <p className="font-body mt-2 text-sm text-[#4b6353] sm:text-base">{currentQuestion.description}</p>
 
-              <div className="mt-8 grid gap-6 sm:grid-cols-2">
+              <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6">
                 {currentQuestion.options.map((option) => {
                   const isSelected = selectedAnswer === option.value;
 
@@ -275,10 +277,10 @@ export default function QuizExperience() {
                       key={option.value}
                       type="button"
                       onClick={() => handleSelect(option.value)}
-                      className="group block w-full text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400"
+                      className="group flex h-full w-full text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400"
                     >
                       <div
-                        className={`relative overflow-hidden rounded-md border transition ${
+                        className={`relative flex w-full flex-col overflow-hidden rounded-md border transition ${
                           isSelected
                             ? 'border-[#16873d] bg-[#f0f8f1]'
                             : 'border-[#1a1a1a] bg-white hover:border-[#16873d] hover:shadow-sm'
@@ -289,10 +291,10 @@ export default function QuizExperience() {
                             ✓
                           </span>
                         )}
-                        <div className="h-16 bg-[#e5e0d5] p-3 flex items-start">
+                        <div className="flex h-16 shrink-0 items-start bg-[#e5e0d5] p-3">
                           <span className="text-2xl leading-none">{option.emoji}</span>
                         </div>
-                        <div className="px-4 py-3">
+                        <div className="flex flex-1 flex-col justify-center px-4 py-3">
                           <p className="font-body font-semibold text-[#032014]">{option.label}</p>
                           <p className="font-body mt-1 text-sm text-[#4b6353]">{option.detail}</p>
                         </div>
@@ -333,8 +335,8 @@ export default function QuizExperience() {
         )}
 
         {status === 'result' && (
-          <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
-            <section className="p-6 sm:p-10">
+          <div className="mx-auto grid w-full max-w-7xl lg:grid-cols-[1.1fr_0.9fr]">
+            <section className="px-6 py-8 sm:px-8 sm:py-10 md:px-16">
               <p className="font-body text-sm font-semibold uppercase tracking-[0.3em] text-[#16873d]">Your match</p>
               <h2 className="font-heading mt-2 text-2xl font-semibold text-[#032014] sm:text-3xl">{result.commonName}</h2>
               <p className="font-scientific mt-2 text-sm italic text-[#4b6353]">{result.scientificName}</p>
@@ -356,7 +358,7 @@ export default function QuizExperience() {
               </div>
             </section>
 
-            <aside className="bg-[#0a2818] p-6 text-white sm:p-10">
+            <aside className="bg-[#0a2818] px-6 py-8 text-white sm:px-8 sm:py-10 md:px-16">
               <p className="font-body text-sm font-semibold uppercase tracking-[0.3em] text-[#7fc49b]">What this means</p>
               <h2 className="font-heading mt-2 text-2xl font-semibold sm:text-3xl">A clear next step for the field guide</h2>
               <div className="font-body mt-6 space-y-4 text-sm leading-7 text-[#dcefe3]">
