@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
+import QuizResultView from './QuizResultView';
 
 type QuizQuestion = {
   id: string;
@@ -18,13 +19,22 @@ type QuizQuestion = {
 };
 
 type QuizResult = {
+  slug: string;
   commonName: string;
   scientificName: string;
-  headline: string;
+  authorName?: string;
+  family: string;
+  globalRank: string;
+  stateRank: string;
+  federalRank?: string;
+  stateStatus?: string;
+  orbicList?: string;
   description: string;
-  highlight: string;
-  habitat: string;
-  region: string;
+  whyMatched: string;
+  ecoregionLabel: string;
+  occurrences: number;
+  occurrencesPre2000: number;
+  occurrencesPost2000: number;
 };
 
 const quizQuestions: QuizQuestion[] = [
@@ -115,36 +125,69 @@ function resolveQuizResult(answers: Record<string, string>): QuizResult {
 
   if (habitat === 'coastal') {
     return {
-      commonName: 'Pink Sand Verbena',
-      scientificName: 'Abronia umbellata',
-      headline: 'A dune and coastal plant with a strong shoreline signal.',
-      description: 'This result points toward a rare coastal species adapted to exposed, windswept habitats.',
-      highlight: 'Habitat: sandy beaches and coastal bluffs',
-      habitat: 'Coast',
-      region: 'Oregon coast',
+      slug: '2487-abronia-umbellata-ssp-breviflora',
+      commonName: 'Pink sandverbena',
+      scientificName: 'Abronia umbellata ssp. breviflora',
+      authorName: '(Standl.) Munz',
+      family: 'Nyctaginaceae',
+      globalRank: 'G4G5T2',
+      stateRank: 'S1',
+      federalRank: 'SOC',
+      stateStatus: 'LE',
+      orbicList: '1',
+      description:
+        'A prostrate, fleshy-leaved herb with clusters of pink flowers, found on littoral beaches and unstabilized coastal dunes.',
+      whyMatched:
+        'Your answer pointed straight to the beach — dunes and shifting coastal sand are exactly where this species makes its stand.',
+      ecoregionLabel: 'Coast Range',
+      occurrences: 25,
+      occurrencesPre2000: 13,
+      occurrencesPost2000: 12,
     };
   }
 
   if (habitat === 'wetland' && kingdom === 'animal' && orbic === 'sprint') {
     return {
-      commonName: 'Oregon Spotted Frog',
+      slug: '35-rana-pretiosa',
+      commonName: 'Oregon spotted frog',
       scientificName: 'Rana pretiosa',
-      headline: 'An aquatic amphibian that favors wetland edges and slow-flow water.',
-      description: 'This match reflects a species strongly linked to ponds, wetlands, and shallow water habitats.',
-      highlight: 'Habitat: wetlands, shallow ponds, and slow streams',
-      habitat: 'Wetland',
-      region: 'Western Oregon',
+      authorName: 'Baird and Girard, 1853',
+      family: 'Ranidae',
+      globalRank: 'G2',
+      stateRank: 'S1S2',
+      federalRank: 'T',
+      stateStatus: 'SC',
+      orbicList: '1',
+      description:
+        'A highly aquatic frog that rarely strays from pond edges, marshes, and slow streams thick with emergent vegetation.',
+      whyMatched:
+        "Wetlands, animals, and a sense of urgency — this frog has disappeared from over 70% of its historic Oregon range and needs exactly that kind of attention.",
+      ecoregionLabel: 'Blue Mountains · Columbia Basin · East Cascades · West Cascades · Willamette Valley',
+      occurrences: 88,
+      occurrencesPre2000: 42,
+      occurrencesPost2000: 46,
     };
   }
 
   return {
-    commonName: "Kincaid's Lupine",
+    slug: '2363-lupinus-oreganus',
+    commonName: "Kincaid's lupine",
     scientificName: 'Lupinus oreganus',
-    headline: 'A dependable first-pass match based on your landscape and form clues.',
-    description: 'This result suggests a rare plant tied to remnant prairie and meadow systems in Oregon.',
-    highlight: 'Habitat: prairie remnants and open meadow edges',
-    habitat: 'Prairie',
-    region: 'Willamette Valley',
+    authorName: 'Heller',
+    family: 'Fabaceae',
+    globalRank: 'G2',
+    stateRank: 'S2',
+    federalRank: 'T',
+    stateStatus: 'LT',
+    orbicList: '1',
+    description:
+      "A perennial lupine endemic to upland prairies of the Willamette Valley — and the sole host plant of the Fender's blue butterfly.",
+    whyMatched:
+      "Your answers pointed toward valley landscapes and native plant communities. Kincaid's lupine fits every one of those filters.",
+    ecoregionLabel: 'Klamath Mountains · West Cascades · Willamette Valley',
+    occurrences: 119,
+    occurrencesPre2000: 88,
+    occurrencesPost2000: 31,
   };
 }
 
@@ -220,13 +263,23 @@ export default function QuizExperience() {
       <header className="bg-[#0a2818] text-white">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-6 py-4 sm:px-8 md:px-16">
           <p className="font-heading text-sm font-semibold sm:text-base">ORBIC · Which Oregon rare species are you?</p>
-          <button
-            type="button"
-            onClick={() => setIsExitDialogOpen(true)}
-            className="font-body text-sm font-medium text-[#dcefe3] transition hover:text-white"
-          >
-            ✕ Exit quiz
-          </button>
+          {status === 'result' ? (
+            <button
+              type="button"
+              onClick={handleRestart}
+              className="font-body text-sm font-medium text-[#dcefe3] transition hover:text-white"
+            >
+              ↻ Try again
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsExitDialogOpen(true)}
+              className="font-body text-sm font-medium text-[#dcefe3] transition hover:text-white"
+            >
+              ✕ Exit quiz
+            </button>
+          )}
         </div>
       </header>
 
@@ -334,46 +387,7 @@ export default function QuizExperience() {
           </>
         )}
 
-        {status === 'result' && (
-          <div className="mx-auto grid w-full max-w-7xl lg:grid-cols-[1.1fr_0.9fr]">
-            <section className="px-6 py-8 sm:px-8 sm:py-10 md:px-16">
-              <p className="font-body text-sm font-semibold uppercase tracking-[0.3em] text-[#16873d]">Your match</p>
-              <h2 className="font-heading mt-2 text-2xl font-semibold text-[#032014] sm:text-3xl">{result.commonName}</h2>
-              <p className="font-scientific mt-2 text-sm italic text-[#4b6353]">{result.scientificName}</p>
-              <p className="font-body mt-4 text-sm leading-7 text-[#4b6353] sm:text-base">{result.description}</p>
-
-              <div className="mt-6 rounded-3xl border border-[#dce7dc] bg-[#f7fbf6] p-4">
-                <p className="font-body text-sm font-semibold uppercase tracking-[0.2em] text-[#16873d]">Why this matched</p>
-                <p className="font-body mt-2 text-sm leading-7 text-[#4b6353]">{result.headline}</p>
-                <p className="font-body mt-3 text-sm font-semibold text-[#032014]">{result.highlight}</p>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <button type="button" onClick={handleRestart} className="font-body rounded-full bg-[#16873d] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1b9947]">
-                  Restart quiz
-                </button>
-                <Link href="/species" className="font-body rounded-full border border-[#16873d] px-4 py-2 text-sm font-semibold text-[#16873d] transition hover:bg-[#eef7ef]">
-                  Browse species
-                </Link>
-              </div>
-            </section>
-
-            <aside className="bg-[#0a2818] px-6 py-8 text-white sm:px-8 sm:py-10 md:px-16">
-              <p className="font-body text-sm font-semibold uppercase tracking-[0.3em] text-[#7fc49b]">What this means</p>
-              <h2 className="font-heading mt-2 text-2xl font-semibold sm:text-3xl">A clear next step for the field guide</h2>
-              <div className="font-body mt-6 space-y-4 text-sm leading-7 text-[#dcefe3]">
-                <div className="rounded-3xl border border-white/15 bg-white/10 p-4">
-                  <p className="font-body font-semibold text-white">Suggested habitat</p>
-                  <p className="font-body mt-1">{result.habitat}</p>
-                </div>
-                <div className="rounded-3xl border border-white/15 bg-white/10 p-4">
-                  <p className="font-body font-semibold text-white">Likely region</p>
-                  <p className="font-body mt-1">{result.region}</p>
-                </div>
-              </div>
-            </aside>
-          </div>
-        )}
+        {status === 'result' && <QuizResultView result={result} onRestart={handleRestart} />}
 
       {isExitDialogOpen && (
         <div
