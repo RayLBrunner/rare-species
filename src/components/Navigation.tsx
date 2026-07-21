@@ -8,6 +8,8 @@ interface NavLink {
   label: string;
   href: string;
   description?: string;
+  target?: string;
+  isButton?: boolean;
 }
 
 const MAIN_NAV_LINKS: NavLink[] = [
@@ -28,8 +30,10 @@ const MAIN_NAV_LINKS: NavLink[] = [
   },
   {
     label: "Sponsor a Species",
-    href: "/",
+    href: "https://www.givecampus.com/campaigns/50223/donations/new?designation=institutefornaturalresources",
     description: "Support conservation — Fall 2026",
+    target: "_blank",
+    isButton: true,
   },
 ];
 
@@ -62,7 +66,7 @@ export default function Navigation() {
   return (
     <nav className="font-body sticky top-0 z-50 bg-[#032014] text-white">
       <div className="mx-auto w-full max-w-7xl flex items-center justify-between px-6 py-4 sm:px-8 md:px-16">
-        <Link href="/" className="font-heading font-bold text-xl">
+        <Link href="/" className="font-heading font-bold text-xl transition hover:text-[#6fc08f]">
           ORBIC
         </Link>
 
@@ -72,11 +76,17 @@ export default function Navigation() {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className={`font-body text-sm transition ${
-                  isActive(link.href)
-                    ? "border-b-2 border-[#16873d] font-semibold text-[#6fc08f]"
-                    : "hover:text-[#6fc08f]"
-                }`}
+                target={link.target}
+                rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+                className={
+                  link.isButton
+                    ? "font-body text-sm bg-[#16873d] text-white px-4 py-2 border border-white transition hover:bg-[#1b9947]"
+                    : `font-body text-sm transition ${
+                        isActive(link.href)
+                          ? "border-b-2 border-[#16873d] font-semibold text-[#6fc08f]"
+                          : "hover:text-[#6fc08f]"
+                      }`
+                }
               >
                 {link.label}
               </Link>
@@ -84,29 +94,30 @@ export default function Navigation() {
           ))}
         </ul>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          className="md:hidden relative z-50 flex flex-col gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#6fc08f] p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle navigation menu"
-          aria-expanded={isMenuOpen}
-        >
-          <span
-            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-              isMenuOpen ? "rotate-45 translate-y-2" : ""
-            }`}
-          ></span>
-          <span
-            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-              isMenuOpen ? "opacity-0" : ""
-            }`}
-          ></span>
-          <span
-            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-              isMenuOpen ? "-rotate-45 -translate-y-2" : ""
-            }`}
-          ></span>
-        </button>
+        {/* Mobile: sponsor button + hamburger together */}
+        <div className="flex items-center gap-3 md:hidden">
+          {MAIN_NAV_LINKS.filter((l) => l.isButton).map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              target={link.target}
+              rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+              className="font-body text-xs bg-[#16873d] text-white px-3 py-1.5 border border-white transition hover:bg-[#1b9947]"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <button
+            className="relative z-50 flex flex-col gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#6fc08f] p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+          >
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "opacity-0" : ""}`}></span>
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -135,10 +146,12 @@ export default function Navigation() {
             Navigation
           </h2>
           <ul className="space-y-4">
-            {MAIN_NAV_LINKS.map((link) => (
+            {MAIN_NAV_LINKS.filter((link) => !link.isButton).map((link) => (
               <li key={link.label}>
                 <Link
                   href={link.href}
+                  target={link.target}
+                  rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
                   className={`block transition ${
                     isActive(link.href)
                       ? "text-[#6fc08f]"
