@@ -80,7 +80,7 @@ export default function Navigation() {
                 rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
                 className={
                   link.isButton
-                    ? "font-body text-sm bg-black text-white px-4 py-2 rounded border border-white transition hover:bg-gray-900"
+                    ? "font-body text-sm bg-[#16873d] text-white px-4 py-2 border border-white transition hover:bg-[#1b9947]"
                     : `font-body text-sm transition ${
                         isActive(link.href)
                           ? "border-b-2 border-[#16873d] font-semibold text-[#6fc08f]"
@@ -94,29 +94,30 @@ export default function Navigation() {
           ))}
         </ul>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          className="md:hidden relative z-50 flex flex-col gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#6fc08f] p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle navigation menu"
-          aria-expanded={isMenuOpen}
-        >
-          <span
-            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-              isMenuOpen ? "rotate-45 translate-y-2" : ""
-            }`}
-          ></span>
-          <span
-            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-              isMenuOpen ? "opacity-0" : ""
-            }`}
-          ></span>
-          <span
-            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-              isMenuOpen ? "-rotate-45 -translate-y-2" : ""
-            }`}
-          ></span>
-        </button>
+        {/* Mobile: sponsor button + hamburger together */}
+        <div className="flex items-center gap-3 md:hidden">
+          {MAIN_NAV_LINKS.filter((l) => l.isButton).map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              target={link.target}
+              rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+              className="font-body text-xs bg-[#16873d] text-white px-3 py-1.5 border border-white transition hover:bg-[#1b9947]"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <button
+            className="relative z-50 flex flex-col gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#6fc08f] p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+          >
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "opacity-0" : ""}`}></span>
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -145,7 +146,7 @@ export default function Navigation() {
             Navigation
           </h2>
           <ul className="space-y-4">
-            {MAIN_NAV_LINKS.map((link) => (
+            {MAIN_NAV_LINKS.filter((link) => !link.isButton).map((link) => (
               <li key={link.label}>
                 <Link
                   href={link.href}
