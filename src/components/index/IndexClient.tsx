@@ -227,9 +227,12 @@ function applyFilters(
     }
 
     // GEOGRAPHY — OR Endemic
+    const orEndemic = String(item.orEndemic ?? "")
+      .trim()
+      .toLowerCase();
     if (
       selectedFilters.Geography?.includes("OR Endemic") &&
-      item.orEndemic !== "yes"
+      orEndemic !== "yes"
     )
       return false;
 
