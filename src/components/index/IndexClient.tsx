@@ -227,9 +227,12 @@ function applyFilters(
     }
 
     // GEOGRAPHY — OR Endemic
+    const orEndemic = String(item.orEndemic ?? "")
+      .trim()
+      .toLowerCase();
     if (
       selectedFilters.Geography?.includes("OR Endemic") &&
-      item.orEndemic !== "yes"
+      orEndemic !== "yes"
     )
       return false;
 
@@ -306,6 +309,13 @@ export default function IndexClient({ species }: IndexClientProps) {
     },
   };
 
+  const handleClearFilters = () => {
+    rawFilters.clearAllFilters();
+    setSelectedRanks([]);
+    setSearchQuery("");
+    setCurrentPage(1);
+  };
+
   const filteredSpecies = applyFilters(
     species,
     filters.selectedFilters,
@@ -332,6 +342,7 @@ export default function IndexClient({ species }: IndexClientProps) {
           setCurrentPage(1);
           setSearchQuery(q);
         }}
+        onClearFilters={handleClearFilters}
       />
 
       <SpeciesFilters {...filters} />

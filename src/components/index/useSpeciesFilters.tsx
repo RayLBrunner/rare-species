@@ -171,11 +171,22 @@ export default function useSpeciesFilters() {
     });
   };
 
+  const clearAllFilters = () => {
+    setSelectedFilters({
+      Taxonomy: ["All species"],
+      Status: [],
+      Geography: ["All"],
+    });
+
+    setSelectedDropdownOptions({});
+  };
+
   return {
     selectedFilters,
     selectedDropdownOptions,
     onToggleFilter: toggleFilter,
     onToggleDropdownOption: toggleDropdownOption,
     onToggleAllDropdownOptions: toggleAllDropdownOptions,
+    clearAllFilters,
   };
 }

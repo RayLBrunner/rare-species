@@ -8,6 +8,7 @@ interface SpeciesIndexToolbarProps {
   onOpenFilters: () => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onClearFilters: () => void;
 }
 
 export default function SpeciesIndexToolbar({
@@ -16,9 +17,10 @@ export default function SpeciesIndexToolbar({
   onOpenFilters,
   searchQuery,
   onSearchChange,
+  onClearFilters,
 }: SpeciesIndexToolbarProps) {
   return (
-    <div className="mb-3 space-y-2 md:flex md:gap-3 md:space-y-0">
+    <div className="mb-3 space-y-2 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-stretch md:gap-3 md:space-y-0">
       <div className="relative w-full">
         <input
           type="text"
@@ -30,7 +32,7 @@ export default function SpeciesIndexToolbar({
         />
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
           onClick={onOpenFilters}
@@ -38,12 +40,18 @@ export default function SpeciesIndexToolbar({
         >
           More filters
         </button>
-
+        <button
+          type="button"
+          onClick={onClearFilters}
+          className="font-body cursor-pointer whitespace-nowrap border-2 border-black bg-white px-3 py-2 text-xs font-bold transition hover:bg-black hover:text-white md:border-4 md:px-4 md:py-3"
+        >
+          Clear filters
+        </button>
         <button
           type="button"
           aria-pressed={view === "list"}
           onClick={() => setView("list")}
-          className={`font-body flex cursor-pointer items-center gap-1 border-2 border-black px-3 py-2 text-xs font-bold transition hover:bg-[#f2f2f2] md:border-4 md:px-5 md:py-3 ${
+          className={`font-body flex cursor-pointer items-center gap-1 border-2 border-black px-3 py-2 text-xs font-bold transition hover:bg-[#f2f2f2] hover:text-black md:border-4 md:px-5 md:py-3 ${
             view === "list" ? "bg-black text-white" : "bg-white text-black"
           }`}
         >
@@ -54,7 +62,7 @@ export default function SpeciesIndexToolbar({
           type="button"
           aria-pressed={view === "grid"}
           onClick={() => setView("grid")}
-          className={`font-body flex cursor-pointer items-center gap-1 border-2 border-black px-3 py-2 text-xs font-bold transition hover:bg-[#f2f2f2] md:border-4 md:px-5 md:py-3 ${
+          className={`font-body flex cursor-pointer items-center gap-1 border-2 border-black px-3 py-2 text-xs font-bold transition hover:bg-[#f2f2f2] hover:text-black md:border-4 md:px-5 md:py-3 ${
             view === "grid" ? "bg-black text-white" : "bg-white text-black"
           }`}
         >
