@@ -19,7 +19,7 @@ export default function SpeciesIndexGrid({ species }: SpeciesIndexGridProps) {
         {species.map((item) => (
           <SpeciesIndexCard
             key={item.slug}
-            name={item.commonName}
+            name={item.commonName ?? item.scientificName}
             scientificName={item.scientificName}
             slug={item.slug}
             list={item.orbicList ? `List ${item.orbicList}` : "—"}
@@ -32,7 +32,7 @@ export default function SpeciesIndexGrid({ species }: SpeciesIndexGridProps) {
         {species.map((item) => (
           <SpeciesIndexCard
             key={item.slug}
-            name={item.commonName}
+            name={item.commonName ?? item.scientificName}
             scientificName={item.scientificName}
             slug={item.slug}
             list={item.orbicList ? `List ${item.orbicList}` : "—"}
