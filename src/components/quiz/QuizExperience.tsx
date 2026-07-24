@@ -361,7 +361,8 @@ export default function QuizExperience() {
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="font-body justify-self-start rounded-md border-2 border-[#1a1a1a] bg-white px-4 py-2.5 text-sm font-semibold text-[#1a1a1a] transition hover:bg-[#f5f7f3]"
+                  disabled={currentQuestionIndex === 0}
+                  className="font-body justify-self-start rounded-md border-2 border-[#1a1a1a] bg-white px-4 py-2.5 text-sm font-semibold text-[#1a1a1a] transition hover:bg-[#f5f7f3] disabled:cursor-not-allowed disabled:border-[#1a1a1a]/30 disabled:text-[#1a1a1a]/30 disabled:hover:bg-white"
                 >
                   {currentQuestionIndex > 0 ? '← Back' : '← Start over'}
                 </button>
@@ -371,7 +372,7 @@ export default function QuizExperience() {
                   onClick={handleSkip}
                   className="font-body justify-self-center text-sm font-semibold text-[#4b6353] transition hover:text-[#032014]"
                 >
-                  Skip this question →
+                  Choose for me →
                 </button>
 
                 <button
