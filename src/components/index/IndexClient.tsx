@@ -66,6 +66,13 @@ const COUNTY_MAP: Record<string, string> = {
   Yamhill: "Yamh",
 };
 
+const TAXONOMY_GROUP_CATEGORIES: Record<string, string[]> = {
+  "Vascular Plants": ["vascularPlants"],
+  "Nonvascular Plants and Fungi +": ["bryophytes", "fungiAndLichen", "kelpAndAlgae"],
+  "Vertebrate Animals +": ["amphibians", "birds", "fishes", "mammals", "reptiles"],
+  "Invertebrate Animals +": ["arthropods", "molluscs", "worms", "seaStars"],
+};
+
 const TAXONOMY_OPTION_MAP: Record<string, string> = {
   // Vascular Plants
   "Vascular Plants": "vascularPlants",
@@ -153,23 +160,38 @@ function applyFilters(
     const taxonomyIsAll = selectedFilters.Taxonomy?.includes("All species");
     if (!taxonomyIsAll) {
       const taxonomyKeys = [
-        "Vascular Plants +",
+        "Vascular Plants",
         "Nonvascular Plants and Fungi +",
         "Vertebrate Animals +",
         "Invertebrate Animals +",
       ];
+
+      const itemCategories = [item.category1, item.category2].filter(Boolean) as string[];
+
+      // Sub-options explicitly chosen from the dropdown
       const selectedTaxonOptions = taxonomyKeys.flatMap(
         (key) => selectedDropdownOptions[key] ?? [],
       );
-      if (selectedTaxonOptions.length > 0) {
-        const itemCategories = [item.category1, item.category2].filter(Boolean);
-        const selectedTaxonCamel = selectedTaxonOptions.map(
-          (opt) => TAXONOMY_OPTION_MAP[opt] ?? opt,
-        );
+      const selectedTaxonCamel = selectedTaxonOptions.map(
+        (opt) => TAXONOMY_OPTION_MAP[opt] ?? opt,
+      );
+
+      // Parent button selected with no sub-options → match all category1 in that group
+      const selectedParentCats = taxonomyKeys
+        .filter(
+          (key) =>
+            selectedFilters.Taxonomy?.includes(key) &&
+            (selectedDropdownOptions[key]?.length ?? 0) === 0,
+        )
+        .flatMap((key) => TAXONOMY_GROUP_CATEGORIES[key] ?? []);
+
+      const anythingSelected =
+        selectedTaxonOptions.length > 0 || selectedParentCats.length > 0;
+
+      if (anythingSelected) {
         if (
-          !selectedTaxonCamel.some((val) =>
-            (itemCategories as string[]).includes(val),
-          )
+          !selectedTaxonCamel.some((val) => itemCategories.includes(val)) &&
+          !selectedParentCats.some((cat) => itemCategories.includes(cat))
         )
           return false;
       }
