@@ -244,10 +244,18 @@ export default function SpeciesFilters({
             left: dropdownPosition.left,
           }}
         >
-          <div className="mb-3">
+          <div className="mb-3 flex items-center justify-between">
             <p className="text-[10px] font-bold uppercase tracking-wide text-[#777]">
               {activeDropdown.replace(" +", "")}
             </p>
+            <button
+              type="button"
+              onClick={() => setActiveDropdown(null)}
+              aria-label="Close filter dropdown"
+              className="text-[#777] hover:text-black transition leading-none"
+            >
+              ✕
+            </button>
           </div>
 
           <div className="max-h-56 space-y-2 overflow-y-auto">
