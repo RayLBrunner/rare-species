@@ -38,8 +38,11 @@ const MAIN_NAV_LINKS: NavLink[] = [
 ];
 
 const MORE_NAV_LINKS: NavLink[] = [
-  { label: "Data Request", href: "/" },
-  { label: "Accessibility", href: "/" },
+  {
+    label: "Accessibility",
+    href: "https://accessibility.oregonstate.edu/accessibility-statement",
+    target: "_blank",
+  },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -66,8 +69,11 @@ export default function Navigation() {
   return (
     <nav className="font-body sticky top-0 z-50 bg-[#032014] text-white">
       <div className="mx-auto w-full max-w-7xl flex items-center justify-between px-6 py-4 sm:px-8 md:px-16">
-        <Link href="/" className="font-heading font-bold text-xl transition hover:text-[#6fc08f]">
-          ORBIC
+        <Link
+          href="/"
+          className="font-heading font-bold text-xl transition hover:text-[#6fc08f]"
+        >
+          Oregon Biodiversity
         </Link>
 
         {/* Desktop Navigation */}
@@ -77,7 +83,9 @@ export default function Navigation() {
               <Link
                 href={link.href}
                 target={link.target}
-                rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+                rel={
+                  link.target === "_blank" ? "noopener noreferrer" : undefined
+                }
                 className={
                   link.isButton
                     ? "font-body text-sm bg-[#16873d] text-white px-4 py-2 border border-white transition hover:bg-[#1b9947]"
@@ -113,9 +121,15 @@ export default function Navigation() {
             aria-label="Toggle navigation menu"
             aria-expanded={isMenuOpen}
           >
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "opacity-0" : ""}`}></span>
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
+            <span
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+            ></span>
+            <span
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "opacity-0" : ""}`}
+            ></span>
+            <span
+              className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            ></span>
           </button>
         </div>
       </div>
@@ -151,7 +165,9 @@ export default function Navigation() {
                 <Link
                   href={link.href}
                   target={link.target}
-                  rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+                  rel={
+                    link.target === "_blank" ? "noopener noreferrer" : undefined
+                  }
                   className={`block transition ${
                     isActive(link.href)
                       ? "text-[#6fc08f]"
@@ -198,6 +214,10 @@ export default function Navigation() {
               <li key={link.label}>
                 <Link
                   href={link.href}
+                  target={link.target}
+                  rel={
+                    link.target === "_blank" ? "noopener noreferrer" : undefined
+                  }
                   className={`block transition ${
                     isActive(link.href)
                       ? "text-[#6fc08f]"
