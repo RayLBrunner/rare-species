@@ -45,6 +45,7 @@ with open(INPUT_CSV, newline="", encoding="utf-8") as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         row['slug'] = generate_slug(row['elementGlobalId'], row['scientificName'])
+        row['list'] = to_camel_case(row['list'])
         row['orEndemic'] = parse_empty(row['orEndemic'])
         row['featureMe'] = parse_feature_me(row['featureMe'])
         row['category1'] = to_camel_case(row['category1'])

@@ -1,0 +1,318 @@
+import type { EcoRegion } from "@/types/species";
+
+export type FilterKey = keyof import("@/types/species").Species;
+
+export interface QuizOption {
+  label: string;
+  value: string;
+  detail: string;
+  emoji: string;
+  // West Side maps to ["ME", "CR", "WV", "WC"], East Side Mountains to ["EC", "KM", "BM", "BR"], etc.
+  // Array because one quiz answer can span multiple ecoregion codes
+  ecoregionCodes?: EcoRegion[];
+}
+
+export interface QuizQuestion {
+  id: string;
+  eyebrow: string;
+  prompt: string;
+  description: string;
+  filterKey: FilterKey;
+  // Controls conditional rendering — question only appears if a previous answer matches
+  showIf?: {
+    questionId: string;
+    value: string;
+  };
+  // G1 skips the S rank question entirely per Ray's doc
+  skipNextIf?: string;
+  // varSsp filter is not a value match — presence of the field is what matters
+  hasVarSspFilter?: boolean;
+  // commonName filter excludes generic names like "A mayfly", "Moss" etc from Ray's doc
+  exclusionList?: string[];
+  options: QuizOption[];
+}
+
+export const COMMON_NAME_EXCLUSIONS = [
+  "A mayfly",
+  "A caddisfly",
+  "Liverwort",
+  "Moss",
+  "Lichen",
+  "Fungus",
+  "Brown marine alga",
+  "Red marine alga",
+  "A miner bee",
+  "A noctuid moth",
+];
+
+export const questions: QuizQuestion[] = [
+  {
+    id: "ecoregion",
+    eyebrow: "Ecoregion",
+    prompt: "Select your safe space. Where would you call home?",
+    description: "Your answer will narrow the species pool by region.",
+    filterKey: "ecoregion",
+    options: [
+      {
+        label: "West Side",
+        value: "westSide",
+        detail: "Lush forests, wet meadows and beaches",
+        emoji: "🌲",
+        ecoregionCodes: ["ME", "CR", "WV", "WC"],
+      },
+      {
+        label: "East Side",
+        value: "eastSide",
+        detail: "High and dry",
+        emoji: "🏔️",
+        ecoregionCodes: [],
+      },
+    ],
+  },
+
+  {
+    id: "ecoregionEastSide",
+    eyebrow: "East Side",
+    prompt: "High and dry — but which kind?",
+    description: "Pick your preferred East Side landscape.",
+    filterKey: "ecoregion",
+    showIf: { questionId: "ecoregion", value: "eastSide" },
+    options: [
+      {
+        label: "Mountains",
+        value: "eastSideMountains",
+        detail: "I'm into trees",
+        emoji: "🏔️",
+        ecoregionCodes: ["EC", "KM", "BM", "BR"],
+      },
+      {
+        label: "Steppe",
+        value: "eastSideSteppe",
+        detail: "Big skies and room to roam",
+        emoji: "🏜️",
+        ecoregionCodes: ["CB", "BR"],
+      },
+    ],
+  },
+
+  {
+    id: "mobility",
+    eyebrow: "Taxonomic Groups",
+    prompt: "How do you feel about movement?",
+    description: "This determines which branch of the tree of life we explore.",
+    filterKey: "category1",
+    options: [
+      {
+        label: "I've got antsy feet. New day, new view.",
+        value: "motile",
+        detail: "Motile / Animals",
+        emoji: "🦎",
+      },
+      {
+        label:
+          "I'm a real home-maker. Let's dig in and make a home where we are.",
+        value: "sessile",
+        detail: "Sessile / Plants",
+        emoji: "🌱",
+      },
+    ],
+  },
+
+  {
+    id: "backbone",
+    eyebrow: "Animal Type",
+    prompt: "How necessary are backbones anyway?",
+    description: "Pick your preferred body plan.",
+    filterKey: "category1",
+    showIf: { questionId: "mobility", value: "motile" },
+    options: [
+      {
+        label:
+          "Don't make me get out a microscope. Besides, isn't a backbone kind of important?",
+        value: "vertebrateAnimals",
+        detail: "Vertebrates",
+        emoji: "🦴",
+      },
+      {
+        label: "Standard body plan? How boring! Let's get weird.",
+        value: "invertebrateAnimals",
+        detail: "Invertebrates",
+        emoji: "🦑",
+      },
+    ],
+  },
+
+  {
+    id: "vascular",
+    eyebrow: "Plant Type",
+    prompt: "How do you feel about internal transport structures?",
+    description: "Pick your preferred level of structural complexity.",
+    filterKey: "list",
+    showIf: { questionId: "mobility", value: "sessile" },
+    options: [
+      {
+        label:
+          "Let's get big! Bring on the structural innovation! Giant tree trunks and showy flowers.",
+        value: "vascularPlants",
+        detail: "Vascular",
+        emoji: "🌸",
+      },
+      {
+        label:
+          "If it ain't broke, don't fix it. I'd rather perfect a smaller system than worry about a new set of structural variables.",
+        value: "nonvascularPlantsAndFungi",
+        detail: "Nonvascular",
+        emoji: "🍀",
+      },
+    ],
+  },
+
+  {
+    id: "nonVascularType",
+    eyebrow: "NonVascular Type",
+    prompt: "Which is cooler?",
+    description: "The final split in the sessile branch.",
+    filterKey: "category1",
+    showIf: { questionId: "vascular", value: "nonvascularPlantsAndFungi" },
+    options: [
+      {
+        label: "Photosynthesis. Making energy from sunlight.",
+        value: "bryophytes",
+        detail: "Bryophytes",
+        emoji: "☀️",
+      },
+      {
+        label:
+          "The fungus among us. They are more closely related to animals than plants!",
+        value: "fungiAndLichen",
+        detail: "Fungi and Lichen",
+        emoji: "🍄",
+      },
+    ],
+  },
+
+  {
+    id: "speciesUnit",
+    eyebrow: "Species Unit",
+    prompt: "How attached are you to the concept of a species?",
+    description: "Full species or subspecies level?",
+    filterKey: "varSsp",
+    hasVarSspFilter: true,
+    options: [
+      {
+        label:
+          "Isn't that like the basic unit of diversity? Full unique species only please.",
+        value: "fullSpecies",
+        detail: "Full species",
+        emoji: "🔬",
+      },
+      {
+        label:
+          "I find it pleasing to identify subtle patterns. If the scientists think this organism is different enough that's good enough for me.",
+        value: "hasVarSsp",
+        detail: "Subspecies or variation",
+        emoji: "🔍",
+      },
+    ],
+  },
+
+  {
+    id: "globalRank",
+    eyebrow: "G Rank",
+    prompt:
+      "Globally, how rare are we talking? What are my chances of meeting this organism? What are its chances of meeting the 2050s?",
+    description: "Your answer may skip the next question.",
+    filterKey: "globalRank",
+    skipNextIf: "G1",
+    options: [
+      {
+        label:
+          "G1 — The rarest of the rare! These organisms are dealing with some serious headwinds, things like being found at just a handful of sites, very low numbers of individuals, and dire threats.",
+        value: "G1",
+        detail: "Critically rare",
+        emoji: "🚨",
+      },
+      {
+        label:
+          "G2 — Pretty darn rare! These organisms are hanging in there a bit better than the rarest of the rare. More individuals, more locations, more chance to meet them yourself.",
+        value: "G2",
+        detail: "Very rare",
+        emoji: "📊",
+      },
+      {
+        label:
+          "G3 — Moderately rare. Compared to the rarest organisms, these species still have some serious strengths, which means that they may also have some of the greatest possibilities for recovery. These often-overlooked organisms are by no means secure and are often in greatest need of a champion.",
+        value: "G3",
+        detail: "Moderately rare",
+        emoji: "🧐",
+      },
+      {
+        label:
+          "G4 or G5 — Let's play it safe, I want something that is doing okay outside of Oregon. These organisms have a more robust population globally.",
+        value: "G4G5",
+        detail: "More common globally",
+        emoji: "🌱",
+      },
+    ],
+  },
+
+  {
+    id: "stateRank",
+    eyebrow: "S Rank",
+    prompt:
+      "Ok, but the whole world is a big place. Give me the local gossip, how rare is this species in Oregon specifically?",
+    description: "Only shown if you didn't pick G1.",
+    filterKey: "stateRank",
+    showIf: { questionId: "globalRank", value: "G1" },
+    options: [
+      {
+        label: "S1 — So very rare!",
+        value: "S1",
+        detail: "Critically rare in Oregon",
+        emoji: "🚨",
+      },
+      {
+        label: "S2 — Pretty darn rare.",
+        value: "S2",
+        detail: "Very rare in Oregon",
+        emoji: "📊",
+      },
+      {
+        label: "S3 — Moderately rare.",
+        value: "S3",
+        detail: "Moderately rare in Oregon",
+        emoji: "🧐",
+      },
+      {
+        label: "Surprise me!",
+        value: "any",
+        detail: "Any rarity level",
+        emoji: "🎲",
+      },
+    ],
+  },
+
+  {
+    id: "commonName",
+    eyebrow: "Common Name",
+    prompt: "How attached are you to pronouncing the Species Name?",
+    description: "Some species only have scientific names.",
+    filterKey: "commonName",
+    exclusionList: COMMON_NAME_EXCLUSIONS,
+    options: [
+      {
+        label: "Yes, there should at least be a common name for this thing.",
+        value: "hasCommonName",
+        detail: "Has a common name",
+        emoji: "🗣️",
+      },
+      {
+        label:
+          "Not very. I am prepared to sound silly as I stumble through a Greek or Latin-inspired Scientific Name. No one will laugh, this is a safe space.",
+        value: "anyName",
+        detail: "Scientific name is fine",
+        emoji: "📖",
+      },
+    ],
+  },
+];

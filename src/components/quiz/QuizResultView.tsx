@@ -3,28 +3,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-
-interface QuizResultData {
-  slug: string;
-  commonName: string;
-  scientificName: string;
-  authorName?: string;
-  family: string;
-  globalRank: string;
-  stateRank: string;
-  federalRank?: string;
-  stateStatus?: string;
-  orbicList?: string;
-  description: string;
-  whyMatched: string;
-  ecoregionLabel: string;
-  occurrences: number;
-  occurrencesPre2000: number;
-  occurrencesPost2000: number;
-}
+import type { Species } from "@/types/species";
 
 interface QuizResultViewProps {
-  result: QuizResultData;
+  result: Species;
   onRestart: () => void;
 }
 
@@ -56,7 +38,13 @@ const STATE_STATUS_LABELS: Record<string, string> = {
 const SPONSOR_URL =
   "https://www.givecampus.com/campaigns/50223/donations/new?designation=institutefornaturalresources";
 
-function Badge({ tone, children }: { tone: "rank" | "federal"; children: ReactNode }) {
+function Badge({
+  tone,
+  children,
+}: {
+  tone: "rank" | "federal";
+  children: ReactNode;
+}) {
   return (
     <span
       className={`font-body px-2.5 py-1 text-[10px] font-bold tracking-wide text-white ${
@@ -68,7 +56,10 @@ function Badge({ tone, children }: { tone: "rank" | "federal"; children: ReactNo
   );
 }
 
-export default function QuizResultView({ result, onRestart }: QuizResultViewProps) {
+export default function QuizResultView({
+  result,
+  onRestart,
+}: QuizResultViewProps) {
   const nameHeadingRef = useRef<HTMLHeadingElement>(null);
   const shareRef = useRef<HTMLDivElement>(null);
   const [isShareOpen, setIsShareOpen] = useState(false);
@@ -89,7 +80,10 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
       }
     };
     const handleClickOutside = (event: MouseEvent) => {
-      if (shareRef.current && !shareRef.current.contains(event.target as Node)) {
+      if (
+        shareRef.current &&
+        !shareRef.current.contains(event.target as Node)
+      ) {
         setIsShareOpen(false);
       }
     };
@@ -124,7 +118,11 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
   const handleShareImage = async () => {
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
-        await navigator.share({ title: result.commonName, text: shareText, url: shareUrl });
+        await navigator.share({
+          title: result.commonName ?? result.scientificName,
+          text: shareText,
+          url: shareUrl,
+        });
         return;
       } catch {
         return;
@@ -133,12 +131,17 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
     handleCopyLink();
   };
 
-  const federalLabel = result.federalRank ? FEDERAL_LABELS[result.federalRank] ?? result.federalRank : undefined;
+  const federalLabel = result.federalRank
+    ? (FEDERAL_LABELS[result.federalRank] ?? result.federalRank)
+    : undefined;
   const stateStatusLabel = result.stateStatus
-    ? STATE_STATUS_LABELS[result.stateStatus] ?? result.stateStatus
+    ? (STATE_STATUS_LABELS[result.stateStatus] ?? result.stateStatus)
     : undefined;
   const statusLine =
-    [federalLabel && `${federalLabel} (ESA)`, stateStatusLabel && `${stateStatusLabel} (Oregon)`]
+    [
+      federalLabel && `${federalLabel} (ESA)`,
+      stateStatusLabel && `${stateStatusLabel} (Oregon)`,
+    ]
       .filter(Boolean)
       .join(" · ") || "Not currently listed";
 
@@ -156,18 +159,24 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
                   tabIndex={-1}
                   className="font-heading text-xl font-bold leading-tight focus:outline-none"
                 >
-                  {result.commonName}
+                  {result.commonName ?? result.scientificName}
                 </h2>
-                <p className="font-scientific mt-1 text-sm italic text-[#9ecfaf]">{result.scientificName}</p>
+                <p className="font-scientific mt-1 text-sm italic text-[#9ecfaf]">
+                  {result.scientificName}
+                </p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
-                  {result.orbicList && <Badge tone="rank">ORBIC List {result.orbicList}</Badge>}
+                  {result.orbicList && (
+                    <Badge tone="rank">ORBIC List {result.orbicList}</Badge>
+                  )}
                   <Badge tone="rank">{result.globalRank}</Badge>
                   <Badge tone="rank">{result.stateRank}</Badge>
-                  {result.federalRank && <Badge tone="federal">ESA: {result.federalRank}</Badge>}
+                  {result.federalRank && (
+                    <Badge tone="federal">ESA: {result.federalRank}</Badge>
+                  )}
                 </div>
                 <p className="font-body mt-3 text-[10px] uppercase tracking-[0.2em] text-[#6dbf8a]">
                   {result.family}
-                  {result.authorName ? ` · ${result.authorName}` : ""}
+                  {result.authorNameFull ? ` · ${result.authorNameFull}` : ""}
                 </p>
               </div>
             </div>
@@ -177,9 +186,12 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
             <p className="font-body text-xs font-bold uppercase tracking-[0.25em] text-[#6dbf8a] sm:text-sm">
               Your match
             </p>
-            <p className="font-heading mt-3 text-4xl font-bold leading-tight sm:text-5xl">This one found you.</p>
+            <p className="font-heading mt-3 text-4xl font-bold leading-tight sm:text-5xl">
+              This one found you.
+            </p>
             <p className="font-body mt-4 max-w-2xl text-sm leading-7 text-[#c9ddd0] sm:text-base">
-              {result.description}
+              {result.habitatDescription ??
+                "No description available for this species yet."}
             </p>
 
             <div className="mt-6 flex flex-wrap items-start gap-3">
@@ -214,9 +226,13 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
                     aria-label="Share your result"
                     className="absolute left-0 top-full z-20 mt-2 w-[280px] rounded-md border border-[#d8d8d8] bg-white p-3 text-[#0f0f0f] shadow-lg sm:w-[300px]"
                   >
-                    <p className="font-body text-xs font-bold">🔗 Share your result</p>
+                    <p className="font-body text-xs font-bold">
+                      🔗 Share your result
+                    </p>
                     <div className="mt-3 flex items-center gap-2 rounded-sm border border-[#d8d8d8] bg-[#f7f7f0] px-2 py-1.5">
-                      <p className="flex-1 truncate font-body text-[11px] text-[#4d4d4d]">{shareUrl}</p>
+                      <p className="flex-1 truncate font-body text-[11px] text-[#4d4d4d]">
+                        {shareUrl}
+                      </p>
                       <button
                         type="button"
                         onClick={handleCopyLink}
@@ -226,7 +242,9 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
                       </button>
                     </div>
 
-                    <p className="font-body mt-3 text-[11px] font-semibold text-[#4d4d4d]">Share on</p>
+                    <p className="font-body mt-3 text-[11px] font-semibold text-[#4d4d4d]">
+                      Share on
+                    </p>
                     <div className="mt-2 grid grid-cols-2 gap-1.5">
                       <a
                         href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`}
@@ -269,39 +287,63 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
 
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-8 sm:px-8 sm:py-10 md:px-16 lg:grid lg:grid-cols-[1.4fr_1fr] lg:gap-12">
         <div>
+          {/* TODO: whyMatched has no equivalent on Species — needs content decision */}
           <div className="border-t border-[#e0ddd7] pt-6">
-            <h3 className="font-heading text-lg font-bold text-[#0f0f0f]">Why you matched</h3>
-            <p className="font-body mt-2 max-w-2xl text-sm leading-7 text-[#4d4d4d]">{result.whyMatched}</p>
+            <h3 className="font-heading text-lg font-bold text-[#0f0f0f]">
+              Why you matched
+            </h3>
+            <p className="font-body mt-2 max-w-2xl text-sm leading-7 text-[#4d4d4d]">
+              {result.ecologyComments ??
+                "No additional match information available for this species."}
+            </p>
           </div>
 
           <dl className="mt-6 grid gap-4 border-t border-[#e0ddd7] pt-6 sm:grid-cols-3">
             <div>
-              <dt className="font-body text-xs font-bold text-[#0f0f0f]">Ecoregions</dt>
-              <dd className="font-body mt-1 text-sm text-[#4d4d4d]">{result.ecoregionLabel}</dd>
-            </div>
-            <div>
-              <dt className="font-body text-xs font-bold text-[#0f0f0f]">Occurrences</dt>
+              <dt className="font-body text-xs font-bold text-[#0f0f0f]">
+                Ecoregions
+              </dt>
               <dd className="font-body mt-1 text-sm text-[#4d4d4d]">
-                {result.occurrences} records ({result.occurrencesPre2000} before 2000, {result.occurrencesPost2000}{" "}
-                since)
+                {result.ecoregion ?? "-"}
               </dd>
             </div>
             <div>
-              <dt className="font-body text-xs font-bold text-[#0f0f0f]">Status</dt>
-              <dd className="font-body mt-1 text-sm text-[#4d4d4d]">{statusLine}</dd>
+              <dt className="font-body text-xs font-bold text-[#0f0f0f]">
+                Occurrences
+              </dt>
+              <dd className="font-body mt-1 text-sm text-[#4d4d4d]">
+                {result.nEo ?? "—"} records ({result.nEoPre2000 ?? "—"} before
+                2000, {result.nEoPost2000 ?? "—"} since)
+              </dd>
+            </div>
+            <div>
+              <dt className="font-body text-xs font-bold text-[#0f0f0f]">
+                Status
+              </dt>
+              <dd className="font-body mt-1 text-sm text-[#4d4d4d]">
+                {statusLine}
+              </dd>
             </div>
           </dl>
         </div>
 
         <div>
-          <p className="font-body text-xs font-bold uppercase tracking-[0.15em] text-[#4d4d4d]">Your species card</p>
-          <p className="font-body mt-1 text-sm text-[#4d4d4d]">Download a shareable mini field guide card.</p>
+          <p className="font-body text-xs font-bold uppercase tracking-[0.15em] text-[#4d4d4d]">
+            Your species card
+          </p>
+          <p className="font-body mt-1 text-sm text-[#4d4d4d]">
+            Download a shareable mini field guide card.
+          </p>
 
           <div className="mt-3 flex gap-3 border-2 border-[#e0ddd7] p-3">
             <div className="h-20 w-16 shrink-0 bg-[#e7e2da]" />
             <div className="min-w-0">
-              <p className="font-heading truncate text-sm font-bold text-[#0f0f0f]">{result.commonName}</p>
-              <p className="font-scientific truncate text-xs italic text-[#4d4d4d]">{result.scientificName}</p>
+              <p className="font-heading truncate text-sm font-bold text-[#0f0f0f]">
+                {result.commonName ?? result.scientificName}
+              </p>
+              <p className="font-scientific truncate text-xs italic text-[#4d4d4d]">
+                {result.scientificName}
+              </p>
               <p className="font-body mt-1 text-[11px] text-[#4d4d4d]">
                 {result.globalRank} · {result.stateRank}
                 {result.federalRank ? ` · ESA: ${result.federalRank}` : ""}
@@ -345,8 +387,12 @@ export default function QuizResultView({ result, onRestart }: QuizResultViewProp
         >
           <div className="flex items-start gap-3 rounded-md border-l-4 border-[#16873d] bg-[#0d1f14] px-4 py-3 text-white shadow-lg">
             <div>
-              <p className="font-body text-sm font-semibold">🔗 Link copied to clipboard</p>
-              <p className="font-body text-xs text-[#8fce9d]">Fades out after 3s</p>
+              <p className="font-body text-sm font-semibold">
+                🔗 Link copied to clipboard
+              </p>
+              <p className="font-body text-xs text-[#8fce9d]">
+                Fades out after 3s
+              </p>
             </div>
           </div>
         </div>
