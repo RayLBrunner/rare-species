@@ -46,3 +46,4 @@ next-env.d.ts
 
 # raw images before resizing and compression
 raw_images/
+venv/
