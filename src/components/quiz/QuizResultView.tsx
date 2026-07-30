@@ -4,6 +4,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import type { Species } from "@/types/species";
+import SpeciesSummarySentence from "@/components/species/SpeciesSummarySentence";
+import { formatList, getEcoregionNames } from "@/lib/species-sentence";
 
 interface QuizResultViewProps {
   result: Species;
@@ -189,6 +191,10 @@ export default function QuizResultView({
             <p className="font-heading mt-3 text-4xl font-bold leading-tight sm:text-5xl">
               This one found you.
             </p>
+            <SpeciesSummarySentence
+              species={result}
+              className="font-body mt-4 max-w-2xl text-sm leading-7 text-[#c9ddd0] sm:text-base"
+            />
             <p className="font-body mt-4 max-w-2xl text-sm leading-7 text-[#c9ddd0] sm:text-base">
               {result.habitatDescription ??
                 "No description available for this species yet."}
@@ -304,7 +310,7 @@ export default function QuizResultView({
                 Ecoregions
               </dt>
               <dd className="font-body mt-1 text-sm text-[#4d4d4d]">
-                {result.ecoregion ?? "-"}
+                {formatList(getEcoregionNames(result.ecoregion)) || "-"}
               </dd>
             </div>
             <div>
