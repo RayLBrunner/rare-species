@@ -1,4 +1,11 @@
-export default function OverviewTab() {
+import type { Species } from "@/types/species";
+import SpeciesSummarySentence from "@/components/species/SpeciesSummarySentence";
+
+interface OverviewTabProps {
+  species: Species;
+}
+
+export default function OverviewTab({ species }: OverviewTabProps) {
   return (
     <div>
       <section className="border-b border-[#e5e5e5] pb-5">
@@ -6,12 +13,10 @@ export default function OverviewTab() {
           About this species
         </h2>
 
-        <div className="space-y-2">
-          <div className="h-2 max-w-[720px] bg-black" />
-          <div className="h-2 max-w-[720px] bg-black" />
-          <div className="h-2 max-w-[720px] bg-black" />
-          <div className="h-2 max-w-[520px] bg-black" />
-        </div>
+        <SpeciesSummarySentence
+          species={species}
+          className="font-body max-w-[720px] text-sm leading-6 text-black"
+        />
       </section>
 
       <section className="border-b border-[#e5e5e5] py-5">
