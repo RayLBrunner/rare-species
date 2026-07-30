@@ -6,7 +6,7 @@ import { filterRows, dropdownOptions } from "./FilterData";
 const mobileTaxonomyFilters = [
   {
     label: "Vascular Plants",
-    filterName: "Vascular Plants +",
+    filterName: "Vascular Plants",
   },
   {
     label: "Nonvascular Plants and Fungi",
@@ -90,6 +90,12 @@ export default function SpeciesFilters({
     };
   }, []);
 
+  const isEndangeredSelected =
+    selectedDropdownOptions["Federal Status +"]?.includes("E") ?? false;
+
+  const isOrEndemicSelected =
+    selectedFilters.Geography?.includes("OR Endemic") ?? false;
+
   return (
     <>
       <section className="font-body mb-3 space-y-2 sm:hidden">
@@ -110,21 +116,30 @@ export default function SpeciesFilters({
           </button>
 
           {mobileTaxonomyFilters.map((filter) => {
-            const options = dropdownOptions[filter.filterName] ?? [];
+            const options = dropdownOptions[filter.filterName];
+            const hasDropdown = Boolean(options);
 
             const selectedOptions =
               selectedDropdownOptions[filter.filterName] ?? [];
 
-            const areAllOptionsSelected =
-              options.length > 0 &&
-              options.every((option) => selectedOptions.includes(option));
+            const areAllOptionsSelected = hasDropdown
+              ? options.length > 0 &&
+                options.every((option) => selectedOptions.includes(option))
+              : (selectedFilters.Taxonomy?.includes(filter.filterName) ??
+                false);
 
             return (
               <button
                 key={filter.filterName}
                 type="button"
                 aria-pressed={areAllOptionsSelected}
-                onClick={() => onToggleAllDropdownOptions(filter.filterName)}
+                onClick={() => {
+                  if (hasDropdown) {
+                    onToggleAllDropdownOptions(filter.filterName);
+                  } else {
+                    onToggleFilter("Taxonomy", filter.filterName);
+                  }
+                }}
                 className={`cursor-pointer border-2 border-black px-3 py-1.5 text-[10px] font-bold ${
                   areAllOptionsSelected
                     ? "bg-black text-white"
@@ -136,41 +151,32 @@ export default function SpeciesFilters({
             );
           })}
 
-          {[
-            {
-              row: "Status",
-              value: "ESA listed",
-              label: "Endangered",
-              icon: "◆",
-            },
-            { row: "Geography", value: "OR Endemic", label: "OR Endemic" },
-          ].map((filter) => {
-            const isSelected =
-              selectedFilters[filter.row]?.includes(filter.value) ?? false;
+          <button
+            type="button"
+            aria-pressed={isEndangeredSelected}
+            onClick={() => onToggleDropdownOption("Federal Status +", "E")}
+            className={`cursor-pointer border-2 border-black px-3 py-1.5 text-[10px] font-bold ${
+              isEndangeredSelected
+                ? "bg-black text-white"
+                : "bg-white text-black"
+            }`}
+          >
+            <span className="mr-1 text-red-600">◆</span>
+            Endangered
+          </button>
 
-            return (
-              <button
-                key={filter.value}
-                type="button"
-                aria-pressed={isSelected}
-                onClick={() => toggleFilter(filter.row, filter.value)}
-                className={`cursor-pointer border-2 px-3 py-1.5 text-[10px] font-bold ${
-                  filter.value === "OR Endemic"
-                    ? isSelected
-                      ? "border-[#36b36b] bg-[#36b36b] text-white"
-                      : "border-[#36b36b] bg-white text-[#178a45]"
-                    : isSelected
-                      ? "border-black bg-black text-white"
-                      : "border-black bg-white text-black"
-                }`}
-              >
-                {filter.icon && (
-                  <span className="mr-1 text-red-600">{filter.icon}</span>
-                )}
-                {filter.label}
-              </button>
-            );
-          })}
+          <button
+            type="button"
+            aria-pressed={isOrEndemicSelected}
+            onClick={() => toggleFilter("Geography", "OR Endemic")}
+            className={`cursor-pointer border-2 px-3 py-1.5 text-[10px] font-bold ${
+              isOrEndemicSelected
+                ? "border-[#36b36b] bg-[#36b36b] text-white"
+                : "border-[#36b36b] bg-white text-[#178a45]"
+            }`}
+          >
+            OR Endemic
+          </button>
         </div>
       </section>
       <section

@@ -8,16 +8,16 @@ import StatusRanksTab from "./tabs/StatusRanksTab";
 import TaxonomyTab from "./tabs/TaxonomyTab";
 
 const tabs = [
-  "Overview",
   "Where to Find",
   "Status & Ranks",
   "Taxonomy",
+  "Overview",
 ] as const;
 
 type SpeciesTab = (typeof tabs)[number];
 
 export default function SpeciesOverview() {
-  const [activeTab, setActiveTab] = useState<SpeciesTab>("Overview");
+  const [activeTab, setActiveTab] = useState<SpeciesTab>("Where to Find");
 
   return (
     <section className="bg-white">
