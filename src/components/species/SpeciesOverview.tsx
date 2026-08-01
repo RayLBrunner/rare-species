@@ -47,13 +47,13 @@ export default function SpeciesOverview({ species }: SpeciesOverviewProps) {
 
           <div className="px-6 py-5 md:px-10">
             {activeTab === "Overview" && <OverviewTab species={species} />}
-            {activeTab === "Where to Find" && <WhereToFindTab />}
-            {activeTab === "Status & Ranks" && <StatusRanksTab />}
-            {activeTab === "Taxonomy" && <TaxonomyTab />}
+            {activeTab === "Where to Find" && <WhereToFindTab species={species} />}
+            {activeTab === "Status & Ranks" && <StatusRanksTab species={species} />}
+            {activeTab === "Taxonomy" && <TaxonomyTab species={species} />}
           </div>
         </div>
         <div className="hidden lg:block">
-          <SpeciesSidebar />
+          <SpeciesSidebar species={species} />
         </div>
       </div>
     </section>

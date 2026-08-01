@@ -18,9 +18,9 @@ export default async function SpeciesPage({ params }: SpeciesPageProps) {
 
   return (
     <main className="w-full">
-      <SpeciesHero />
+      <SpeciesHero species={species} />
       <div className="mx-auto w-full max-w-7xl">
-        <StatusRankBar />
+        <StatusRankBar species={species} />
         <SpeciesOverview species={species} />
       </div>
     </main>
