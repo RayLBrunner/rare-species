@@ -23,7 +23,7 @@ export default function SpeciesOverview() {
     <section className="bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px]">
         <div className="border-r border-[#d8d8d8]">
-          <div className="grid grid-cols-4 border-b border-[#d8d8d8] text-center">
+          <div className="border-r border-[#d8d8d8] mx-10 grid grid-cols-4 text-center md:mx-10">
             {tabs.map((tab) => (
               <button
                 key={tab}
