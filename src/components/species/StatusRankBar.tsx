@@ -26,7 +26,7 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
   const rankColor = getStateRankColor(stateRank);
 
   return (
-    <section className="border-y border-[#d8d8d8] bg-white px-3 py-3 md:px-10">
+    <section className="mx-10 border-y border-[#d8d8d8] bg-white py-3">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="w-full lg:max-w-[620px]">
           <p className="font-body mb-2 text-[10px] font-semibold text-[#4d4d4d]">
