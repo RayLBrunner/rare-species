@@ -1,4 +1,20 @@
-export default function SpeciesSidebar() {
+import type { Species } from "@/types/species";
+import { getOrEndemicFlag } from "@/lib/speciesDisplay";
+
+interface SpeciesSidebarProps {
+  species: Species;
+}
+
+export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
+  const isOrEndemic = getOrEndemicFlag(species.orEndemic);
+
+  const taxonomyLine1 = [species.kingdom, species.phylum, species.taxonClass]
+    .filter(Boolean)
+    .join(" · ");
+  const taxonomyLine2 = [species.taxonOrder, species.family]
+    .filter(Boolean)
+    .join(" · ");
+
   return (
     <>
       <div className="space-y-3 lg:hidden">
@@ -42,27 +58,21 @@ export default function SpeciesSidebar() {
             Taxonomic position
           </h3>
 
-          <p className="font-body text-[11px]">
-            Plantae · Tracheophyta · Magnoliopsida
+          {taxonomyLine1 && (
+            <p className="font-body text-[11px]">{taxonomyLine1}</p>
+          )}
+          {taxonomyLine2 && (
+            <p className="font-body text-[11px]">{taxonomyLine2}</p>
+          )}
+          <p className="font-scientific text-[11px] italic">
+            {species.genusSpecies}
           </p>
-          <p className="font-body text-[11px]">Fabales · Fabaceae · Lupinus</p>
-          <p className="font-scientific text-[11px] italic">Lupinus oreganus</p>
 
-          <span className="font-body mt-3 inline-block border border-[#15803d] px-2 py-1 text-[10px] font-bold text-[#15803d]">
-            Oregon Endemic
-          </span>
-        </section>
-        <section className="mt-4 border-b border-[#e5e5e5] pb-4">
-          <h3 className="font-body mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-500">
-            Other rare Lupinus in Oregon
-          </h3>
-
-          <ul className="font-body space-y-1 text-[11px]">
-            <li>· Lupinus albicaulis — S3</li>
-            <li>· Lupinus rivularis — S2</li>
-            <li>· Lupinus sulphureus — S1</li>
-            <li>+10 more in Oregon →</li>
-          </ul>
+          {isOrEndemic && (
+            <span className="font-body mt-3 inline-block border border-[#15803d] px-2 py-1 text-[10px] font-bold text-[#15803d]">
+              Oregon Endemic
+            </span>
+          )}
         </section>
         <section className="mt-4">
           <h3 className="font-body mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-500">
@@ -71,8 +81,8 @@ export default function SpeciesSidebar() {
 
           <div className="border-2 border-black p-3">
             <p className="font-body text-[10px] italic">
-              ORBIC. 2026. Kincaid&apos;s Lupine (Lupinus oreganus), Oregon Rare
-              Species Field Guide.
+              ORBIC. 2026. {species.commonName} ({species.genusSpecies}), Oregon
+              Rare Species Field Guide.
             </p>
 
             <div className="mt-3 grid grid-cols-3 gap-2">

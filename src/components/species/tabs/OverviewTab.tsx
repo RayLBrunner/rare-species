@@ -19,17 +19,49 @@ export default function OverviewTab({ species }: OverviewTabProps) {
         />
       </section>
 
-      <section className="border-b border-[#e5e5e5] py-5">
-        <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
-          Habitat & Ecology
-        </h2>
+      {species.habitatDescription && (
+        <section className="border-b border-[#e5e5e5] py-5">
+          <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
+            Habitat &amp; Ecology
+          </h2>
+          <p className="font-body max-w-[720px] text-sm leading-6 text-black">
+            {species.habitatDescription}
+          </p>
+        </section>
+      )}
 
-        <div className="space-y-2">
-          <div className="h-2 max-w-[720px] bg-black" />
-          <div className="h-2 max-w-[720px] bg-black" />
-          <div className="h-2 max-w-[620px] bg-black" />
-        </div>
-      </section>
+      {species.physicalDescription && (
+        <section className="border-b border-[#e5e5e5] py-5">
+          <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
+            Identification
+          </h2>
+          <p className="font-body max-w-[720px] text-sm leading-6 text-black">
+            {species.physicalDescription}
+          </p>
+        </section>
+      )}
+
+      {species.ecologyComments && (
+        <section className="border-b border-[#e5e5e5] py-5">
+          <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
+            Ecology
+          </h2>
+          <p className="font-body max-w-[720px] text-sm leading-6 text-black">
+            {species.ecologyComments}
+          </p>
+        </section>
+      )}
+
+      {species.globalRangeComments && (
+        <section className="border-b border-[#e5e5e5] py-5">
+          <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
+            Global Range
+          </h2>
+          <p className="font-body max-w-[720px] text-sm leading-6 text-black">
+            {species.globalRangeComments}
+          </p>
+        </section>
+      )}
 
       <section className="border-b border-[#e5e5e5] py-5">
         <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
