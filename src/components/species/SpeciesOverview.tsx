@@ -28,13 +28,13 @@ export default function SpeciesOverview({ species }: SpeciesOverviewProps) {
     <section className="bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px]">
         <div className="border-r border-[#d8d8d8]">
-          <div className="border-r border-[#d8d8d8] mx-10 grid grid-cols-4 text-center md:mx-10">
+          <div className="border-l border-b border-[#d8d8d8] ml-10 grid grid-cols-4 text-center">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 type="button"
                 onClick={() => setActiveTab(tab)}
-                className={`cursor-pointer font-body border-r border-[#d8d8d8] px-4 py-3 text-[11px] font-bold last:border-r-0 ${
+                className={`cursor-pointer font-body border-r border-[#d8d8d8] py-3 text-[11px] font-bold last:border-r-0 ${
                   activeTab === tab
                     ? "bg-black text-white"
                     : "bg-white text-black"
