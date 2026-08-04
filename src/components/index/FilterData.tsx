@@ -82,7 +82,7 @@ export const dropdownOptions: Record<string, string[]> = {
     "SX",
     "M",
   ],
-  "ORBIC list +": ["1", "1-ex", "1-X", "2", "2-ex", "3", "4"],
+  "ORBIC list +": ["1", "2", "3", "4"],
   "Federal Status +": ["E", "T", "PE", "PT", "PS", "C", "SOC", "UR", "DL"],
   "State Status +": ["C", "LE", "LT", "S", "SC"],
   "ODFW SWAP +": ["SGCN", "SGIN"],
