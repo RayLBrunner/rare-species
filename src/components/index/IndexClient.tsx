@@ -143,6 +143,13 @@ function parseAbbreviations(value: string | undefined): string[] {
     .filter(Boolean);
 }
 
+function normalizeOrbicList(value: unknown): string {
+  const orbicList = String(value ?? "").trim();
+  const match = orbicList.match(/^([1-4])(?:-.+)?$/i);
+
+  return match ? match[1] : orbicList;
+}
+
 function applyFilters(
   species: Species[],
   selectedFilters: Record<string, string[]>,
@@ -215,9 +222,10 @@ function applyFilters(
 
     // STATUS — ORBIC list
     const orbicListOptions = selectedDropdownOptions["ORBIC list +"] ?? [];
+    const normalizedOrbicList = normalizeOrbicList(item.orbicList); 
     if (
       orbicListOptions.length > 0 &&
-      !orbicListOptions.includes(String(item.orbicList))
+      !orbicListOptions.includes(normalizedOrbicList)
     )
       return false;
 
