@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import type { Species } from "@/types/species";
+import { LIST_FRIENDLY_NAMES } from "@/lib/speciesDisplay";
 
 interface SpeciesIndexListProps {
   species: Species[];
@@ -24,8 +25,7 @@ export default function SpeciesIndexList({ species }: SpeciesIndexListProps) {
           <tr className="bg-[#101018] text-[10px] uppercase tracking-wide text-white">
             <th className="w-40 px-4 py-3">Common Name</th>
             <th className="w-44 px-4 py-3">Latin Name ↕</th>
-            <th className="w-36 px-4 py-3">List</th>
-            <th className="w-32 px-4 py-3">Category</th>
+            <th className="w-36 px-4 py-3">Group</th>
             <th className="w-28 px-4 py-3">Family</th>
             <th className="w-24 px-4 py-3">Order</th>
             <th className="w-24 px-4 py-3">Class</th>
@@ -48,11 +48,7 @@ export default function SpeciesIndexList({ species }: SpeciesIndexListProps) {
                 {item.scientificName}
               </td>
 
-              <td className="px-4 py-3 truncate group-hover:text-white">{item.list ?? "—"}</td>
-
-              <td className="px-4 py-3 truncate group-hover:text-white">
-                {[item.category1, item.category2].filter(Boolean).join(", ") || "—"}
-              </td>
+              <td className="px-4 py-3 truncate group-hover:text-white">{LIST_FRIENDLY_NAMES[item.list] ?? item.list ?? "—"}</td>
 
               <td className="px-4 py-3 truncate group-hover:text-white">{item.family ?? "—"}</td>
               <td className="px-4 py-3 truncate group-hover:text-white">{item.taxonOrder ?? "—"}</td>
