@@ -149,12 +149,16 @@ export interface Species {
 
   // --- Conservation Status ---
   globalRank: GlobalRank; // Raw: G_RANK
+  globalRankSimple: string; // Simplified Global Rank list for filtering
   stateRank: StateRank; // Raw: S_RANK
+  stateRankSimple: string; // Simplified State Rank for filtering
   federalRank?: FederalRank; // Raw: FED
   stateStatus?: StateStatus; // Raw: STATE
   orbicList?: OrbicList; // Raw: ORBIC_LIST (List status 1-4)
+  orbicListSimple?: string; // Simplified ORBIC list for filtering
   odfwSGCN?: string; // Raw: ODFW_SGCN (Link to ODFW page)
   odfwSGIN?: string; // Raw: ODFW_SGIN (Species of Great Info Need)
+  odfwSWAP?: string; // Combined ODFW_SGIN and ODFW_SGCN field for SWAP filtering
   orEndemic?: OrEndemic; // Raw: OR_ENDEMIC (Endemic to Oregon?)
 
   // --- Observations & Geography ---
@@ -182,6 +186,8 @@ export interface Species {
   ecologyComments?: string; // Raw: ECOLOGY_COMMENTS
   globalRangeComments?: string; // Raw: GLOBAL_RANGE_COMMENTS
   references?: string; // Bibliographic references for taxonomy
+  bioticsMatchNote?: string; // Internal QA/matching note from BIOTICS
+  autoSummary?: string; // Auto-generated fallback description
 
   // --- Site Logic ---
   featureMe?: boolean; // Logic: species is worth featuring on site
