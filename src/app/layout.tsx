@@ -21,7 +21,11 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "ORBIC - Oregon Field Guide",
+  metadataBase: new URL("https://fieldguide.orbic.pdx.edu"),
+  title: {
+    default: "ORBIC Field Guide",
+    template: "%s | ORBIC Field Guide",
+  },
   description: "Discover rare species in Oregon",
 };
 
