@@ -8,11 +8,11 @@ const DEFAULT_FILTER_BY_ROW: Record<string, string> = {
   Geography: "All",
 };
 
-export default function useSpeciesFilters() {
+export default function useSpeciesFilters(initialTaxonomyFilter?: string) {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, string[]>
   >({
-    Taxonomy: ["All species"],
+    Taxonomy: [initialTaxonomyFilter ?? "All species"],
     Status: [],
     Geography: ["All"],
   });

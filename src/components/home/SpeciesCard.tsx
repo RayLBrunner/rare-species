@@ -15,15 +15,17 @@ export default function SpeciesCard({
 }: SpeciesCardProps) {
   return (
     <div className="border-2 border-black bg-white">
-      <div className="h-[95px] bg-[#e7e2da] sm:h-[130px]">
+      <div className="relative aspect-[4/3] bg-[#032014] p-5 sm:p-7">
         {image && (
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="(max-width: 640px) 140px, 25vw"
-            className="object-cover"
-          />
+          <div className="absolute inset-0 m-auto h-[70%] w-[70%]">
+            <Image
+              src={image}
+              alt={title}
+              fill
+              sizes="(max-width: 640px) 140px, 25vw"
+              className="object-contain"
+            />
+          </div>
         )}
       </div>
 
