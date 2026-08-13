@@ -3,6 +3,7 @@ import SpeciesCategories from "../components/home/ExploreBySpecies";
 import BrowseByStatus from "../components/home/BrowseByStatus";
 import ExploreMap from "../components/home/ExploreMap";
 import FeaturedSpecies from "@/components/home/FeaturedSpecies";
+import CTASection from "@/components/home/CTASection";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           <ExploreMap />
         </div>
       </main>
+      <CTASection />
     </>
   );
 }
