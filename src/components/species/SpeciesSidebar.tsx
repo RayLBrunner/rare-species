@@ -26,7 +26,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
           📄 Download card
         </button>
       </div>
-      <aside className="hidden border-l border-[#d8d8d8] bg-white p-6 lg:block">
+      <aside className="hidden border-[#d8d8d8] bg-white pl-6 py- lg:block">
         <div className="border-2 border-black border-b-4 bg-[#15803d] p-4 text-white">
           <h2 className="cursor-pointer font-body text-base font-bold">
             Sponsor this species
