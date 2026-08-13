@@ -68,8 +68,18 @@ const COUNTY_MAP: Record<string, string> = {
 
 const TAXONOMY_GROUP_CATEGORIES: Record<string, string[]> = {
   "Vascular Plants": ["vascularPlants"],
-  "Nonvascular Plants and Fungi +": ["bryophytes", "fungiAndLichen", "kelpAndAlgae"],
-  "Vertebrate Animals +": ["amphibians", "birds", "fishes", "mammals", "reptiles"],
+  "Nonvascular Plants and Fungi +": [
+    "bryophytes",
+    "fungiAndLichen",
+    "kelpAndAlgae",
+  ],
+  "Vertebrate Animals +": [
+    "amphibians",
+    "birds",
+    "fishes",
+    "mammals",
+    "reptiles",
+  ],
   "Invertebrate Animals +": ["arthropods", "molluscs", "worms", "seaStars"],
 };
 
@@ -143,6 +153,77 @@ function parseAbbreviations(value: string | undefined): string[] {
     .filter(Boolean);
 }
 
+function normalizeGlobalRank(value: unknown): string {
+  const globalRank = String(value ?? "")
+    .trim()
+    .toUpperCase();
+
+  if (!globalRank) return "";
+
+  // T-ranks take priority when present.
+  const tRank = globalRank.match(/T([1-5])/);
+  if (tRank) {
+    return `T${tRank[1]}`;
+  }
+
+  if (/TU/.test(globalRank)) {
+    return "TU";
+  }
+
+  if (/TX/.test(globalRank)) {
+    return "TX";
+  }
+
+  if (/TNR/.test(globalRank)) {
+    return "TN";
+  }
+
+  // Special G-rank categories.
+  if (/^GH/.test(globalRank)) {
+    return "GX";
+  }
+
+  if (/^(GNR|GU|GNA)/.test(globalRank)) {
+    return "GN";
+  }
+
+  if (/GX/.test(globalRank)) {
+    return "GX";
+  }
+  
+  if (globalRank === "S1") {
+    return "G1";
+  }
+
+  // Normal G1-G5 ranks.
+  const gRank = globalRank.match(/^G([1-5])/);
+
+  return gRank ? `G${gRank[1]}` : globalRank;
+}
+
+function normalizeStateRank(value: unknown): string {
+  const stateRank = String(value ?? "")
+    .trim()
+    .toUpperCase();
+
+  if (!stateRank) return "";
+
+  // SX category
+  if (/^SX|^SH/.test(stateRank)) {
+    return "SX";
+  }
+
+  // SN category
+  if (/^SN|^SU/.test(stateRank)) {
+    return "SN";
+  }
+
+  // S1-S5 categories
+  const match = stateRank.match(/^S([1-5])/);
+
+  return match ? `S${match[1]}` : stateRank;
+}
+
 function normalizeOrbicList(value: unknown): string {
   const orbicList = String(value ?? "").trim();
   const match = orbicList.match(/^([1-4])(?:-.+)?$/i);
@@ -173,7 +254,9 @@ function applyFilters(
         "Invertebrate Animals +",
       ];
 
-      const itemCategories = [item.category1, item.category2].filter(Boolean) as string[];
+      const itemCategories = [item.category1, item.category2].filter(
+        Boolean,
+      ) as string[];
 
       // Sub-options explicitly chosen from the dropdown
       const selectedTaxonOptions = taxonomyKeys.flatMap(
@@ -206,23 +289,26 @@ function applyFilters(
 
     // STATUS — Global Rank
     const globalRankOptions = selectedDropdownOptions["Global Rank +"] ?? [];
+    const normalizedGlobalRank = normalizeGlobalRank(item.globalRank);
+
     if (
       globalRankOptions.length > 0 &&
-      !globalRankOptions.includes(item.globalRank)
+      !globalRankOptions.includes(normalizedGlobalRank)
     )
       return false;
 
     // STATUS — State Rank
     const stateRankOptions = selectedDropdownOptions["State Rank +"] ?? [];
+    const normalizedStateRank = normalizeStateRank(item.stateRank);
     if (
       stateRankOptions.length > 0 &&
-      !stateRankOptions.includes(item.stateRank)
+      !stateRankOptions.includes(normalizedStateRank)
     )
       return false;
 
     // STATUS — ORBIC list
     const orbicListOptions = selectedDropdownOptions["ORBIC list +"] ?? [];
-    const normalizedOrbicList = normalizeOrbicList(item.orbicList); 
+    const normalizedOrbicList = normalizeOrbicList(item.orbicList);
     if (
       orbicListOptions.length > 0 &&
       !orbicListOptions.includes(normalizedOrbicList)
