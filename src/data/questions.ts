@@ -6,10 +6,11 @@ export interface QuizOption {
   label: string;
   value: string;
   detail: string;
-  emoji: string;
+  emoji?: string;
   // West Side maps to ["ME", "CR", "WV", "WC"], East Side Mountains to ["EC", "KM", "BM", "BR"], etc.
   // Array because one quiz answer can span multiple ecoregion codes
   ecoregionCodes?: EcoRegion[];
+  image?: string;
 }
 
 export interface QuizQuestion {
@@ -57,14 +58,15 @@ export const questions: QuizQuestion[] = [
         label: "West Side",
         value: "westSide",
         detail: "Lush forests, wet meadows and beaches",
-        emoji: "🌲",
+        image:
+          "/images/eco-region/CoastRange_USFS_PublicDomain_24514265823_c0949b9432_o.jpg",
         ecoregionCodes: ["ME", "CR", "WV", "WC"],
       },
       {
         label: "East Side",
         value: "eastSide",
         detail: "High and dry",
-        emoji: "🏔️",
+        image: "/images/eco-region/BasinRange_IMG_20200627_112438_RBrunner.jpg",
         ecoregionCodes: [],
       },
     ],
@@ -106,14 +108,14 @@ export const questions: QuizQuestion[] = [
         label: "I've got antsy feet. New day, new view.",
         value: "motile",
         detail: "Motile / Animals",
-        emoji: "🦎",
+        image: "/images/species/875.webp",
       },
       {
         label:
           "I'm a real home-maker. Let's dig in and make a home where we are.",
         value: "sessile",
         detail: "Sessile / Plants",
-        emoji: "🌱",
+        image: "/images/species/2036.webp",
       },
     ],
   },
@@ -155,14 +157,14 @@ export const questions: QuizQuestion[] = [
           "Let's get big! Bring on the structural innovation! Giant tree trunks and showy flowers.",
         value: "vascularPlants",
         detail: "Vascular",
-        emoji: "🌸",
+        image: "/images/eco-region/2WestCascades_RBrunner.jpg",
       },
       {
         label:
           "If it ain't broke, don't fix it. I'd rather perfect a smaller system than worry about a new set of structural variables.",
         value: "nonvascularPlantsAndFungi",
         detail: "Nonvascular",
-        emoji: "🍀",
+        image: "/images/species/365886.webp",
       },
     ],
   },
@@ -195,7 +197,7 @@ export const questions: QuizQuestion[] = [
     id: "speciesUnit",
     eyebrow: "Species Unit",
     prompt: "How attached are you to the concept of a species?",
-    description: "Full species or subspecies level?",
+    description: "Full species or finer level.",
     filterKey: "varSsp",
     hasVarSspFilter: true,
     options: [
@@ -210,7 +212,7 @@ export const questions: QuizQuestion[] = [
         label:
           "I find it pleasing to identify subtle patterns. If the scientists think this organism is different enough that's good enough for me.",
         value: "hasVarSsp",
-        detail: "Subspecies or variation",
+        detail: "Subspecies, variety, or population",
         emoji: "🔍",
       },
     ],
@@ -218,10 +220,10 @@ export const questions: QuizQuestion[] = [
 
   {
     id: "globalRank",
-    eyebrow: "G Rank",
+    eyebrow: "Global Rank",
     prompt:
       "Globally, how rare are we talking? What are my chances of meeting this organism? What are its chances of meeting the 2050s?",
-    description: "Your answer may skip the next question.",
+    description: "Your answer narrows the pool by global conservation status.",
     filterKey: "globalRank",
     skipNextIf: "G1",
     options: [
@@ -229,7 +231,8 @@ export const questions: QuizQuestion[] = [
         label:
           "G1 — The rarest of the rare! These organisms are dealing with some serious headwinds, things like being found at just a handful of sites, very low numbers of individuals, and dire threats.",
         value: "G1",
-        detail: "Critically rare",
+        detail:
+          "Critically rare in Oregon and globally — state rank question skipped",
         emoji: "🚨",
       },
       {
