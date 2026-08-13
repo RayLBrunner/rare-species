@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Species } from "@/types/species";
 import AdvancedFiltersModal from "./AdvancedFiltersModal";
 import ConservationRankBar from "./ConservationRankBar";
+import { LIST_TO_TAXONOMY_FILTER, RANK_BAR_MAP } from "./FilterData";
 import SpeciesFilters from "./SpeciesFilters";
 import SpeciesIndexGrid from "./SpeciesIndexGrid";
 import SpeciesIndexList from "./SpeciesIndexList";
@@ -119,15 +120,6 @@ const TAXONOMY_OPTION_MAP: Record<string, string> = {
   Millipedes: "millipedes",
   "Sea Stars": "seaStars",
   Springtails: "springtails",
-};
-
-const RANK_BAR_MAP: Record<string, string> = {
-  "5X": "SX",
-  S1: "S1",
-  S2: "S2",
-  S3: "S3",
-  S4: "S4",
-  S5: "S5",
 };
 
 function parseAbbreviations(value: string | undefined): string[] {
@@ -303,14 +295,26 @@ function applyFilters(
 
 interface IndexClientProps {
   species: Species[];
+  initialList?: string;
+  initialRank?: string;
 }
 
-export default function IndexClient({ species }: IndexClientProps) {
+export default function IndexClient({
+  species,
+  initialList,
+  initialRank,
+}: IndexClientProps) {
   const [view, setView] = useState<SpeciesView>("list");
   const [isAdvancedFiltersOpen, setIsAdvancedFiltersOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedRanks, setSelectedRanks] = useState<string[]>([]);
+  const [selectedRanks, setSelectedRanks] = useState<string[]>(
+    initialRank && initialRank in RANK_BAR_MAP ? [initialRank] : [],
+  );
   const [searchQuery, setSearchQuery] = useState("");
+
+  const initialTaxonomyFilter = initialList
+    ? LIST_TO_TAXONOMY_FILTER[initialList]
+    : undefined;
 
   const onToggleRank = (rank: string) => {
     setCurrentPage(1);
@@ -321,7 +325,7 @@ export default function IndexClient({ species }: IndexClientProps) {
     );
   };
 
-  const rawFilters = useSpeciesFilters();
+  const rawFilters = useSpeciesFilters(initialTaxonomyFilter);
 
   const filters = {
     ...rawFilters,

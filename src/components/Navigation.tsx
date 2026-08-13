@@ -69,11 +69,14 @@ export default function Navigation() {
   return (
     <nav className="font-body sticky top-0 z-50 bg-[#032014] text-white">
       <div className="mx-auto w-full max-w-7xl flex items-center justify-between px-6 py-4 sm:px-8 md:px-16">
-        <Link
-          href="/"
-          className="font-heading font-bold text-xl transition hover:text-[#6fc08f]"
-        >
-          Oregon Biodiversity
+        <Link href="/" className="group flex items-center gap-2">
+          <span
+            aria-hidden="true"
+            className="aspect-[799/587] h-6 shrink-0 bg-white transition-colors duration-150 [mask-image:url('/images/logos/Oregon_State_Boundary.svg')] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/images/logos/Oregon_State_Boundary.svg')] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] group-hover:bg-[#6fc08f]"
+          />
+          <span className="font-heading font-bold text-xl transition-colors duration-150 group-hover:text-[#6fc08f]">
+            ORBIC
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
