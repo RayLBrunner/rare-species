@@ -54,7 +54,7 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
   return (
     <section className="w-full overflow-hidden bg-[#1f3426] text-white">
       <div className="mx-auto w-full max-w-7xl md:grid md:min-h-[360px] md:grid-cols-[1.6fr_1fr]">
-        <div className="px-4 py-8 md:px-10 md:py-10">
+        <div className="px-6 py-8 md:px-10 md:py-10">
           <p className="font-body mb-4 text-[11px] font-semibold text-[#57c783]">
             {breadcrumb}
           </p>

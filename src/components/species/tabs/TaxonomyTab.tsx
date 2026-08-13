@@ -95,7 +95,7 @@ export default function TaxonomyTab({ species }: TaxonomyTabProps) {
         {allDesktopRows.map((row) => (
           <div
             key={row.label}
-            className="grid grid-cols-[220px_1fr] border-b border-[#d8d8d8] px-8 py-4"
+            className="grid grid-cols-[220px_1fr] border-b border-[#d8d8d8] py-4"
           >
             <p className="font-body text-[13px] font-bold text-[#777]">
               {row.label}

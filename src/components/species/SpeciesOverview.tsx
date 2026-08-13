@@ -28,7 +28,7 @@ export default function SpeciesOverview({ species }: SpeciesOverviewProps) {
     <section className="bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px]">
         <div className="border-r border-[#d8d8d8]">
-          <div className="ml-6 border-l border-b border-t border-[#d8d8d8] md:ml-10 grid grid-cols-4 text-center">
+          <div className="border-l border-b border-t border-[#d8d8d8] grid grid-cols-4 text-center">
             {tabs.map((tab) => (
               <button
                 key={tab}
@@ -45,7 +45,7 @@ export default function SpeciesOverview({ species }: SpeciesOverviewProps) {
             ))}
           </div>
 
-          <div className="px-6 py-5 md:px-10">
+          <div className="py-5 md:pr-10">
             {activeTab === "Overview" && <OverviewTab species={species} />}
             {activeTab === "Where to Find" && <WhereToFindTab species={species} />}
             {activeTab === "Status & Ranks" && <StatusRanksTab species={species} />}
