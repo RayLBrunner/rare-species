@@ -3,8 +3,16 @@ import type { List, Species } from "@/types/species";
 
 const allSpecies = data as unknown as Species[];
 
+function toTitleCase(str: string): string {
+  return str.replace(/(?<!')\b\w/g, (char) => char.toUpperCase());
+}
+
+function normalizeSpecies(s: Species): Species {
+  return s.commonName ? { ...s, commonName: toTitleCase(s.commonName) } : s;
+}
+
 export function getAllSpecies(): Species[] {
-  return allSpecies.filter((s) => s.slug && s.commonName);
+  return allSpecies.filter((s) => s.slug && s.commonName).map(normalizeSpecies);
 }
 
 export function getSpeciesBySlug(slug: string): Species | undefined {
