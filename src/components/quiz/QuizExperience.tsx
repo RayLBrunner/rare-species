@@ -7,6 +7,7 @@ import { questions } from "@/data/questions";
 import { filterSpecies, pickResult } from "@/lib/quiz";
 import speciesData from "@/data/species.json";
 import QuizResultView from "./QuizResultView";
+import Image from "next/image";
 
 export default function QuizExperience() {
   const [status, setStatus] = useState<"question" | "result">("question");
@@ -67,7 +68,20 @@ export default function QuizExperience() {
     : 0;
 
   const handleSelect = (value: string) => {
-    setAnswers((previous) => ({ ...previous, [currentQuestion.id]: value }));
+    const currentId = currentQuestion.id;
+    const currentIndex = visibleQuestions.findIndex((q) => q.id === currentId);
+    // Clear answers for all questions after the current one
+    // so the pool recalculates correctly when the user changes an earlier answer
+    setAnswers((previous) => {
+      const updated: Record<string, string> = {};
+      visibleQuestions.forEach((q, index) => {
+        if (index < currentIndex && previous[q.id]) {
+          updated[q.id] = previous[q.id];
+        }
+      });
+      updated[currentId] = value;
+      return updated;
+    });
   };
 
   const handleNext = () => {
@@ -169,7 +183,7 @@ export default function QuizExperience() {
               </div>
               <div className="font-body ml-auto text-sm font-semibold text-[#16873d]">
                 {currentPool.length === 0 ? (
-                  "No exact matches — we'll find your closest species match"
+                  "We found something special for you"
                 ) : (
                   <>{currentPool.length} species still in the running</>
                 )}
@@ -177,7 +191,7 @@ export default function QuizExperience() {
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-7xl px-6 py-8 sm:px-8 sm:py-10 md:px-16">
+          <div className="mx-auto w-full max-w-7xl px-6 py-4 sm:px-8 sm:py-6 md:px-16">
             <h2 className="font-heading text-2xl font-bold text-[#032014] sm:text-3xl">
               {currentQuestion.prompt}
             </h2>
@@ -185,7 +199,7 @@ export default function QuizExperience() {
               {currentQuestion.description}
             </p>
 
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6">
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-6">
               {currentQuestion.options.map((option) => {
                 const isSelected = selectedAnswer === option.value;
 
@@ -204,14 +218,30 @@ export default function QuizExperience() {
                       }`}
                     >
                       {isSelected && (
-                        <span className="font-body absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#16873d] text-xs font-bold text-white">
+                        <span className="font-body absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-[#16873d] text-xs font-bold text-white">
                           ✓
                         </span>
                       )}
-                      <div className="flex h-16 shrink-0 items-start bg-[#e5e0d5] p-3">
-                        <span className="text-2xl leading-none">
-                          {option.emoji}
-                        </span>
+                      <div
+                        className={`relative shrink-0 overflow-hidden bg-[#e5e0d5] ${
+                          option.image ? "aspect-video w-full" : "h-16 w-full"
+                        }`}
+                      >
+                        {option.image ? (
+                          <Image
+                            src={option.image}
+                            alt={option.label}
+                            fill
+                            sizes="(max-width: 768px) 50vw, 33vw"
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-start p-3">
+                            <span className="text-2xl leading-none">
+                              {option.emoji}
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <div className="flex flex-1 flex-col justify-center px-4 py-3">
                         <p className="font-body font-semibold text-[#032014]">
@@ -242,7 +272,7 @@ export default function QuizExperience() {
                 onClick={handleSkip}
                 className="font-body justify-self-center text-sm font-semibold text-[#4b6353] transition hover:text-[#032014]"
               >
-                Choose for me →
+                I can&apos;t choose →
               </button>
 
               <button
