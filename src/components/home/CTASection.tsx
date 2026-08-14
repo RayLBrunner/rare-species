@@ -5,7 +5,7 @@ const DONATE_URL =
 
 export default function CTASection() {
   return (
-    <section className="bg-[#16873d] text-white">
+    <section className="bg-[#032014] text-white">
       <div className="mx-auto w-full max-w-7xl px-6 py-14 md:py-20">
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between md:gap-16">
 
@@ -30,13 +30,13 @@ export default function CTASection() {
               href={DONATE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-body bg-white px-6 py-4 text-center text-sm font-bold text-[#16873d] transition hover:bg-[#d4f0df] sm:flex-1 md:flex-none"
+              className="font-body border-2 border-white px-6 py-4 text-center text-sm bg-[#16873d] font-semibold bg-[$$] text-white transition hover:bg-[#1b9947] sm:flex-1 md:flex-none"
             >
               Donate to ORBIC →
             </Link>
             <Link
               href="#"
-              className="font-body border-2 border-white px-6 py-4 text-center text-sm font-semibold text-white transition hover:bg-white hover:text-[#16873d] sm:flex-1 md:flex-none"
+              className= "font-body bg-white px-6 py-4 text-center text-sm font-bold text-[#16873d] transition hover:bg-[#d4f0df] sm:flex-1 md:flex-none"
             >
               Join our email list
             </Link>
