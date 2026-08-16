@@ -22,7 +22,7 @@ function getBadgeColor(rank: string | undefined): string {
 export default function SpeciesHero({ species }: SpeciesHeroProps) {
   const breadcrumbPart1 =
     species.kingdom ?? LIST_FRIENDLY_NAMES[species.list] ?? "";
-  const breadcrumb = [breadcrumbPart1, species.family, "Oregon"]
+  const breadcrumb = [breadcrumbPart1, species.taxonClass, species.family]
     .filter(Boolean)
     .join(" → ");
 
