@@ -4,7 +4,7 @@ import re
 
 # Paths are defined as constants so they can be easily updated
 # if the project structure changes or Ray provides a new data file
-INPUT_CSV = "raw_data/ORBIC_List_09072026.csv"
+INPUT_CSV = "raw_data/ORBIC_List_23072026.csv"
 OUTPUT_JSON = "src/data/species.json"
 
 def generate_slug(element_id, scientific_name):

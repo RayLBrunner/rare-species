@@ -8,11 +8,11 @@ const DEFAULT_FILTER_BY_ROW: Record<string, string> = {
   Geography: "All",
 };
 
-export default function useSpeciesFilters() {
+export default function useSpeciesFilters(initialTaxonomyFilter?: string) {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, string[]>
   >({
-    Taxonomy: ["All species"],
+    Taxonomy: [initialTaxonomyFilter ?? "All species"],
     Status: [],
     Geography: ["All"],
   });
@@ -137,10 +137,12 @@ export default function useSpeciesFilters() {
 
     const nextOptions = allSelected ? [] : [...allOptions];
 
-    setSelectedDropdownOptions((current) => ({
-      ...current,
+    const nextDropdownOptions = {
+      ...selectedDropdownOptions,
       [filterName]: nextOptions,
-    }));
+    };
+
+    setSelectedDropdownOptions(nextDropdownOptions);
 
     const row = filterRows.find((currentRow) =>
       currentRow.filters.includes(filterName),
@@ -157,7 +159,11 @@ export default function useSpeciesFilters() {
         (filter) => filter !== defaultFilter,
       );
 
-      if (nextOptions.length === 0 && selectedSpecificFilters.length === 0) {
+      const rowHasDropdownSelections = row.filters.some(
+        (filter) => (nextDropdownOptions[filter]?.length ?? 0) > 0,
+      );
+
+      if (nextOptions.length === 0 && selectedSpecificFilters.length === 0 && !rowHasDropdownSelections) {
         return {
           ...current,
           [row.label]: [defaultFilter],

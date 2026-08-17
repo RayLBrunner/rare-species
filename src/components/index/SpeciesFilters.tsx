@@ -96,20 +96,23 @@ export default function SpeciesFilters({
   const isOrEndemicSelected =
     selectedFilters.Geography?.includes("OR Endemic") ?? false;
 
+  // Mobile "All" is only active when taxonomy is at default AND no cross-category
+  // mobile filters (Endangered, OR Endemic) are also selected
+  const mobileAllIsActive =
+    (selectedFilters.Taxonomy?.includes("All species") ?? false) &&
+    !isEndangeredSelected &&
+    !isOrEndemicSelected;
+
   return (
     <>
       <section className="font-body mb-3 space-y-2 sm:hidden">
         <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
-            aria-pressed={
-              selectedFilters.Taxonomy?.includes("All species") ?? false
-            }
+            aria-pressed={mobileAllIsActive}
             onClick={() => toggleFilter("Taxonomy", "All species")}
             className={`cursor-pointer border-2 border-black px-3 py-1.5 text-[10px] font-bold ${
-              selectedFilters.Taxonomy?.includes("All species")
-                ? "bg-black text-white"
-                : "bg-white text-black"
+              mobileAllIsActive ? "bg-black text-white" : "bg-white text-black"
             }`}
           >
             All

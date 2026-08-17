@@ -1,34 +1,43 @@
-import SpeciesCard from "./SpeciesCard";
 import Link from "next/link";
+import SpeciesCard from "./SpeciesCard";
+import { getSpeciesCountByList } from "@/lib/species";
+import type { List } from "@/types/species";
 
-const categories = [
+const categories: {
+  title: string;
+  subtitle: string;
+  list: List;
+  image: string;
+}[] = [
   {
-    title: "Plants",
-    subtitle: "Kingdom Plantae",
-    image: "/images/categories/plants.jpg",
-    count: 412,
+    title: "Vertebrate Animals",
+    subtitle: "Fish, amphibians, reptiles, birds, mammals",
+    list: "vertebrateAnimals",
+    image: "/images/categories/vertebrate-animals-icon.svg",
   },
   {
-    title: "Mammals",
-    subtitle: "Class Mammalia",
-    image: "/images/categories/mammals.jpg",
-    count: 58,
+    title: "Invertebrate Animals",
+    subtitle: "Arthropods, molluscs, worms, sea stars",
+    list: "invertebrateAnimals",
+    image: "/images/categories/invertebrate-animals-icon.svg",
   },
   {
-    title: "Birds",
-    subtitle: "Class Aves",
-    image: "/images/categories/birds.jpg",
-    count: 95,
+    title: "Vascular Plants",
+    subtitle: "Ferns, conifers, flowering plants",
+    list: "vascularPlants",
+    image: "/images/categories/vascular-plants-icon.svg",
   },
   {
-    title: "Reptiles",
-    subtitle: "Class Reptilia",
-    image: "/images/categories/reptiles.jpg",
-    count: 24,
+    title: "Nonvascular Plants and Fungi",
+    subtitle: "Bryophytes, fungi, lichen, algae",
+    list: "nonvascularPlantsAndFungi",
+    image: "/images/categories/nonvasc-plants-icon.svg",
   },
 ];
 
 export default function SpeciesCategories() {
+  const countsByList = getSpeciesCountByList();
+
   return (
     <section>
       <div className="mb-3 flex items-center justify-between">
@@ -43,9 +52,18 @@ export default function SpeciesCategories() {
 
       <div className="flex gap-3 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 md:grid-cols-4 md:overflow-visible">
         {categories.map((category) => (
-          <div key={category.title} className="min-w-[140px] sm:min-w-0">
-            <SpeciesCard {...category} />
-          </div>
+          <Link
+            key={category.list}
+            href={`/species?list=${category.list}`}
+            className="min-w-[140px] sm:min-w-0"
+          >
+            <SpeciesCard
+              title={category.title}
+              subtitle={category.subtitle}
+              image={category.image}
+              count={countsByList[category.list] ?? 0}
+            />
+          </Link>
         ))}
       </div>
 

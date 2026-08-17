@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getAllSpecies } from "@/lib/species";
 
 export default function Hero() {
+  const speciesCount = getAllSpecies().length.toLocaleString("en-US");
+
   return (
     <section className="relative w-full overflow-hidden bg-[#032014] text-white">
       <Image
@@ -23,7 +26,7 @@ export default function Hero() {
           <h1 className="font-heading text-[34px] font-bold leading-[0.95] tracking-[-1px] sm:text-[48px] md:text-[72px] md:leading-[0.92] md:tracking-[-3px]">
             Oregon has
             <br />
-            1,859 rare
+            {speciesCount} rare
             <br />
             species.
           </h1>
@@ -50,7 +53,7 @@ export default function Hero() {
               href="/species"
               className="font-body text-sm text-[#7fc49b] transition hover:text-white"
             >
-              Browse all 1,859 →
+              Browse all {speciesCount} →
             </Link>
           </div>
         </div>

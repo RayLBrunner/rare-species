@@ -1,8 +1,9 @@
 import Hero from "../components/home/Hero";
 import SpeciesCategories from "../components/home/ExploreBySpecies";
-import ExploreByHabitat from "../components/home/ExploreByHabitat";
+import BrowseByStatus from "../components/home/BrowseByStatus";
 import ExploreMap from "../components/home/ExploreMap";
 import FeaturedSpecies from "@/components/home/FeaturedSpecies";
+import CTASection from "@/components/home/CTASection";
 
 export default function Home() {
   return (
@@ -12,10 +13,11 @@ export default function Home() {
         <div className="space-y-4">
           <FeaturedSpecies />
           <SpeciesCategories />
-          <ExploreByHabitat />
+          <BrowseByStatus />
           <ExploreMap />
         </div>
       </main>
+      <CTASection />
     </>
   );
 }
