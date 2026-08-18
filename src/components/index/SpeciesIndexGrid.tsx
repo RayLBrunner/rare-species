@@ -24,6 +24,8 @@ export default function SpeciesIndexGrid({ species }: SpeciesIndexGridProps) {
             slug={item.slug}
             list={item.orbicList ? `List ${item.orbicList}` : "—"}
             listColor={LIST_COLOR[String(item.orbicList)] ?? "bg-[#6d6d6d]"}
+            elementGlobalId={item.elementGlobalId}
+            category={item.list}
           />
         ))}
       </section>
@@ -37,6 +39,8 @@ export default function SpeciesIndexGrid({ species }: SpeciesIndexGridProps) {
             slug={item.slug}
             list={item.orbicList ? `List ${item.orbicList}` : "—"}
             listColor={LIST_COLOR[String(item.orbicList)] ?? "bg-[#6d6d6d]"}
+            elementGlobalId={item.elementGlobalId}
+            category={item.list}
           />
         ))}
       </section>
