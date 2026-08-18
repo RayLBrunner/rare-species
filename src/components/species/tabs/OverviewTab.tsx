@@ -77,15 +77,6 @@ export default function OverviewTab({ species }: OverviewTabProps) {
             <div key={photo} className="h-24 bg-[#ddd9d2]" />
           ))}
         </div>
-        <div className="mt-6 space-y-3 lg:hidden">
-          <button className="font-body w-full border-b-4 border-black bg-[#15803d] px-4 py-4 text-sm font-bold text-white">
-            Sponsor this species →
-          </button>
-
-          <button className="font-body w-full border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black">
-            Download card
-          </button>
-        </div>
       </section>
     </div>
   );
