@@ -1,9 +1,14 @@
+import Image from "next/image";
 import type { Species } from "@/types/species";
 import {
   LIST_FRIENDLY_NAMES,
   getStateRankPrimary,
-  STATE_RANK_COLORS,
 } from "@/lib/speciesDisplay";
+import {
+  getSpeciesImagePath,
+  getPhotoAttribution,
+  getCategoryIcon,
+} from "@/lib/speciesImage";
 
 interface SpeciesHeroProps {
   species: Species;
@@ -27,8 +32,10 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
     .join(" → ");
 
   const primaryStateRank = getStateRankPrimary(species.stateRank);
-  const stateRankTextColor =
-    STATE_RANK_COLORS[primaryStateRank] ?? "text-white";
+
+  const imagePath = getSpeciesImagePath(species.elementGlobalId);
+  const attr = getPhotoAttribution(species.elementGlobalId);
+  const categoryIcon = getCategoryIcon(species.list);
 
   const heroBadges: { label: string; color: string }[] = [];
 
@@ -80,10 +87,29 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
           </div>
         </div>
 
-        <div className="font-body hidden min-h-[240px] items-center justify-center bg-[#ddd9d2] text-center text-xs font-bold uppercase tracking-widest text-[#aaa59c] md:flex">
-          Species Photo
-          <br />
-          full bleed · 500 × 360
+        <div className="relative hidden min-h-[240px] bg-[#ddd9d2] md:block">
+          {imagePath ? (
+            <>
+              <Image
+                src={imagePath}
+                alt={attr?.altText ?? species.commonName ?? ""}
+                fill
+                sizes="(max-width: 1280px) 40vw, 450px"
+                className="object-cover"
+              />
+              {attr && (
+                <p className="font-body absolute bottom-0 left-0 right-0 bg-black/50 px-3 py-1.5 text-[10px] text-white">
+                  {attr.photographer} · {attr.license}
+                </p>
+              )}
+            </>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative h-24 w-24 opacity-30">
+                <Image src={categoryIcon} alt="" fill className="object-contain" />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
