@@ -6,9 +6,13 @@ import { useEffect, useRef, useState } from "react";
 import type { Species } from "@/types/species";
 import SpeciesSummarySentence from "@/components/species/SpeciesSummarySentence";
 import { formatList, getEcoregionNames } from "@/lib/species-sentence";
+import { buildWhyMatched } from "@/lib/quiz";
+import { questions } from "@/data/questions";
+import type { QuizFilters } from "@/lib/quiz";
 
 interface QuizResultViewProps {
   result: Species;
+  answers: QuizFilters;
   onRestart: () => void;
 }
 
@@ -60,6 +64,7 @@ function Badge({
 
 export default function QuizResultView({
   result,
+  answers,
   onRestart,
 }: QuizResultViewProps) {
   const nameHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -293,14 +298,12 @@ export default function QuizResultView({
 
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-8 sm:px-8 sm:py-10 md:px-16 lg:grid lg:grid-cols-[1.4fr_1fr] lg:gap-12">
         <div>
-          {/* TODO: whyMatched has no equivalent on Species — needs content decision */}
           <div className="border-t border-[#e0ddd7] pt-6">
             <h3 className="font-heading text-lg font-bold text-[#0f0f0f]">
               Why you matched
             </h3>
             <p className="font-body mt-2 max-w-2xl text-sm leading-7 text-[#4d4d4d]">
-              {result.ecologyComments ??
-                "No additional match information available for this species."}
+              {buildWhyMatched(answers, questions)}
             </p>
           </div>
 

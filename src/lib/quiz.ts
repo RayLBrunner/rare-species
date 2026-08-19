@@ -158,3 +158,30 @@ export function pickResult(pool: Species[], allSpecies: Species[]): Species {
   const index = Math.floor(Math.random() * source.length);
   return source[index];
 }
+
+export function buildWhyMatched(
+  answers: QuizFilters,
+  questionList: typeof questions
+): string {
+  const phrases: string[] = [];
+
+  for (const question of questionList) {
+    const value = answers[question.id];
+    if (!value) continue;
+
+    const option = question.options.find((o) => o.value === value);
+    if (!option) continue;
+
+    phrases.push(option.detail.toLowerCase());
+  }
+
+  if (phrases.length === 0) {
+    return "This species was randomly selected from the full list.";
+  }
+
+  const last = phrases.pop();
+  const joined =
+    phrases.length > 0 ? `${phrases.join(", ")}, and ${last}` : last;
+
+  return `You matched because you chose: ${joined}.`;
+}

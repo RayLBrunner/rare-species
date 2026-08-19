@@ -294,7 +294,11 @@ export default function QuizExperience() {
       )}
 
       {status === "result" && (
-        <QuizResultView result={result} onRestart={handleRestart} />
+        <QuizResultView
+          result={result}
+          answers={answers}
+          onRestart={handleRestart}
+        />
       )}
 
       {isExitDialogOpen && (
