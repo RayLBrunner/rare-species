@@ -6,9 +6,13 @@ import { useEffect, useRef, useState } from "react";
 import type { Species } from "@/types/species";
 import SpeciesSummarySentence from "@/components/species/SpeciesSummarySentence";
 import { formatList, getEcoregionNames } from "@/lib/species-sentence";
+import { buildWhyMatched } from "@/lib/quiz";
+import { questions } from "@/data/questions";
+import type { QuizFilters } from "@/lib/quiz";
 
 interface QuizResultViewProps {
   result: Species;
+  answers: QuizFilters;
   onRestart: () => void;
 }
 
@@ -60,6 +64,7 @@ function Badge({
 
 export default function QuizResultView({
   result,
+  answers,
   onRestart,
 }: QuizResultViewProps) {
   const nameHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -299,8 +304,7 @@ export default function QuizResultView({
               Why you matched
             </h3>
             <p className="font-body mt-2 max-w-2xl text-sm leading-7 text-[#4d4d4d]">
-              {result.ecologyComments ??
-                "No additional match information available for this species."}
+              {buildWhyMatched(answers, questions)}
             </p>
           </div>
 
