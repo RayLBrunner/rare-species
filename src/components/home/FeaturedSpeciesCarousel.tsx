@@ -76,7 +76,7 @@ export default function FeaturedSpeciesCarousel({
                       {species.statuses.map((status) => (
                         <div
                           key={status.label}
-                          className="border border-white bg-white/5 p-3"
+                          className="h-[140px] border border-white bg-white/5 p-3"
                         >
                           <div className="flex items-start justify-between gap-2">
                             <span className="font-body text-[15px] font-semibold uppercase tracking-wide text-white/70">

@@ -15,10 +15,10 @@ export default function CTASection() {
               Oregon Biodiversity Information Center
             </p>
             <h2 className="font-heading text-3xl font-bold leading-tight md:text-4xl">
-              Help protect Oregon's rarest species.
+              Help protect Oregon&apos;s rarest species.
             </h2>
             <p className="font-body mt-4 text-base leading-relaxed text-[#d4f0df]">
-              ORBIC tracks Oregon's rare and sensitive species and makes that
+              ORBIC tracks Oregon&apos;s rare and sensitive species and makes that
               data freely available to researchers, agencies, and the public.
               Your support keeps this work going.
             </p>
@@ -30,7 +30,7 @@ export default function CTASection() {
               href={DONATE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-body border-2 border-white px-6 py-4 text-center text-sm bg-[#16873d] font-semibold bg-[$$] text-white transition hover:bg-[#1b9947] sm:flex-1 md:flex-none"
+              className="font-body px-6 py-4 text-center text-sm bg-[#16873d] font-semibold bg-[$$] text-white transition hover:bg-[#1b9947] sm:flex-1 md:flex-none"
             >
               Donate to ORBIC →
             </Link>

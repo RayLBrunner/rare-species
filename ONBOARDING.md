@@ -10,6 +10,8 @@ cd rare-species
 ## 2. Install dependencies
 ```
 npm install
+npm install aos
+npm install react-slick slick-carousel
 ```
 
 ## 3. Install VS Code extensions
