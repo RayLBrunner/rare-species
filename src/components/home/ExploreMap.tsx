@@ -11,7 +11,7 @@ export default function ExploreMap() {
   ];
 
   return (
-    <section>
+    <section data-aos="fade-up">
       <div className="font-body">
         <div className="mb-2 flex items-center justify-between">
           <p className="font-heading text-s font-bold uppercase tracking-[0.25em] text-[#26382c] md:text-lg md:normal-case md:tracking-normal">

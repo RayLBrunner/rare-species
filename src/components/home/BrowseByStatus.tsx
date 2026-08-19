@@ -4,7 +4,7 @@ import StatusCard from "./StatusCard";
 
 export default function BrowseByStatus() {
   return (
-    <section>
+    <section data-aos="fade-up">
       <h2 className="font-heading mb-4 text-lg font-bold">Browse by Status</h2>
       <div className="flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-3 md:grid-cols-6 md:overflow-visible">
         {stateRankBarItems.map((rank) => (

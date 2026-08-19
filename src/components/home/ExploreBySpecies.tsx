@@ -39,7 +39,7 @@ export default function SpeciesCategories() {
   const countsByList = getSpeciesCountByList();
 
   return (
-    <section>
+    <section data-aos="fade-up">
       <div className="mb-3 flex items-center justify-between">
         <p className="font-heading text-lg font-bold">Browse by Species</p>
         <Link

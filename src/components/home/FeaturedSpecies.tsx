@@ -28,7 +28,7 @@ export default function FeaturedSpecies() {
   });
 
   return (
-    <section aria-labelledby="featured-species-heading">
+    <section data-aos="fade-up" aria-labelledby="featured-species-heading">
       <div className="mb-4 z-30 flex items-end justify-between">
         <div>
           <p className="font-body text-xs font-semibold uppercase tracking-widest text-[#15803d]">
