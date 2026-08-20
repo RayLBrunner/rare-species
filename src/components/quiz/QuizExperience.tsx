@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Species } from "@/types/species";
 import { questions } from "@/data/questions";
 import { filterSpecies, pickResult } from "@/lib/quiz";
-import speciesData from "@/data/species.json";
+import { getAllSpecies } from "@/lib/species";
 import QuizResultView from "./QuizResultView";
 import Image from "next/image";
 
@@ -15,7 +15,7 @@ export default function QuizExperience() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isExitDialogOpen, setIsExitDialogOpen] = useState(false);
 
-  const allSpecies = speciesData as unknown as Species[];
+  const allSpecies = getAllSpecies();
 
   // Recompute the filtered pool every time answers change so countLabel stays live
   const currentPool = useMemo(
@@ -258,14 +258,17 @@ export default function QuizExperience() {
             </div>
 
             <div className="mt-8 grid grid-cols-3 items-center gap-3">
-              <button
-                type="button"
-                onClick={handleBack}
-                disabled={currentQuestionIndex === 0}
-                className="font-body justify-self-start rounded-md border-2 border-[#1a1a1a] bg-white px-4 py-2.5 text-sm font-semibold text-[#1a1a1a] transition hover:bg-[#f5f7f3] disabled:cursor-not-allowed disabled:border-[#1a1a1a]/30 disabled:text-[#1a1a1a]/30 disabled:hover:bg-white"
-              >
-                {currentQuestionIndex > 0 ? "← Back" : "← Start over"}
-              </button>
+              {currentQuestionIndex > 0 ? (
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="font-body justify-self-start rounded-md border-2 border-[#1a1a1a] bg-white px-4 py-2.5 text-sm font-semibold text-[#1a1a1a] transition hover:bg-[#f5f7f3]"
+                >
+                  ← Back
+                </button>
+              ) : (
+                <div />
+              )}
 
               <button
                 type="button"

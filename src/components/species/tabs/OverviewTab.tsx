@@ -34,9 +34,10 @@ export default function OverviewTab({ species }: OverviewTabProps) {
           <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
             Habitat &amp; Ecology
           </h2>
-          <p className="font-body max-w-[720px] text-sm leading-6 text-black">
-            {species.habitatDescription}
-          </p>
+          <p
+            className="font-body max-w-[720px] text-sm leading-6 text-black"
+            dangerouslySetInnerHTML={{ __html: species.habitatDescription }}
+          />
         </section>
       )}
 
@@ -45,9 +46,10 @@ export default function OverviewTab({ species }: OverviewTabProps) {
           <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
             Identification
           </h2>
-          <p className="font-body max-w-[720px] text-sm leading-6 text-black">
-            {species.physicalDescription}
-          </p>
+          <p
+            className="font-body max-w-[720px] text-sm leading-6 text-black"
+            dangerouslySetInnerHTML={{ __html: species.physicalDescription }}
+          />
         </section>
       )}
 
@@ -56,9 +58,10 @@ export default function OverviewTab({ species }: OverviewTabProps) {
           <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
             Ecology
           </h2>
-          <p className="font-body max-w-[720px] text-sm leading-6 text-black">
-            {species.ecologyComments}
-          </p>
+          <p
+            className="font-body max-w-[720px] text-sm leading-6 text-black"
+            dangerouslySetInnerHTML={{ __html: species.ecologyComments }}
+          />
         </section>
       )}
 
@@ -67,9 +70,10 @@ export default function OverviewTab({ species }: OverviewTabProps) {
           <h2 className="font-body mb-3 text-[12px] font-bold text-[#15803d]">
             Global Range
           </h2>
-          <p className="font-body max-w-[720px] text-sm leading-6 text-black">
-            {species.globalRangeComments}
-          </p>
+          <p
+            className="font-body max-w-[720px] text-sm leading-6 text-black"
+            dangerouslySetInnerHTML={{ __html: species.globalRangeComments }}
+          />
         </section>
       )}
 
