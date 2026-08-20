@@ -45,7 +45,7 @@ export default function Hero() {
               </div>
 
               <div className="mt-1 text-xs text-[#b7d2c2] sm:text-sm">
-                6 questions • 2 minutes
+                2 minutes
               </div>
             </Link>
 
