@@ -148,7 +148,7 @@ Log files are written to a `logs/` folder after the image script runs — check 
 
 ---
 
-```markdown
+
 ## Saving and publishing your changes
 
 After running a data pipeline script (or making any change to the project), you need to save and share it so the live site actually updates. This is called "committing and pushing."
@@ -176,7 +176,6 @@ After running a data pipeline script (or making any change to the project), you 
 That's it — within a few minutes, Vercel will automatically rebuild and publish the updated site. You can watch the deploy progress at vercel.com under your project's "Deployments" tab.
 
 > **Note:** the very first time you do this on a new computer, git may ask you to log in to GitHub. Follow the on-screen prompts — this only needs to happen once.
-```
 
 ## Hosting and deployments
 
