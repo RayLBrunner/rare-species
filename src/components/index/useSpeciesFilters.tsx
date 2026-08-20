@@ -19,7 +19,12 @@ export default function useSpeciesFilters(initialTaxonomyFilter?: string) {
 
   const [selectedDropdownOptions, setSelectedDropdownOptions] = useState<
     Record<string, string[]>
-  >({});
+  >(() => {
+    if (initialTaxonomyFilter && dropdownOptions[initialTaxonomyFilter]) {
+      return { [initialTaxonomyFilter]: [...dropdownOptions[initialTaxonomyFilter]] };
+    }
+    return {};
+  });
 
   const toggleFilter = (rowLabel: string, filterName: string) => {
     const defaultFilter = DEFAULT_FILTER_BY_ROW[rowLabel];
@@ -156,7 +161,9 @@ export default function useSpeciesFilters(initialTaxonomyFilter?: string) {
 
     setSelectedFilters((current) => {
       const selectedSpecificFilters = (current[row.label] ?? []).filter(
-        (filter) => filter !== defaultFilter,
+        (filter) =>
+          filter !== defaultFilter &&
+          (nextOptions.length > 0 || filter !== filterName),
       );
 
       const rowHasDropdownSelections = row.filters.some(
