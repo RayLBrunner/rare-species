@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import type { Species } from "@/types/species";
 import { questions } from "@/data/questions";
 import { filterSpecies, pickResult } from "@/lib/quiz";
 import { getAllSpecies } from "@/lib/species";
@@ -223,18 +222,29 @@ export default function QuizExperience() {
                         </span>
                       )}
                       <div
-                        className={`relative shrink-0 overflow-hidden bg-[#e5e0d5] ${
-                          option.image ? "aspect-video w-full" : "h-16 w-full"
+                        className={`relative shrink-0 overflow-hidden ${
+                          option.image
+                            ? "aspect-video w-full"
+                            : option.backgroundColor
+                              ? `h-16 w-full ${option.backgroundColor}`
+                              : "h-16 w-full bg-[#e5e0d5]"
                         }`}
                       >
                         {option.image ? (
-                          <Image
-                            src={option.image}
-                            alt={option.label}
-                            fill
-                            sizes="(max-width: 768px) 50vw, 33vw"
-                            className="object-cover"
-                          />
+                          <>
+                            <Image
+                              src={option.image}
+                              alt={option.label}
+                              fill
+                              sizes="(max-width: 768px) 50vw, 33vw"
+                              className="object-cover"
+                            />
+                            {option.citation && (
+                              <p className="font-body absolute bottom-1 right-2 rounded bg-black/60 px-2 py-1 text-[10px] text-white">
+                                {option.citation}
+                              </p>
+                            )}
+                          </>
                         ) : (
                           <div className="flex h-full w-full items-start p-3">
                             <span className="text-2xl leading-none">
