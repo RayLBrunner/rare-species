@@ -8,18 +8,23 @@ const DEFAULT_FILTER_BY_ROW: Record<string, string> = {
   Geography: "All",
 };
 
-export default function useSpeciesFilters(initialTaxonomyFilter?: string) {
+export default function useSpeciesFilters(
+  initialTaxonomyFilter?: string,
+  initialEcoregionName?: string,
+) {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, string[]>
   >({
     Taxonomy: [initialTaxonomyFilter ?? "All species"],
     Status: [],
-    Geography: ["All"],
+    // An incoming ecoregion is a real Geography selection, so the row must not
+    // also sit on its "All" default.
+    Geography: initialEcoregionName ? [] : ["All"],
   });
 
   const [selectedDropdownOptions, setSelectedDropdownOptions] = useState<
     Record<string, string[]>
-  >({});
+  >(initialEcoregionName ? { "Ecoregion +": [initialEcoregionName] } : {});
 
   const toggleFilter = (rowLabel: string, filterName: string) => {
     const defaultFilter = DEFAULT_FILTER_BY_ROW[rowLabel];

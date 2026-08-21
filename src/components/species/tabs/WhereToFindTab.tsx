@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Species } from "@/types/species";
 import {
   ECOREGION_NAMES,
@@ -9,9 +10,13 @@ import {
 
 interface WhereToFindTabProps {
   species: Species;
+  ecoregionMap: ReactNode;
 }
 
-export default function WhereToFindTab({ species }: WhereToFindTabProps) {
+export default function WhereToFindTab({
+  species,
+  ecoregionMap,
+}: WhereToFindTabProps) {
   const ecoregionCodes = parseAbbrs(species.ecoregion as string | undefined);
   const countyCodes = parseAbbrs(species.county);
   const isOrEndemic = getOrEndemicFlag(species.orEndemic);
@@ -21,7 +26,9 @@ export default function WhereToFindTab({ species }: WhereToFindTabProps) {
     .filter(Boolean);
 
   const hasOtherStates =
-    species.otherStates && species.otherStates !== "0" && species.otherStates.trim() !== "";
+    species.otherStates &&
+    species.otherStates !== "0" &&
+    species.otherStates.trim() !== "";
 
   return (
     <div>
@@ -84,13 +91,11 @@ export default function WhereToFindTab({ species }: WhereToFindTabProps) {
           Range map
         </h2>
 
-        <div className="font-body flex h-48 items-center justify-center border border-[#d6d0c8] bg-[#ddd9d2] text-[11px] font-bold text-[#777] md:h-64">
-          RANGE MAP
+        <div className="border border-[#d6d0c8] bg-[#ddd9d2] p-4">
+          <div className="mx-auto max-w-[280px] md:max-w-[360px]">
+            {ecoregionMap}
+          </div>
         </div>
-
-        <p className="font-body mt-3 text-[10px] italic text-[#777]">
-          Locations fuzzy-masked per GBIF sensitivity protocol
-        </p>
       </section>
     </div>
   );

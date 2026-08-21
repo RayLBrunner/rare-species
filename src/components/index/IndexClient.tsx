@@ -4,7 +4,12 @@ import { useState } from "react";
 import type { Species } from "@/types/species";
 import AdvancedFiltersModal from "./AdvancedFiltersModal";
 import ConservationRankBar from "./ConservationRankBar";
-import { LIST_TO_TAXONOMY_FILTER, RANK_BAR_MAP } from "./FilterData";
+import {
+  ECOREGION_FILTER_NAME_BY_CODE,
+  ECOREGION_MAP,
+  LIST_TO_TAXONOMY_FILTER,
+  RANK_BAR_MAP,
+} from "./FilterData";
 import SpeciesFilters from "./SpeciesFilters";
 import SpeciesIndexGrid from "./SpeciesIndexGrid";
 import SpeciesIndexList from "./SpeciesIndexList";
@@ -15,18 +20,6 @@ export type SpeciesView = "grid" | "list";
 
 const LIST_PAGE_SIZE = 25;
 const GRID_PAGE_SIZE = 24;
-
-const ECOREGION_MAP: Record<string, string> = {
-  "Blue Mountains": "BM",
-  "Northern Basin and Range": "BR",
-  "Columbia Basin": "CB",
-  "Coast Range": "CR",
-  "East Cascades": "EC",
-  "Klamath Mountains": "KM",
-  "Marine and Estuarine": "ME",
-  "West Cascades": "WC",
-  "Willamette Valley": "WV",
-};
 
 const COUNTY_MAP: Record<string, string> = {
   Baker: "Bake",
@@ -383,12 +376,14 @@ interface IndexClientProps {
   species: Species[];
   initialList?: string;
   initialRank?: string;
+  initialEcoregion?: string;
 }
 
 export default function IndexClient({
   species,
   initialList,
   initialRank,
+  initialEcoregion,
 }: IndexClientProps) {
   const [view, setView] = useState<SpeciesView>("list");
   const [isAdvancedFiltersOpen, setIsAdvancedFiltersOpen] = useState(false);
@@ -402,6 +397,12 @@ export default function IndexClient({
     ? LIST_TO_TAXONOMY_FILTER[initialList]
     : undefined;
 
+  // `?ecoregion=CR` seeds the Geography row's "Ecoregion +" dropdown so the
+  // filter arrives already applied (and visibly selected) from the homepage map.
+  const initialEcoregionName = initialEcoregion
+    ? ECOREGION_FILTER_NAME_BY_CODE[initialEcoregion.toUpperCase()]
+    : undefined;
+
   const onToggleRank = (rank: string) => {
     setCurrentPage(1);
     setSelectedRanks((current) =>
@@ -411,7 +412,10 @@ export default function IndexClient({
     );
   };
 
-  const rawFilters = useSpeciesFilters(initialTaxonomyFilter);
+  const rawFilters = useSpeciesFilters(
+    initialTaxonomyFilter,
+    initialEcoregionName,
+  );
 
   const filters = {
     ...rawFilters,
