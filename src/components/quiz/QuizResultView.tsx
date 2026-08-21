@@ -296,7 +296,7 @@ export default function QuizResultView({
                 Sponsor →
               </a>
 
-              <div className="relative" ref={shareRef}>
+              <div className="relative w-full sm:w-auto" ref={shareRef}>
                 <button
                   type="button"
                   onClick={() => setIsShareOpen((open) => !open)}
@@ -310,7 +310,7 @@ export default function QuizResultView({
                   <div
                     role="dialog"
                     aria-label="Share your result"
-                    className="absolute right-0 top-full z-20 mt-2 w-[280px] rounded-md border border-[#d8d8d8] bg-white p-3 text-[#0f0f0f] shadow-lg sm:w-[300px]"
+                    className="absolute left-0 top-full z-20 mt-2 w-[280px] rounded-md border border-[#d8d8d8] bg-white p-3 text-[#0f0f0f] shadow-lg sm:left-auto sm:right-0 sm:w-[300px]"
                   >
                     <p className="font-body text-xs font-bold">
                       🔗 Share your result
