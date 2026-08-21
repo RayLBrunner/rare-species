@@ -41,6 +41,17 @@ export function getPhotoAttribution(elementGlobalId: string): PhotoAttribution |
   };
 }
 
+const CATEGORY_LABELS: Record<string, string> = {
+  vascularPlants: "Vascular Plants",
+  nonvascularPlantsAndFungi: "Nonvascular Plants & Fungi",
+  vertebrateAnimals: "Vertebrate Animals",
+  invertebrateAnimals: "Invertebrate Animals",
+};
+
 export function getCategoryIcon(list: string): string {
   return CATEGORY_ICONS[list] ?? "/images/categories/vascular-plants-icon.svg";
+}
+
+export function getCategoryLabel(list: string): string {
+  return CATEGORY_LABELS[list] ?? "Unknown Group";
 }

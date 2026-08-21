@@ -10,7 +10,7 @@ import { formatList, getEcoregionNames } from "@/lib/species-sentence";
 import { buildWhyMatched } from "@/lib/quiz";
 import { questions } from "@/data/questions";
 import type { QuizFilters } from "@/lib/quiz";
-import { getSpeciesImagePath, getCategoryIcon } from "@/lib/speciesImage";
+import { getSpeciesImagePath, getCategoryIcon, getCategoryLabel } from "@/lib/speciesImage";
 
 interface QuizResultViewProps {
   result: Species;
@@ -115,6 +115,7 @@ export default function QuizResultView({
 
   const imagePath = getSpeciesImagePath(result.elementGlobalId);
   const categoryIcon = getCategoryIcon(result.list);
+  const categoryLabel = getCategoryLabel(result.list);
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const shareText = `I matched with the ${result.commonName} on ORBIC's Oregon rare species quiz!`;
@@ -215,7 +216,7 @@ export default function QuizResultView({
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-8 sm:px-8 sm:py-10 md:px-16 lg:grid lg:grid-cols-[340px_1fr] lg:items-center lg:py-16">
           <div className="mx-auto w-full max-w-sm border-2 border-white/20 bg-[#0d2419] p-2">
             <div className="border border-white/10 bg-[#0d2419] p-4">
-              <div className="relative aspect-[4/3] w-full bg-[#e7e2da]">
+              <div className="relative aspect-[4/3] w-full bg-black">
                 {imagePath ? (
                   <Image
                     src={imagePath}
@@ -225,10 +226,11 @@ export default function QuizResultView({
                     className="object-cover"
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center">
+                  <div className="flex h-full flex-col items-center justify-center gap-3">
                     <div className="relative h-16 w-16 opacity-30">
                       <Image src={categoryIcon} alt="" fill className="object-contain" />
                     </div>
+                    <p className="font-body text-xs font-medium text-white/50">{categoryLabel}</p>
                   </div>
                 )}
               </div>
@@ -420,7 +422,7 @@ export default function QuizResultView({
           </p>
 
           <div className="mt-3 flex gap-3 border-2 border-[#e0ddd7] p-3">
-            <div className="relative h-20 w-16 shrink-0 bg-[#e7e2da]">
+            <div className="relative h-20 w-16 shrink-0 bg-black">
               {imagePath ? (
                 <Image
                   src={imagePath}
@@ -430,10 +432,11 @@ export default function QuizResultView({
                   className="object-cover"
                 />
               ) : (
-                <div className="flex h-full items-center justify-center">
+                <div className="flex h-full flex-col items-center justify-center gap-1.5">
                   <div className="relative h-8 w-8 opacity-30">
                     <Image src={categoryIcon} alt="" fill className="object-contain" />
                   </div>
+                  <p className="font-body text-center text-[9px] font-medium text-white/50">{categoryLabel}</p>
                 </div>
               )}
             </div>
