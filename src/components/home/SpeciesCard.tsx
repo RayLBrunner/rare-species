@@ -14,7 +14,7 @@ export default function SpeciesCard({
   count,
 }: SpeciesCardProps) {
   return (
-    <div className="flex h-full flex-col border-2 border-black bg-white">
+    <div className="flex h-full flex-col border-2 border-black bg-white transition-all duration-300 ease-in hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#000]">
       <div className="relative aspect-[4/3] bg-[#032014] p-5 sm:p-7">
         {image && (
           <div className="absolute inset-0 m-auto h-[70%] w-[70%]">
