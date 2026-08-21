@@ -1,6 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getSpeciesImagePath, getCategoryIcon } from "@/lib/speciesImage";
+import { getSpeciesImagePath, getCategoryIcon, getCategoryLabel } from "@/lib/speciesImage";
+import { getStateRankPrimary } from "@/lib/speciesDisplay";
+
+const RANK_BG: Record<string, string> = {
+  S1: "#d61f4c",
+  S2: "#d94a15",
+  S3: "#b59b00",
+  S4: "#4e8f12",
+  S5: "#0d6b37",
+};
 
 interface SpeciesIndexCardProps {
   name: string;
@@ -10,6 +19,7 @@ interface SpeciesIndexCardProps {
   listColor: string;
   elementGlobalId: string;
   category: string;
+  stateRank: string;
 }
 
 export default function SpeciesIndexCard({
@@ -20,29 +30,33 @@ export default function SpeciesIndexCard({
   listColor,
   elementGlobalId,
   category,
+  stateRank,
 }: SpeciesIndexCardProps) {
   const imagePath = getSpeciesImagePath(elementGlobalId);
   const categoryIcon = getCategoryIcon(category);
+  const categoryLabel = getCategoryLabel(category);
+  const rankBg = RANK_BG[getStateRankPrimary(stateRank)] ?? "#6d6d6d";
 
   return (
     <Link
       href={`/species/${slug}`}
       className="group block border-[3px] border-black bg-white shadow-[2px_2px_0_#222] transition hover:-translate-y-0.5 hover:bg-[#032014] sm:border-4 sm:shadow-[4px_4px_0_#222]"
     >
-      <div className="relative h-[86px] bg-[#e7e3db] sm:h-40">
+      <div className="relative h-[86px] bg-black sm:h-40">
         {imagePath ? (
           <Image
             src={imagePath}
             alt={name}
             fill
             sizes="(max-width: 640px) 50vw, 25vw"
-            className="object-cover"
+            className="object-contain"
           />
         ) : (
-          <div className="flex h-full items-center justify-center">
+          <div className="flex h-full flex-col items-center justify-center gap-1.5">
             <div className="relative h-8 w-8 opacity-30 sm:h-12 sm:w-12">
               <Image src={categoryIcon} alt="" fill className="object-contain" />
             </div>
+            <p className="font-body hidden text-center text-[9px] font-medium text-white/50 sm:block">{categoryLabel}</p>
           </div>
         )}
       </div>
@@ -56,11 +70,19 @@ export default function SpeciesIndexCard({
           {scientificName}
         </p>
 
-        <span
-          className={`font-body mt-1 inline-block px-2 py-0.5 text-[8px] font-bold text-white sm:mt-2 sm:px-3 sm:py-1 sm:text-[10px] ${listColor}`}
-        >
-          {list}
-        </span>
+        <div className="mt-1 flex flex-wrap gap-1 sm:mt-2">
+          <span
+            className={`font-body inline-block px-2 py-0.5 text-[8px] font-bold text-white sm:px-3 sm:py-1 sm:text-[10px] ${listColor}`}
+          >
+            {list}
+          </span>
+          <span
+            className="font-body inline-block px-2 py-0.5 text-[8px] font-bold text-white sm:px-3 sm:py-1 sm:text-[10px]"
+            style={{ backgroundColor: rankBg }}
+          >
+            {stateRank}
+          </span>
+        </div>
       </div>
     </Link>
   );

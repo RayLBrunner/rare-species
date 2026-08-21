@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Slider, { Settings } from "react-slick";
+import { getCategoryIcon, getCategoryLabel } from "@/lib/speciesImage";
 
 export interface FeaturedSpeciesStatus {
   label: string;
@@ -15,6 +16,7 @@ export interface FeaturedSpeciesItem {
   name: string;
   scientificName: string;
   slug: string;
+  list: string;
   image: string | null;
   statuses: FeaturedSpeciesStatus[];
 }
@@ -42,15 +44,22 @@ export default function FeaturedSpeciesCarousel({
           <div key={species.slug}>
             <article className="grid min-h-[320px] overflow-hidden bg-[#032014] text-white md:grid-cols-[42%_58%]">
               <div className="min-h-[280px] p-5 md:min-h-[320px] md:p-7">
-                <div className="relative h-full min-h-[240px] w-full overflow-hidden border border-white/40 bg-[#e8e5df] text-black md:min-h-[264px]">
-                  {species.image && (
+                <div className="relative h-full min-h-[240px] w-full overflow-hidden border border-white/40 bg-black text-black md:min-h-[264px]">
+                  {species.image ? (
                     <Image
                       src={species.image}
                       alt={species.name}
                       fill
                       sizes="(max-width: 768px) 100vw, 42vw"
-                      className="object-cover"
+                      className="object-contain"
                     />
+                  ) : (
+                    <div className="flex h-full flex-col items-center justify-center gap-3">
+                      <div className="relative h-20 w-20 opacity-30">
+                        <Image src={getCategoryIcon(species.list)} alt="" fill className="object-contain" />
+                      </div>
+                      <p className="font-body text-sm font-medium text-white/50">{getCategoryLabel(species.list)}</p>
+                    </div>
                   )}
                 </div>
               </div>

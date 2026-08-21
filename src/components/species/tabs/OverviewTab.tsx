@@ -9,6 +9,7 @@ import {
   getSpeciesImagePath,
   getPhotoAttribution,
   getCategoryIcon,
+  getCategoryLabel,
 } from "@/lib/speciesImage";
 
 const DONATE_URL =
@@ -25,6 +26,7 @@ export default function OverviewTab({ species }: OverviewTabProps) {
   const imagePath = getSpeciesImagePath(species.elementGlobalId);
   const attr = getPhotoAttribution(species.elementGlobalId);
   const categoryIcon = getCategoryIcon(species.list);
+  const categoryLabel = getCategoryLabel(species.list);
 
   const citation = `ORBIC. 2026. ${species.commonName} (${species.genusSpecies}), Oregon Rare Species Field Guide.`;
 
@@ -106,20 +108,21 @@ export default function OverviewTab({ species }: OverviewTabProps) {
           Photos
         </h2>
 
-        <div className="relative h-48 w-full max-w-sm bg-[#ddd9d2] sm:h-56">
+        <div className="relative h-48 w-full max-w-sm bg-black sm:h-56">
           {imagePath ? (
             <Image
               src={imagePath}
               alt={attr?.altText ?? species.commonName ?? ""}
               fill
               sizes="(max-width: 640px) 100vw, 384px"
-              className="object-cover"
+              className="object-contain"
             />
           ) : (
-            <div className="flex h-full items-center justify-center">
+            <div className="flex h-full flex-col items-center justify-center gap-3">
               <div className="relative h-16 w-16 opacity-30">
                 <Image src={categoryIcon} alt="" fill className="object-contain" />
               </div>
+              <p className="font-body text-xs font-medium text-white/50">{categoryLabel}</p>
             </div>
           )}
         </div>
