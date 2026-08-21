@@ -385,7 +385,7 @@ export default function IndexClient({
   initialRank,
   initialEcoregion,
 }: IndexClientProps) {
-  const [view, setView] = useState<SpeciesView>("list");
+  const [view, setView] = useState<SpeciesView>("grid");
   const [isAdvancedFiltersOpen, setIsAdvancedFiltersOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRanks, setSelectedRanks] = useState<string[]>(

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +10,7 @@ import { formatList, getEcoregionNames } from "@/lib/species-sentence";
 import { buildWhyMatched } from "@/lib/quiz";
 import { questions } from "@/data/questions";
 import type { QuizFilters } from "@/lib/quiz";
+import { getSpeciesImagePath, getCategoryIcon, getCategoryLabel } from "@/lib/speciesImage";
 
 interface QuizResultViewProps {
   result: Species;
@@ -111,6 +113,10 @@ export default function QuizResultView({
     return () => clearTimeout(timeout);
   }, [copied]);
 
+  const imagePath = getSpeciesImagePath(result.elementGlobalId);
+  const categoryIcon = getCategoryIcon(result.list);
+  const categoryLabel = getCategoryLabel(result.list);
+
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const shareText = `I matched with the ${result.commonName} on ORBIC's Oregon rare species quiz!`;
 
@@ -122,21 +128,73 @@ export default function QuizResultView({
     }
   };
 
-  const handleShareImage = async () => {
-    if (typeof navigator !== "undefined" && navigator.share) {
-      try {
-        await navigator.share({
-          title: result.commonName ?? result.scientificName,
-          text: shareText,
-          url: shareUrl,
-        });
-        return;
-      } catch {
-        return;
-      }
+  function handleDownloadPDF() {
+    const speciesUrl = `${window.location.origin}/species/${result.slug}`;
+    const commonName = result.commonName ?? result.scientificName ?? "";
+    const scientificName = result.scientificName ?? "";
+    const statusParts = [
+      result.globalRank,
+      result.stateRank,
+      result.federalRank ? `ESA: ${result.federalRank}` : null,
+    ]
+      .filter(Boolean)
+      .join(" · ");
+
+    const absImage = imagePath ? `${window.location.origin}${imagePath}` : null;
+    const absIcon = `${window.location.origin}${categoryIcon}`;
+
+    const imageHtml = absImage
+      ? `<img src="${absImage}" alt="${commonName}" style="width:100%;height:180px;object-fit:cover;display:block;" />`
+      : `<div style="width:100%;height:120px;background:#e7e2da;display:flex;align-items:center;justify-content:center;">
+           <img src="${absIcon}" alt="" style="width:48px;height:48px;opacity:0.3;" />
+         </div>`;
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>${commonName} – Oregon Rare Species Field Guide</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+    .card { border: 2px solid #222; box-shadow: 4px 4px 0 #222; max-width: 280px; width: 100%; background: #fff; }
+    .content { padding: 14px; }
+    .orbic-label { font-family: sans-serif; font-size: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.15em; color: #15803d; margin-bottom: 8px; }
+    h1 { font-size: 17px; font-weight: bold; line-height: 1.3; color: #0f0f0f; margin-bottom: 3px; }
+    .sci { font-style: italic; font-size: 11px; color: #4d4d4d; margin-bottom: 8px; }
+    .status { font-family: sans-serif; font-size: 10px; color: #4d4d4d; margin-bottom: 12px; }
+    .divider { border: none; border-top: 1px solid #e0ddd7; margin: 10px 0; }
+    .link-label { font-family: sans-serif; font-size: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin-bottom: 3px; }
+    .link { font-family: sans-serif; font-size: 9px; color: #15803d; word-break: break-all; }
+    .footer { font-family: sans-serif; font-size: 8px; color: #bbb; margin-top: 10px; }
+    @media print { body { background: #fff; min-height: auto; padding: 0; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    ${imageHtml}
+    <div class="content">
+      <p class="orbic-label">Oregon Rare Species Field Guide</p>
+      <h1>${commonName}</h1>
+      <p class="sci">${scientificName}</p>
+      <p class="status">${statusParts}</p>
+      <hr class="divider" />
+      <p class="link-label">Full species profile</p>
+      <p class="link">${speciesUrl}</p>
+      <p class="footer">ORBIC · Oregon Biodiversity Information Center</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+    const win = window.open("", "_blank", "width=420,height=640");
+    if (win) {
+      win.document.write(html);
+      win.document.close();
+      win.focus();
+      setTimeout(() => win.print(), 500);
     }
-    handleCopyLink();
-  };
+  }
 
   const federalLabel = result.federalRank
     ? (FEDERAL_LABELS[result.federalRank] ?? result.federalRank)
@@ -158,7 +216,24 @@ export default function QuizResultView({
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-8 sm:px-8 sm:py-10 md:px-16 lg:grid lg:grid-cols-[340px_1fr] lg:items-center lg:py-16">
           <div className="mx-auto w-full max-w-sm border-2 border-white/20 bg-[#0d2419] p-2">
             <div className="border border-white/10 bg-[#0d2419] p-4">
-              <div className="aspect-[4/3] w-full bg-[#e7e2da]" />
+              <div className="relative aspect-[4/3] w-full bg-black">
+                {imagePath ? (
+                  <Image
+                    src={imagePath}
+                    alt={result.commonName ?? result.scientificName ?? ""}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 340px"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full flex-col items-center justify-center gap-3">
+                    <div className="relative h-16 w-16 opacity-30">
+                      <Image src={categoryIcon} alt="" fill className="object-contain" />
+                    </div>
+                    <p className="font-body text-xs font-medium text-white/50">{categoryLabel}</p>
+                  </div>
+                )}
+              </div>
 
               <div aria-live="polite" className="mt-4">
                 <h2
@@ -200,10 +275,12 @@ export default function QuizResultView({
               species={result}
               className="font-body mt-4 max-w-2xl text-sm leading-7 text-[#c9ddd0] sm:text-base"
             />
-            <p className="font-body mt-4 max-w-2xl text-sm leading-7 text-[#c9ddd0] sm:text-base">
-              {result.habitatDescription ??
-                "No description available for this species yet."}
-            </p>
+            <p
+              className="font-body mt-4 max-w-2xl text-sm leading-7 text-[#c9ddd0] sm:text-base"
+              dangerouslySetInnerHTML={{
+                __html: result.habitatDescription ?? "No description available for this species yet.",
+              }}
+            />
 
             <div className="mt-6 flex flex-wrap items-start gap-3">
               <Link
@@ -221,7 +298,7 @@ export default function QuizResultView({
                 Sponsor →
               </a>
 
-              <div className="relative" ref={shareRef}>
+              <div className="relative w-full sm:w-auto" ref={shareRef}>
                 <button
                   type="button"
                   onClick={() => setIsShareOpen((open) => !open)}
@@ -235,7 +312,7 @@ export default function QuizResultView({
                   <div
                     role="dialog"
                     aria-label="Share your result"
-                    className="absolute left-0 top-full z-20 mt-2 w-[280px] rounded-md border border-[#d8d8d8] bg-white p-3 text-[#0f0f0f] shadow-lg sm:w-[300px]"
+                    className="absolute left-0 top-full z-20 mt-2 w-[280px] rounded-md border border-[#d8d8d8] bg-white p-3 text-[#0f0f0f] shadow-lg sm:left-auto sm:right-0 sm:w-[300px]"
                   >
                     <p className="font-body text-xs font-bold">
                       🔗 Share your result
@@ -345,7 +422,24 @@ export default function QuizResultView({
           </p>
 
           <div className="mt-3 flex gap-3 border-2 border-[#e0ddd7] p-3">
-            <div className="h-20 w-16 shrink-0 bg-[#e7e2da]" />
+            <div className="relative h-20 w-16 shrink-0 bg-black">
+              {imagePath ? (
+                <Image
+                  src={imagePath}
+                  alt={result.commonName ?? result.scientificName ?? ""}
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                />
+              ) : (
+                <div className="flex h-full flex-col items-center justify-center gap-1.5">
+                  <div className="relative h-8 w-8 opacity-30">
+                    <Image src={categoryIcon} alt="" fill className="object-contain" />
+                  </div>
+                  <p className="font-body text-center text-[9px] font-medium text-white/50">{categoryLabel}</p>
+                </div>
+              )}
+            </div>
             <div className="min-w-0">
               <p className="font-heading truncate text-sm font-bold text-[#0f0f0f]">
                 {result.commonName ?? result.scientificName}
@@ -363,17 +457,10 @@ export default function QuizResultView({
           <div className="mt-3 flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={() => window.print()}
+              onClick={handleDownloadPDF}
               className="font-body rounded-md border-2 border-[#1a1a1a] bg-white px-4 py-2 text-xs font-bold text-[#0f0f0f] transition hover:bg-[#f5f7f3] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400"
             >
               ⬇ Download PDF
-            </button>
-            <button
-              type="button"
-              onClick={handleShareImage}
-              className="font-body rounded-md border-2 border-[#1a1a1a] bg-white px-4 py-2 text-xs font-bold text-[#0f0f0f] transition hover:bg-[#f5f7f3] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400"
-            >
-              ⬆ Share image
             </button>
           </div>
         </div>

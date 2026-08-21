@@ -22,6 +22,7 @@ export default function FeaturedSpecies() {
       name: s.commonName ?? s.scientificName,
       scientificName: s.scientificName,
       slug: s.slug,
+      list: s.list,
       image: hasImage ? `/images/species/${s.elementGlobalId}.webp` : null,
       statuses: getStatusBadges(s),
     };

@@ -8,6 +8,7 @@ import {
   getSpeciesImagePath,
   getPhotoAttribution,
   getCategoryIcon,
+  getCategoryLabel,
 } from "@/lib/speciesImage";
 
 interface SpeciesHeroProps {
@@ -36,6 +37,7 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
   const imagePath = getSpeciesImagePath(species.elementGlobalId);
   const attr = getPhotoAttribution(species.elementGlobalId);
   const categoryIcon = getCategoryIcon(species.list);
+  const categoryLabel = getCategoryLabel(species.list);
 
   const heroBadges: { label: string; color: string }[] = [];
 
@@ -87,7 +89,7 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
           </div>
         </div>
 
-        <div className="relative hidden min-h-[240px] bg-[#ddd9d2] md:block">
+        <div className="relative hidden min-h-[240px] bg-black md:block">
           {imagePath ? (
             <>
               <Image
@@ -95,7 +97,7 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
                 alt={attr?.altText ?? species.commonName ?? ""}
                 fill
                 sizes="(max-width: 1280px) 40vw, 450px"
-                className="object-cover"
+                className="object-contain"
               />
               {attr && (
                 <p className="font-body absolute bottom-0 left-0 right-0 bg-black/50 px-3 py-1.5 text-[10px] text-white">
@@ -104,10 +106,11 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
               )}
             </>
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
               <div className="relative h-24 w-24 opacity-30">
                 <Image src={categoryIcon} alt="" fill className="object-contain" />
               </div>
+              <p className="font-body text-sm font-medium text-white/50">{categoryLabel}</p>
             </div>
           )}
         </div>

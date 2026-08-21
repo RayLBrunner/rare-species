@@ -148,6 +148,35 @@ Log files are written to a `logs/` folder after the image script runs — check 
 
 ---
 
+
+## Saving and publishing your changes
+
+After running a data pipeline script (or making any change to the project), you need to save and share it so the live site actually updates. This is called "committing and pushing."
+
+1. Check what changed:
+   ```
+   git status
+   ```
+
+2. Stage the changed files:
+   ```
+   git add .
+   ```
+
+3. Commit them with a short description of what changed:
+   ```
+   git commit -m "update species data - August snapshot"
+   ```
+
+4. Push to GitHub:
+   ```
+   git push
+   ```
+
+That's it — within a few minutes, Vercel will automatically rebuild and publish the updated site. You can watch the deploy progress at vercel.com under your project's "Deployments" tab.
+
+> **Note:** the very first time you do this on a new computer, git may ask you to log in to GitHub. Follow the on-screen prompts — this only needs to happen once.
+
 ## Hosting and deployments
 
 The site is hosted on **[Vercel](https://vercel.com)** and connected to the GitHub repository at `github.com/SS26-Capstone/rare-species`.

@@ -3,8 +3,8 @@
 // stay in sync on labels and colors.
 export const stateRankBarItems = [
   {
-    short: "5X",
-    full: "5X Extinct",
+    short: "SX",
+    full: "SX Extinct",
     description: "Extinct",
     color: "bg-[#171717]",
   },

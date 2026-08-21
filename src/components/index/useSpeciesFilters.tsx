@@ -24,7 +24,17 @@ export default function useSpeciesFilters(
 
   const [selectedDropdownOptions, setSelectedDropdownOptions] = useState<
     Record<string, string[]>
-  >(initialEcoregionName ? { "Ecoregion +": [initialEcoregionName] } : {});
+  >(() => {
+    if (initialEcoregionName) {
+      return { "Ecoregion +": [initialEcoregionName] };
+    }
+    if (initialTaxonomyFilter && dropdownOptions[initialTaxonomyFilter]) {
+      return {
+        [initialTaxonomyFilter]: [...dropdownOptions[initialTaxonomyFilter]],
+      };
+    }
+    return {};
+  });
 
   const toggleFilter = (rowLabel: string, filterName: string) => {
     const defaultFilter = DEFAULT_FILTER_BY_ROW[rowLabel];
@@ -161,14 +171,20 @@ export default function useSpeciesFilters(
 
     setSelectedFilters((current) => {
       const selectedSpecificFilters = (current[row.label] ?? []).filter(
-        (filter) => filter !== defaultFilter,
+        (filter) =>
+          filter !== defaultFilter &&
+          (nextOptions.length > 0 || filter !== filterName),
       );
 
       const rowHasDropdownSelections = row.filters.some(
         (filter) => (nextDropdownOptions[filter]?.length ?? 0) > 0,
       );
 
-      if (nextOptions.length === 0 && selectedSpecificFilters.length === 0 && !rowHasDropdownSelections) {
+      if (
+        nextOptions.length === 0 &&
+        selectedSpecificFilters.length === 0 &&
+        !rowHasDropdownSelections
+      ) {
         return {
           ...current,
           [row.label]: [defaultFilter],

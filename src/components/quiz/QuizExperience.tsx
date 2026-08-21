@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import type { Species } from "@/types/species";
 import { questions } from "@/data/questions";
 import { filterSpecies, pickResult } from "@/lib/quiz";
-import speciesData from "@/data/species.json";
+import { getAllSpecies } from "@/lib/species";
 import QuizResultView from "./QuizResultView";
 import Image from "next/image";
 
@@ -15,7 +14,7 @@ export default function QuizExperience() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isExitDialogOpen, setIsExitDialogOpen] = useState(false);
 
-  const allSpecies = speciesData as unknown as Species[];
+  const allSpecies = getAllSpecies();
 
   // Recompute the filtered pool every time answers change so countLabel stays live
   const currentPool = useMemo(
@@ -223,18 +222,29 @@ export default function QuizExperience() {
                         </span>
                       )}
                       <div
-                        className={`relative shrink-0 overflow-hidden bg-[#e5e0d5] ${
-                          option.image ? "aspect-video w-full" : "h-16 w-full"
+                        className={`relative shrink-0 overflow-hidden ${
+                          option.image
+                            ? "aspect-video w-full"
+                            : option.backgroundColor
+                              ? `h-16 w-full ${option.backgroundColor}`
+                              : "h-16 w-full bg-[#e5e0d5]"
                         }`}
                       >
                         {option.image ? (
-                          <Image
-                            src={option.image}
-                            alt={option.label}
-                            fill
-                            sizes="(max-width: 768px) 50vw, 33vw"
-                            className="object-cover"
-                          />
+                          <>
+                            <Image
+                              src={option.image}
+                              alt={option.label}
+                              fill
+                              sizes="(max-width: 768px) 50vw, 33vw"
+                              className="object-cover"
+                            />
+                            {option.citation && (
+                              <p className="font-body absolute bottom-1 right-2 rounded bg-black/60 px-2 py-1 text-[10px] text-white">
+                                {option.citation}
+                              </p>
+                            )}
+                          </>
                         ) : (
                           <div className="flex h-full w-full items-start p-3">
                             <span className="text-2xl leading-none">
@@ -258,14 +268,17 @@ export default function QuizExperience() {
             </div>
 
             <div className="mt-8 grid grid-cols-3 items-center gap-3">
-              <button
-                type="button"
-                onClick={handleBack}
-                disabled={currentQuestionIndex === 0}
-                className="font-body justify-self-start rounded-md border-2 border-[#1a1a1a] bg-white px-4 py-2.5 text-sm font-semibold text-[#1a1a1a] transition hover:bg-[#f5f7f3] disabled:cursor-not-allowed disabled:border-[#1a1a1a]/30 disabled:text-[#1a1a1a]/30 disabled:hover:bg-white"
-              >
-                {currentQuestionIndex > 0 ? "← Back" : "← Start over"}
-              </button>
+              {currentQuestionIndex > 0 ? (
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="font-body justify-self-start rounded-md border-2 border-[#1a1a1a] bg-white px-4 py-2.5 text-sm font-semibold text-[#1a1a1a] transition hover:bg-[#f5f7f3]"
+                >
+                  ← Back
+                </button>
+              ) : (
+                <div />
+              )}
 
               <button
                 type="button"

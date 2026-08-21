@@ -11,7 +11,7 @@ export default function StatusCard({
 }: StatusCardProps) {
   return (
     <div
-      className={`flex h-16 flex-col items-center justify-center border-2 border-black text-center text-white shadow-[4px_4px_0px_#000] ${color}`}
+      className={`flex h-16 flex-col items-center justify-center border-2 border-black text-center text-white transition-all duration-300 ease-in hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#000] ${color}`}
     >
       <span className="font-heading text-base font-bold leading-tight">
         {short}

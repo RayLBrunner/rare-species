@@ -49,17 +49,6 @@ export default function SpeciesIndexToolbar({
         </button>
         <button
           type="button"
-          aria-pressed={view === "list"}
-          onClick={() => setView("list")}
-          className={`font-body flex cursor-pointer items-center gap-1 border-2 border-black px-3 py-2 text-xs font-bold transition hover:bg-[#f2f2f2] hover:text-black md:border-4 md:px-5 md:py-3 ${
-            view === "list" ? "bg-black text-white" : "bg-white text-black"
-          }`}
-        >
-          List
-        </button>
-
-        <button
-          type="button"
           aria-pressed={view === "grid"}
           onClick={() => setView("grid")}
           className={`font-body flex cursor-pointer items-center gap-1 border-2 border-black px-3 py-2 text-xs font-bold transition hover:bg-[#f2f2f2] hover:text-black md:border-4 md:px-5 md:py-3 ${
@@ -67,6 +56,17 @@ export default function SpeciesIndexToolbar({
           }`}
         >
           Grid
+        </button>
+
+        <button
+          type="button"
+          aria-pressed={view === "list"}
+          onClick={() => setView("list")}
+          className={`font-body flex cursor-pointer items-center gap-1 border-2 border-black px-3 py-2 text-xs font-bold transition hover:bg-[#f2f2f2] hover:text-black md:border-4 md:px-5 md:py-3 ${
+            view === "list" ? "bg-black text-white" : "bg-white text-black"
+          }`}
+        >
+          List
         </button>
       </div>
     </div>
