@@ -11,6 +11,8 @@ export interface QuizOption {
   // Array because one quiz answer can span multiple ecoregion codes
   ecoregionCodes?: EcoRegion[];
   image?: string;
+  citation?: string;
+  backgroundColor?: string;
 }
 
 export interface QuizQuestion {
@@ -59,14 +61,15 @@ export const questions: QuizQuestion[] = [
         value: "westSide",
         detail: "Lush forests, wet meadows and beaches",
         image:
-          "/images/eco-region/CoastRange_USFS_PublicDomain_24514265823_c0949b9432_o.jpg",
+          "/images/eco-region/CoastRange_USFS_PublicDomain_24514265823_c0949b9432_o.webp",
         ecoregionCodes: ["ME", "CR", "WV", "WC"],
       },
       {
         label: "East Side",
         value: "eastSide",
         detail: "High and dry",
-        image: "/images/eco-region/BasinRange_IMG_20200627_112438_RBrunner.jpg",
+        image:
+          "/images/eco-region/BasinRange_IMG_20200627_112438_RBrunner.webp",
         ecoregionCodes: [],
       },
     ],
@@ -84,14 +87,16 @@ export const questions: QuizQuestion[] = [
         label: "Mountains",
         value: "eastSideMountains",
         detail: "I'm into trees",
-        emoji: "🏔️",
+        image:
+          "/images/eco-region/2BlueMountains_RBrunner_IMG_20160903_123752086_HDR.webp",
         ecoregionCodes: ["EC", "KM", "BM", "BR"],
       },
       {
         label: "Steppe",
         value: "eastSideSteppe",
         detail: "Big skies and room to roam",
-        emoji: "🏜️",
+        image:
+          "/images/eco-region/BlueMountains_IMG_20160905_073837231_HDR.webp",
         ecoregionCodes: ["CB", "BR"],
       },
     ],
@@ -116,6 +121,7 @@ export const questions: QuizQuestion[] = [
         value: "sessile",
         detail: "Sessile / Plants",
         image: "/images/species/2036.webp",
+        citation: "David Anderson · CC-BY",
       },
     ],
   },
@@ -133,13 +139,15 @@ export const questions: QuizQuestion[] = [
           "Don't make me get out a microscope. Besides, isn't a backbone kind of important?",
         value: "vertebrateAnimals",
         detail: "Vertebrates",
-        emoji: "🦴",
+        image: "/images/species/415294.webp",
+        citation: "John Hibbard · CC-BY",
       },
       {
         label: "Standard body plan? How boring! Let's get weird.",
         value: "invertebrateAnimals",
         detail: "Invertebrates",
-        emoji: "🦑",
+        image: "/images/species/1215.webp",
+        citation: "Kathy Fulton · CC-0",
       },
     ],
   },
@@ -157,7 +165,7 @@ export const questions: QuizQuestion[] = [
           "Let's get big! Bring on the structural innovation! Giant tree trunks and showy flowers.",
         value: "vascularPlants",
         detail: "Vascular",
-        image: "/images/eco-region/2WestCascades_RBrunner.jpg",
+        image: "/images/eco-region/2WestCascades_RBrunner.webp",
       },
       {
         label:
@@ -165,6 +173,7 @@ export const questions: QuizQuestion[] = [
         value: "nonvascularPlantsAndFungi",
         detail: "Nonvascular",
         image: "/images/species/365886.webp",
+        citation: "Diego Blanco · CC-0",
       },
     ],
   },
@@ -181,14 +190,16 @@ export const questions: QuizQuestion[] = [
         label: "Photosynthesis. Making energy from sunlight.",
         value: "bryophytes",
         detail: "Bryophytes",
-        emoji: "☀️",
+        image: "/images/species/1870.webp",
+        citation: "Matt Unitis · CC-BY-NC",
       },
       {
         label:
           "The fungus among us. They are more closely related to animals than plants!",
         value: "fungiAndLichen",
         detail: "Fungi and Lichen",
-        emoji: "🍄",
+        image: "/images/species/10164.webp",
+        citation: "Connor Dooley · CC-BY-NC",
       },
     ],
   },
@@ -233,28 +244,28 @@ export const questions: QuizQuestion[] = [
         value: "G1",
         detail:
           "Critically rare in Oregon and globally — state rank question skipped",
-        emoji: "🚨",
+        backgroundColor: "bg-[#c71945]",
       },
       {
         label:
           "G2 — Pretty darn rare! These organisms are hanging in there a bit better than the rarest of the rare. More individuals, more locations, more chance to meet them yourself.",
         value: "G2",
         detail: "Very rare",
-        emoji: "📊",
+        backgroundColor: "bg-[#d6420f]",
       },
       {
         label:
           "G3 — Moderately rare. Compared to the rarest organisms, these species still have some serious strengths, which means that they may also have some of the greatest possibilities for recovery. These often-overlooked organisms are by no means secure and are often in greatest need of a champion.",
         value: "G3",
         detail: "Moderately rare",
-        emoji: "🧐",
+        backgroundColor: "bg-[#b59b00]",
       },
       {
         label:
           "G4 or G5 — Let's play it safe, I want something that is doing okay outside of Oregon. These organisms have a more robust population globally.",
         value: "G4G5",
         detail: "More common globally",
-        emoji: "🌱",
+        backgroundColor: "bg-[#4e8f12]",
       },
     ],
   },
@@ -272,25 +283,25 @@ export const questions: QuizQuestion[] = [
         label: "S1 — So very rare!",
         value: "S1",
         detail: "Critically rare in Oregon",
-        emoji: "🚨",
+        backgroundColor: "bg-[#c71945]",
       },
       {
         label: "S2 — Pretty darn rare.",
         value: "S2",
         detail: "Very rare in Oregon",
-        emoji: "📊",
+        backgroundColor: "bg-[#d6420f]",
       },
       {
         label: "S3 — Moderately rare.",
         value: "S3",
         detail: "Moderately rare in Oregon",
-        emoji: "🧐",
+        backgroundColor: "bg-[#b59b00]",
       },
       {
         label: "Surprise me!",
         value: "any",
         detail: "Any rarity level",
-        emoji: "🎲",
+        backgroundColor: "bg-[#0d6b37]",
       },
     ],
   },
