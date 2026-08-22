@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section className="relative w-full overflow-hidden bg-[#032014] text-white">
       <Image
-        src="/images/eco-region/BlueMountains_USFS_PublicDomain_23304904443_d7a074063d_o.jpg"
+        src="/images/eco-region/BlueMountains_USFS_PublicDomain_23304904443_d7a074063d_o.webp"
         alt="Oregon forest landscape"
         fill
         priority
