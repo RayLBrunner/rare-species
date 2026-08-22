@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import SpeciesHero from "@/components/species/SpeciesHero";
 import SpeciesOverview from "@/components/species/SpeciesOverview";
 import StatusRankBar from "@/components/species/StatusRankBar";
+import EcoregionMap from "@/components/species/EcoregionMap";
 import { getSpeciesBySlug } from "@/lib/species";
 
 interface SpeciesPageProps {
@@ -49,7 +50,12 @@ export default async function SpeciesPage({ params }: SpeciesPageProps) {
       <SpeciesHero species={species} />
       <div className="mx-auto w-full max-w-7xl px-6 md:px-10">
         <StatusRankBar species={species} />
-        <SpeciesOverview species={species} />
+        <SpeciesOverview
+          species={species}
+          ecoregionMap={
+            <EcoregionMap ecoregionId={species.ecoregionId} />
+          }
+        />
       </div>
     </main>
   );

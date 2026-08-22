@@ -88,6 +88,29 @@ export const LIST_TO_TAXONOMY_FILTER: Record<string, string> = {
   invertebrateAnimals: "Invertebrate Animals +",
 };
 
+// Canonical ecoregion code <-> filter-option-name mapping. The names here must
+// stay identical to the "Ecoregion +" entries in `dropdownOptions` below, since
+// that is what the Geography filter matches on. Shared with the homepage map so
+// a region code can seed the ecoregion filter via the `?ecoregion=` param.
+export const ECOREGION_FILTER_NAME_BY_CODE: Record<string, string> = {
+  BM: "Blue Mountains",
+  BR: "Northern Basin and Range",
+  CB: "Columbia Basin",
+  CR: "Coast Range",
+  EC: "East Cascades",
+  KM: "Klamath Mountains",
+  ME: "Marine and Estuarine",
+  WC: "West Cascades",
+  WV: "Willamette Valley",
+};
+
+export const ECOREGION_MAP: Record<string, string> = Object.fromEntries(
+  Object.entries(ECOREGION_FILTER_NAME_BY_CODE).map(([code, name]) => [
+    name,
+    code,
+  ]),
+);
+
 export const dropdownOptions: Record<string, string[]> = {
   "Nonvascular Plants and Fungi +": [
     "Bryophtes",

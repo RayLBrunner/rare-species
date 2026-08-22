@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import type { Species } from "@/types/species";
 import SpeciesSidebar from "./SpeciesSidebar";
 import OverviewTab from "./tabs/OverviewTab";
@@ -19,9 +19,13 @@ type SpeciesTab = (typeof tabs)[number];
 
 interface SpeciesOverviewProps {
   species: Species;
+  ecoregionMap: ReactNode;
 }
 
-export default function SpeciesOverview({ species }: SpeciesOverviewProps) {
+export default function SpeciesOverview({
+  species,
+  ecoregionMap,
+}: SpeciesOverviewProps) {
   const [activeTab, setActiveTab] = useState<SpeciesTab>("Where to Find");
 
   return (
@@ -47,7 +51,9 @@ export default function SpeciesOverview({ species }: SpeciesOverviewProps) {
 
           <div className="py-5 md:pr-10">
             {activeTab === "Overview" && <OverviewTab species={species} />}
-            {activeTab === "Where to Find" && <WhereToFindTab species={species} />}
+            {activeTab === "Where to Find" && (
+              <WhereToFindTab species={species} ecoregionMap={ecoregionMap} />
+            )}
             {activeTab === "Status & Ranks" && <StatusRanksTab species={species} />}
             {activeTab === "Taxonomy" && <TaxonomyTab species={species} />}
           </div>

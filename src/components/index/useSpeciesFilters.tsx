@@ -8,20 +8,30 @@ const DEFAULT_FILTER_BY_ROW: Record<string, string> = {
   Geography: "All",
 };
 
-export default function useSpeciesFilters(initialTaxonomyFilter?: string) {
+export default function useSpeciesFilters(
+  initialTaxonomyFilter?: string,
+  initialEcoregionName?: string,
+) {
   const [selectedFilters, setSelectedFilters] = useState<
     Record<string, string[]>
   >({
     Taxonomy: [initialTaxonomyFilter ?? "All species"],
     Status: [],
-    Geography: ["All"],
+    // An incoming ecoregion is a real Geography selection, so the row must not
+    // also sit on its "All" default.
+    Geography: initialEcoregionName ? [] : ["All"],
   });
 
   const [selectedDropdownOptions, setSelectedDropdownOptions] = useState<
     Record<string, string[]>
   >(() => {
+    if (initialEcoregionName) {
+      return { "Ecoregion +": [initialEcoregionName] };
+    }
     if (initialTaxonomyFilter && dropdownOptions[initialTaxonomyFilter]) {
-      return { [initialTaxonomyFilter]: [...dropdownOptions[initialTaxonomyFilter]] };
+      return {
+        [initialTaxonomyFilter]: [...dropdownOptions[initialTaxonomyFilter]],
+      };
     }
     return {};
   });
@@ -170,7 +180,11 @@ export default function useSpeciesFilters(initialTaxonomyFilter?: string) {
         (filter) => (nextDropdownOptions[filter]?.length ?? 0) > 0,
       );
 
-      if (nextOptions.length === 0 && selectedSpecificFilters.length === 0 && !rowHasDropdownSelections) {
+      if (
+        nextOptions.length === 0 &&
+        selectedSpecificFilters.length === 0 &&
+        !rowHasDropdownSelections
+      ) {
         return {
           ...current,
           [row.label]: [defaultFilter],

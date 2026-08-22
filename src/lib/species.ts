@@ -1,5 +1,5 @@
 import data from "@/data/species.json";
-import type { List, Species } from "@/types/species";
+import type { EcoRegion, List, Species } from "@/types/species";
 
 const allSpecies = data as unknown as Species[];
 
@@ -28,6 +28,49 @@ export function getSpeciesCountByList(): Record<List, number> {
     },
     {} as Record<List, number>,
   );
+}
+
+/**
+ * Fixed character order of the 9 regions inside `Species["ecoregionId"]`.
+ * Shared with the per-species range map so both read the string the same way.
+ */
+export const ECOREGION_ID_ORDER: EcoRegion[] = [
+  "BM",
+  "BR",
+  "CB",
+  "CR",
+  "EC",
+  "KM",
+  "ME",
+  "WC",
+  "WV",
+];
+
+/**
+ * Counts, per ecoregion, how many species are recorded as present there —
+ * meaning a "C" (Certain) or "P" (Possible) at that region's position in
+ * `ecoregionId`. "X" (Extirpated) and "A" (Absent) are not counted as present.
+ */
+export function getSpeciesCountByEcoregion(): Record<EcoRegion, number> {
+  const counts = Object.fromEntries(
+    ECOREGION_ID_ORDER.map((code) => [code, 0]),
+  ) as Record<EcoRegion, number>;
+
+  for (const species of getAllSpecies()) {
+    const ecoregionId = species.ecoregionId;
+    if (!ecoregionId || ecoregionId.length !== ECOREGION_ID_ORDER.length) {
+      continue;
+    }
+
+    ECOREGION_ID_ORDER.forEach((code, index) => {
+      const status = ecoregionId[index];
+      if (status === "C" || status === "P") {
+        counts[code] += 1;
+      }
+    });
+  }
+
+  return counts;
 }
 
 export function getFeaturedSpecies(count: number = 6): Species[] {
