@@ -34,7 +34,7 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
           </p>
 
           <div className="overflow-x-auto">
-            <div className="flex h-7 min-w-[420px] overflow-hidden rounded-sm border-2 border-black text-[12px] font-bold text-white md:h-8">
+            <div className="flex h-7 w-full overflow-hidden rounded-sm border-2 border-black text-[12px] font-bold text-white md:h-8">
               {rankSegments.map(({ code, label, bg }) => {
                 const isActive = stateRank.includes(code);
                 return (
