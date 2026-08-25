@@ -47,7 +47,7 @@ const STATE_STATUS_LABELS: Record<string, string> = {
   SCIN: "Species of Great Information Need",
 };
 
-const SPONSOR_URL =
+const DONATE_URL =
   "https://www.givecampus.com/campaigns/50223/donations/new?designation=institutefornaturalresources";
 
 function Badge({
@@ -309,12 +309,12 @@ export default function QuizResultView({
                 See full species profile →
               </Link>
               <a
-                href={SPONSOR_URL}
+                href={DONATE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-body rounded-md border border-white/40 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400"
               >
-                Sponsor →
+                Donate →
               </a>
 
               <div className="relative w-full sm:w-auto" ref={shareRef}>

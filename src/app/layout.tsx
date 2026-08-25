@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import AOSInit from "@/components/AOSInit";
+import { SITE_URL } from "@/lib/site";
 
 const playfair = Playfair_Display({
   variable: "--font-heading",
@@ -22,7 +23,7 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fieldguide.orbic.pdx.edu"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "ORBIC Field Guide",
     template: "%s | ORBIC Field Guide",
