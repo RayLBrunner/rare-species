@@ -64,7 +64,7 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
     <section className="w-full overflow-hidden bg-[#1f3426] text-white">
       <div className="mx-auto w-full max-w-7xl md:grid md:min-h-[360px] md:grid-cols-[1.6fr_1fr]">
         <div className="px-6 py-8 md:px-10 md:py-10">
-          <p className="font-body mb-4 text-[11px] font-semibold text-[#57c783]">
+          <p className="font-body mb-4 text-[1em] font-semibold text-[#57c783]">
             {breadcrumb}
           </p>
 
@@ -80,7 +80,7 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
             {heroBadges.map((badge) => (
               <span
                 key={badge.label}
-                className="font-body px-3 py-1 text-[10px] font-bold text-white"
+                className="font-body px-3 py-1 text-[1em] font-bold text-white"
                 style={{ backgroundColor: badge.color }}
               >
                 {badge.label}

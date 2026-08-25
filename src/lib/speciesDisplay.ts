@@ -14,7 +14,7 @@ export const ECOREGION_COLORS: Record<string, string> = {
   BM: "bg-[#5b4bb7]",
   BR: "bg-[#8b6d14]",
   CB: "bg-[#6b5e4c]",
-  CR: "bg-[#8a4f08]",
+  CR: "bg-[#023009]",
   EC: "bg-[#d94f00]",
   KM: "bg-[#4d7c0f]",
   ME: "bg-[#1a6b8a]",

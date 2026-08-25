@@ -34,7 +34,7 @@ export default function WhereToFindTab({
     <div>
       {ecoregionCodes.length > 0 && (
         <section className="border-b border-[#e5e5e5] pb-5">
-          <h2 className="font-body mb-3 text-[12px] font-bold text-black">
+          <h2 className="font-body mb-3 text-[1em] font-bold text-black">
             Ecoregions
           </h2>
 
@@ -42,7 +42,7 @@ export default function WhereToFindTab({
             {ecoregionCodes.map((code) => (
               <div
                 key={code}
-                className={`font-body rounded-[3px] px-3 py-2 text-[11px] font-bold text-white ${
+                className={`font-body rounded-[3px] px-3 py-2 text-[1em] font-bold text-white ${
                   ECOREGION_COLORS[code] ?? "bg-[#6d6d6d]"
                 }`}
               >
@@ -55,39 +55,39 @@ export default function WhereToFindTab({
 
       {countyNames.length > 0 && (
         <section className="border-b border-[#e5e5e5] py-5">
-          <h2 className="font-body mb-2 text-[12px] font-bold text-black">
+          <h2 className="font-body mb-2 text-[1em] font-bold text-black">
             Counties
           </h2>
-          <p className="font-body text-[11px] text-[#555]">
+          <p className="font-body text-[1em] text-[#555]">
             {countyNames.join(" · ")}
           </p>
         </section>
       )}
 
       <section className="border-b border-[#e5e5e5] py-5">
-        <h2 className="font-body mb-2 text-[12px] font-bold text-black">
+        <h2 className="font-body mb-2 text-[1em] font-bold text-black">
           Other states / provinces
         </h2>
 
         {hasOtherStates ? (
-          <p className="font-body text-[11px] text-[#555]">
+          <p className="font-body text-[1em] text-[#555]">
             {species.otherStates}
           </p>
         ) : (
-          <p className="font-body text-[11px] italic text-[#555]">
+          <p className="font-body text-[1em] italic text-[#555]">
             Not found outside Oregon
           </p>
         )}
 
         {isOrEndemic && (
-          <div className="font-body mt-4 inline-block rounded-[3px] bg-[#15803d] px-3 py-2 text-[11px] font-bold text-white">
+          <div className="font-body mt-4 inline-block rounded-[3px] bg-[#15803d] px-3 py-2 text-[1em] font-bold text-white">
             Oregon Endemic: Found only in Oregon
           </div>
         )}
       </section>
 
       <section className="pt-5">
-        <h2 className="font-body mb-3 text-[12px] font-bold text-black">
+        <h2 className="font-body mb-3 text-[1em] font-bold text-black">
           Range map
         </h2>
 
