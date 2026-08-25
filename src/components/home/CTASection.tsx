@@ -3,12 +3,14 @@ import Link from "next/link";
 const DONATE_URL =
   "https://www.givecampus.com/campaigns/50223/donations/new?designation=institutefornaturalresources";
 
+const MAILING_LIST_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdEjxpJgto6oQMV218Q4S21bBScvWNZnlDoKDLQ8RojfOlYxA/viewform";
+
 export default function CTASection() {
   return (
     <section className="bg-[#032014] text-white">
-      <div className="mx-auto w-full max-w-7xl px-6 py-14 md:py-20">
+      <div className="mx-auto w-full max-w-7xl px-6 py-14 sm:px-8 md:px-16 md:py-20">
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between md:gap-16">
-
           {/* Text */}
           <div className="max-w-xl">
             <p className="font-body mb-3 text-[11px] font-semibold uppercase tracking-widest text-[#a8e8c0]">
@@ -18,9 +20,11 @@ export default function CTASection() {
               Help protect Oregon&apos;s rarest species.
             </h2>
             <p className="font-body mt-4 text-base leading-relaxed text-[#d4f0df]">
-              ORBIC tracks Oregon&apos;s rare and sensitive species and makes that
-              data freely available to researchers, agencies, and the public.
-              Your support keeps this work going.
+              ORBIC tracks Oregon&apos;s rare and sensitive species and makes
+              that data available to researchers, agencies, and the public. Your
+              support keeps this work going. ORBIC is part of the Institute for
+              Natural Resources at Portland State University and Oregon State
+              University
             </p>
           </div>
 
@@ -30,18 +34,17 @@ export default function CTASection() {
               href={DONATE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-body px-6 py-4 text-center text-sm bg-[#16873d] font-semibold bg-[$$] text-white transition hover:bg-[#1b9947] sm:flex-1 md:flex-none"
+              className="font-body px-6 py-4 text-center text-sm bg-[#16873d] font-semibold text-white transition hover:bg-[#1b9947] sm:flex-1 md:flex-none"
             >
               Donate to ORBIC →
             </Link>
             <Link
-              href="#"
-              className= "font-body bg-white px-6 py-4 text-center text-sm font-bold text-[#16873d] transition hover:bg-[#d4f0df] sm:flex-1 md:flex-none"
+              href={MAILING_LIST_URL}
+              className="font-body bg-white px-6 py-4 text-center text-sm font-bold text-[#16873d] transition hover:bg-[#d4f0df] sm:flex-1 md:flex-none"
             >
               Join our email list
             </Link>
           </div>
-
         </div>
       </div>
     </section>

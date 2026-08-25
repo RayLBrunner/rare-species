@@ -1,15 +1,30 @@
 import Image from "next/image";
 
+const MAILING_LIST_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdEjxpJgto6oQMV218Q4S21bBScvWNZnlDoKDLQ8RojfOlYxA/viewform";
+
 export default function AboutPage() {
   return (
     <main className="mx-auto w-full max-w-7xl px-6 pt-8 pb-16">
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-heading text-4xl font-bold text-[#032014]">
-          About
-        </h1>
-        <p className="font-body text-gray-600 mt-2">
-          Learn more about ORBIC and the work behind this field guide.
-        </p>
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+          <div>
+            <h1 className="font-heading text-4xl font-bold text-[#032014]">
+              About
+            </h1>
+            <p className="font-body text-gray-600 mt-2">
+              Learn more about ORBIC and the work behind this field guide.
+            </p>
+          </div>
+          <Image
+            src="/images/logos/INR-color-transparent-sq.png"
+            alt="Institute for Natural Resources logo"
+            width={900}
+            height={900}
+            sizes="(min-width: 640px) 128px, 96px"
+            className="h-24 w-24 shrink-0 sm:h-32 sm:w-32"
+          />
+        </div>
         <section className="mt-10">
           <h2 className="font-heading text-2xl font-bold text-[#032014]">
             Our Mission
@@ -64,7 +79,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <div className="relative mt-10 w-full overflow-hidden rounded-lg">
+        <div className="relative mt-10 w-full overflow-hidden">
           <Image
             src="/images/about/orbic-canyon.jpg"
             alt="A river winding through a rocky Oregon canyon under a clear blue sky"
@@ -277,6 +292,23 @@ export default function AboutPage() {
               for general inquiries.
             </p>
           </div>
+        </section>
+
+        <section className="mt-10 bg-[#032014] px-6 py-10 text-white sm:px-10">
+          <h2 className="font-heading text-2xl font-bold">Stay Informed</h2>
+          <p className="font-body mt-4 text-base leading-relaxed text-[#d4f0df]">
+            ORBIC publishes updated rare species lists, new research, and
+            conservation news throughout the year. Join our mailing list to
+            follow the work as it develops.
+          </p>
+          <a
+            href={MAILING_LIST_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-body mt-6 inline-block bg-white px-6 py-4 text-sm font-bold text-[#16873d] transition hover:bg-[#d4f0df]"
+          >
+            Join Our Mailing List
+          </a>
         </section>
       </div>
     </main>

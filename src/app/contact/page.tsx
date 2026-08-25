@@ -7,8 +7,9 @@ export default function ContactPage() {
         </h1>
         <p className="font-body text-gray-600 mt-2">
           Have a question about Oregon&apos;s rare species, this field guide, or
-          ORBIC&apos;s work? Here&apos;s how to reach the Institute for Natural
-          Resources.
+          ORBIC&apos;s work? ORBIC is part of the Institute for Natural
+          Resources at Portland State University and Oregon State University.
+          Here&apos;s how to reach the Institute for Natural Resources.
         </p>
 
         <section className="mt-10">

@@ -29,7 +29,7 @@ const MAIN_NAV_LINKS: NavLink[] = [
     description: "50 years of rare species tracking",
   },
   {
-    label: "Sponsor a Species",
+    label: "Support Our Work",
     href: "https://www.givecampus.com/campaigns/50223/donations/new?designation=institutefornaturalresources",
     description: "Support conservation — Fall 2026",
     target: "_blank",
@@ -75,7 +75,7 @@ export default function Navigation() {
             className="aspect-[799/587] h-6 shrink-0 bg-white transition-colors duration-150 [mask-image:url('/images/logos/Oregon_State_Boundary.svg')] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/images/logos/Oregon_State_Boundary.svg')] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] group-hover:bg-[#6fc08f]"
           />
           <span className="font-heading font-bold text-xl transition-colors duration-150 group-hover:text-[#6fc08f]">
-            ORBIC
+            ORBIC | Rare Species
           </span>
         </Link>
 
@@ -105,7 +105,7 @@ export default function Navigation() {
           ))}
         </ul>
 
-        {/* Mobile: sponsor button + hamburger together */}
+        {/* Mobile: donate button + hamburger together */}
         <div className="flex items-center gap-3 md:hidden">
           {MAIN_NAV_LINKS.filter((l) => l.isButton).map((link) => (
             <Link

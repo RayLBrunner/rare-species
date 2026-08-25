@@ -14,6 +14,13 @@ const STATUS_COLORS: Record<string, string> = {
   A: "#ffffff", // Absent
 };
 
+const STATUS_LABELS: Record<string, string> = {
+  C: "Certain",
+  P: "Possible",
+  X: "Extirpated",
+  A: "Absent",
+};
+
 function colorizeMap(svgString: string, ecoregionId: string): string {
   let result = svgString;
   REGION_ORDER.forEach((region, i) => {
@@ -54,9 +61,22 @@ export default function EcoregionMap({ ecoregionId }: EcoregionMapProps) {
   const coloredSvg = colorizeMap(rawSvg, ecoregionId);
 
   return (
-    <div
-      className="[&_svg]:h-auto [&_svg]:w-full"
-      dangerouslySetInnerHTML={{ __html: coloredSvg }}
-    />
+    <div>
+      <div
+        className="[&_svg]:h-auto [&_svg]:w-full"
+        dangerouslySetInnerHTML={{ __html: coloredSvg }}
+      />
+      <div className="font-body mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-[10px] text-[#555]">
+        {Object.entries(STATUS_LABELS).map(([code, label]) => (
+          <div key={code} className="flex items-center gap-1.5">
+            <span
+              className="h-2.5 w-2.5 shrink-0 rounded-sm border border-[#999]"
+              style={{ backgroundColor: STATUS_COLORS[code] }}
+            />
+            {label}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
