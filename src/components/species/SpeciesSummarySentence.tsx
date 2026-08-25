@@ -16,7 +16,7 @@ export default function SpeciesSummarySentence({
     <p className={className}>
       {segments.map((segment, index) =>
         segment.type === "scientificName" ? (
-          <span key={index} className="font-scientific italic">
+          <span key={index} className="italic">
             {segment.value}
           </span>
         ) : (
