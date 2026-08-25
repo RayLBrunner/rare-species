@@ -10,7 +10,11 @@ import { formatList, getEcoregionNames } from "@/lib/species-sentence";
 import { buildWhyMatched } from "@/lib/quiz";
 import { questions } from "@/data/questions";
 import type { QuizFilters } from "@/lib/quiz";
-import { getSpeciesImagePath, getCategoryIcon, getCategoryLabel } from "@/lib/speciesImage";
+import {
+  getSpeciesImagePath,
+  getCategoryIcon,
+  getCategoryLabel,
+} from "@/lib/speciesImage";
 
 interface QuizResultViewProps {
   result: Species;
@@ -210,6 +214,12 @@ export default function QuizResultView({
       .filter(Boolean)
       .join(" · ") || "Not currently listed";
 
+  const hasInat = !!result.iNaturalistLink;
+  const hasNS = !!result.nsEexplorerLink;
+  const hasOdfw = !!result.odfwLink;
+  const hasOregonFlora = !!result.oregonFloraLink;
+  const hasLinks = hasInat || hasNS || hasOdfw || hasOregonFlora;
+
   return (
     <div className="font-body">
       <div className="bg-[#0a2818] text-white">
@@ -228,9 +238,16 @@ export default function QuizResultView({
                 ) : (
                   <div className="flex h-full flex-col items-center justify-center gap-3">
                     <div className="relative h-16 w-16 opacity-30">
-                      <Image src={categoryIcon} alt="" fill className="object-contain" />
+                      <Image
+                        src={categoryIcon}
+                        alt=""
+                        fill
+                        className="object-contain"
+                      />
                     </div>
-                    <p className="font-body text-xs font-medium text-white/50">{categoryLabel}</p>
+                    <p className="font-body text-xs font-medium text-white/50">
+                      {categoryLabel}
+                    </p>
                   </div>
                 )}
               </div>
@@ -278,7 +295,9 @@ export default function QuizResultView({
             <p
               className="font-body mt-4 max-w-2xl text-sm leading-7 text-[#c9ddd0] sm:text-base"
               dangerouslySetInnerHTML={{
-                __html: result.habitatDescription ?? "No description available for this species yet.",
+                __html:
+                  result.habitatDescription ??
+                  "No description available for this species yet.",
               }}
             />
 
@@ -411,6 +430,57 @@ export default function QuizResultView({
               </dd>
             </div>
           </dl>
+
+          {/* External links */}
+          {hasLinks && (
+            <div className="mt-6 border-t border-[#e0ddd7] pt-6">
+              <p className="font-body text-xs font-bold text-[#0f0f0f]">
+                More information
+              </p>
+              <div className="mt-2 flex flex-wrap gap-3">
+                {hasInat && (
+                  <a
+                    href={result.iNaturalistLink!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-body text-sm text-[#16873d] underline"
+                  >
+                    iNaturalist
+                  </a>
+                )}
+                {hasNS && (
+                  <a
+                    href={result.nsEexplorerLink!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-body text-sm text-[#16873d] underline"
+                  >
+                    NatureServe Explorer
+                  </a>
+                )}
+                {hasOdfw && (
+                  <a
+                    href={`https://${result.odfwLink}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-body text-sm text-[#16873d] underline"
+                  >
+                    ODFW Wildlife Action Plan
+                  </a>
+                )}
+                {hasOregonFlora && (
+                  <a
+                    href={result.oregonFloraLink!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-body text-sm text-[#16873d] underline"
+                  >
+                    OregonFlora
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         <div>
@@ -434,9 +504,16 @@ export default function QuizResultView({
               ) : (
                 <div className="flex h-full flex-col items-center justify-center gap-1.5">
                   <div className="relative h-8 w-8 opacity-30">
-                    <Image src={categoryIcon} alt="" fill className="object-contain" />
+                    <Image
+                      src={categoryIcon}
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
                   </div>
-                  <p className="font-body text-center text-[9px] font-medium text-white/50">{categoryLabel}</p>
+                  <p className="font-body text-center text-[9px] font-medium text-white/50">
+                    {categoryLabel}
+                  </p>
                 </div>
               )}
             </div>
