@@ -29,12 +29,12 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
     <section className="bg-white py-3">
       <div className="flex gap-3 flex-row items-center justify-between">
         <div className="w-full lg:max-w-[620px]">
-          <p className="font-body mb-2 text-[10px] font-semibold text-[#4d4d4d]">
+          <p className="font-body mb-2 text-[1em] font-semibold text-[#4d4d4d]">
             State Rank
           </p>
 
           <div className="overflow-x-auto">
-            <div className="flex h-7 min-w-[420px] overflow-hidden rounded-sm border-2 border-black text-[9px] font-bold text-white md:h-8">
+            <div className="flex h-7 min-w-[420px] overflow-hidden rounded-sm border-2 border-black text-[12px] font-bold text-white md:h-8">
               {rankSegments.map(({ code, label, bg }) => {
                 const isActive = stateRank.includes(code);
                 return (
@@ -51,33 +51,33 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
             </div>
           </div>
 
-          <p className={`font-body mt-2 text-[10px] font-semibold md:text-[11px] ${rankColor}`}>
+          <p className={`font-body mt-2 text-[1em] font-semibold md:text-[1em] ${rankColor}`}>
             {stateRank} — {rankDescription}
           </p>
         </div>
 
         <div className="hidden md:flex md:gap-2">
           <div className="min-w-[95px] border-2 border-black bg-white p-3">
-            <p className="font-body text-sm font-bold text-[#c71945]">
+            <p className="font-body text-[12px] font-bold text-[#c71945]">
               {species.globalRank}
             </p>
-            <p className="font-body mt-1 text-[8px] uppercase text-gray-500">
+            <p className="font-body mt-1 text-[12px] uppercase text-gray-500">
               Global Rank
             </p>
-            <p className="font-body text-[10px] font-semibold">
+            <p className="font-body text-[12px] font-semibold">
               {getGlobalRankDescription(species.globalRank)}
             </p>
           </div>
 
           {species.federalRank && (
             <div className="min-w-[95px] border-2 border-black bg-white p-3">
-              <p className="font-body text-sm font-bold text-[#d94a15]">
+              <p className="font-body text-[12px] font-bold text-[#d94a15]">
                 {species.federalRank}
               </p>
-              <p className="font-body mt-1 text-[8px] uppercase text-gray-500">
+              <p className="font-body mt-1 text-[12px] uppercase text-gray-500">
                 Federal ESA
               </p>
-              <p className="font-body text-[10px] font-semibold">
+              <p className="font-body text-[12px] font-semibold">
                 {FEDERAL_RANK_LABELS[species.federalRank] ?? species.federalRank}
               </p>
             </div>
@@ -85,13 +85,13 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
 
           {species.orbicList && (
             <div className="min-w-[95px] border-2 border-black bg-white p-3">
-              <p className="font-body text-sm font-bold text-[#c71945]">
+              <p className="font-body text-[12px] font-bold text-[#c71945]">
                 List {species.orbicList}
               </p>
-              <p className="font-body mt-1 text-[8px] uppercase text-gray-500">
+              <p className="font-body mt-1 text-[12px] uppercase text-gray-500">
                 ORBIC
               </p>
-              <p className="font-body text-[10px] font-semibold">
+              <p className="font-body text-[12px] font-semibold">
                 {ORBIC_LIST_DESCRIPTIONS[species.orbicList] ?? `List ${species.orbicList}`}
               </p>
             </div>

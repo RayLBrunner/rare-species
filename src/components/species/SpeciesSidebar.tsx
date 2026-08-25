@@ -55,7 +55,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
           href={DONATE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-body block w-full border-b-4 border-black bg-[#15803d] px-4 py-4 text-center text-sm font-bold text-white"
+          className="font-body block w-full border-b-4 border-black bg-[#15803d] px-4 py-4 text-center text-[1em] font-bold text-white"
         >
           Donate to Support →
         </Link>
@@ -72,20 +72,20 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
           <h2 className="font-body text-base font-bold">
             Donate to Support →
           </h2>
-          <p className="font-body mt-1 text-[11px] text-[#9ed2aa]">
+          <p className="font-body mt-1 text-[1em] text-[#9ed2aa]">
             Help protect Oregon's rare species
           </p>
         </Link>
 
         {/* Quick actions */}
         <section className="mt-5">
-          <h3 className="font-body mb-2 text-[10px] font-bold tracking-wide text-gray-500">
+          <h3 className="font-body mb-2 text-[1em] font-bold tracking-wide text-gray-500">
             Quick actions
           </h3>
           <div className="grid grid-cols-1 gap-2">
             <button
               onClick={handleShareProfile}
-              className="font-body flex items-center gap-2 border-2 border-black border-b-4 bg-white px-3 py-2 text-[10px] font-bold transition hover:bg-[#f5f5f5]"
+              className="font-body flex items-center gap-2 border-2 border-black border-b-4 bg-white px-3 py-2 text-[1em] font-bold transition hover:bg-[#f5f5f5]"
             >
               <span className="text-gray-400">🔗</span>
               {linkCopied ? "Link copied!" : "Share profile"}
@@ -96,7 +96,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
         {/* External links */}
         {hasLinks && (
           <section className="mt-5 border-b border-[#e5e5e5] pb-4">
-            <h3 className="font-body mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-500">
+            <h3 className="font-body mb-2 text-[1em] font-bold uppercase tracking-wide text-gray-500">
               More information
             </h3>
             <div className="flex flex-col gap-1.5">
@@ -105,7 +105,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
                   href={species.iNaturalistLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[11px] text-[#15803d] underline"
+                  className="font-body text-[1em] text-[#15803d] underline"
                 >
                   iNaturalist
                 </a>
@@ -115,7 +115,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
                   href={species.nsEexplorerLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[11px] text-[#15803d] underline"
+                  className="font-body text-[1em] text-[#15803d] underline"
                 >
                   NatureServe Explorer
                 </a>
@@ -125,7 +125,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
                   href={`https://${species.odfwLink}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[11px] text-[#15803d] underline"
+                  className="font-body text-[1em] text-[#15803d] underline"
                 >
                   ODFW Wildlife Action Plan
                 </a>
@@ -135,7 +135,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
                   href={species.oregonFloraLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[11px] text-[#15803d] underline"
+                  className="font-body text-[1em] text-[#15803d] underline"
                 >
                   OregonFlora
                 </a>
@@ -146,20 +146,20 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
 
         {/* Taxonomic position */}
         <section className="mt-5 border-b border-[#e5e5e5] pb-4">
-          <h3 className="font-body mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-500">
+          <h3 className="font-body mb-2 text-[1em] font-bold uppercase tracking-wide text-gray-500">
             Taxonomic position
           </h3>
           {taxonomyLine1 && (
-            <p className="font-body text-[11px]">{taxonomyLine1}</p>
+            <p className="font-body text-[1em]">{taxonomyLine1}</p>
           )}
           {taxonomyLine2 && (
-            <p className="font-body text-[11px]">{taxonomyLine2}</p>
+            <p className="font-body text-[1em]">{taxonomyLine2}</p>
           )}
-          <p className="font-scientific text-[11px] italic">
+          <p className="font-scientific text-[1em] italic">
             {species.genusSpecies}
           </p>
           {isOrEndemic && (
-            <span className="font-body mt-3 inline-block border border-[#15803d] px-2 py-1 text-[10px] font-bold text-[#15803d]">
+            <span className="font-body mt-3 inline-block border border-[#15803d] px-2 py-1 text-[1em] font-bold text-[#15803d]">
               Oregon Endemic
             </span>
           )}
@@ -167,15 +167,15 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
 
         {/* Cite this record */}
         <section className="mt-4">
-          <h3 className="font-body mb-2 text-[10px] font-bold uppercase tracking-wide text-gray-500">
+          <h3 className="font-body mb-2 text-[1em] font-bold uppercase tracking-wide text-gray-500">
             Cite this record
           </h3>
           <div className="border-2 border-black p-3">
-            <p className="font-body text-[10px] italic">{citation}</p>
+            <p className="font-body text-[1em] italic">{citation}</p>
             <div className="mt-3">
               <button
                 onClick={handleCopyCitation}
-                className="font-body border border-black px-3 py-1 text-[9px] font-bold transition hover:bg-[#f5f5f5]"
+                className="font-body border border-black px-3 py-1 text-[12px] font-bold transition hover:bg-[#f5f5f5]"
               >
                 {citationCopied ? "Copied!" : "Copy"}
               </button>
