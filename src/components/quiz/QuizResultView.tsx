@@ -143,6 +143,11 @@ export default function QuizResultView({
     ]
       .filter(Boolean)
       .join(" · ");
+    const downloadedDate = new Date().toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
 
     const absImage = imagePath ? `${window.location.origin}${imagePath}` : null;
     const absIcon = `${window.location.origin}${categoryIcon}`;
@@ -185,7 +190,7 @@ export default function QuizResultView({
       <hr class="divider" />
       <p class="link-label">Full species profile</p>
       <p class="link">${speciesUrl}</p>
-      <p class="footer">ORBIC · Oregon Biodiversity Information Center</p>
+      <p class="footer">Oregon Biodiversity Information Center (ORBIC) · Institute for Natural Resources · Downloaded ${downloadedDate}</p>
     </div>
   </div>
 </body>
