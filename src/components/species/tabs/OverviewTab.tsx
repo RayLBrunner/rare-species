@@ -28,7 +28,10 @@ export default function OverviewTab({ species }: OverviewTabProps) {
   const categoryIcon = getCategoryIcon(species.list);
   const categoryLabel = getCategoryLabel(species.list);
 
-  const citation = `ORBIC. 2026. ${species.commonName} (${species.genusSpecies}), Oregon Rare Species Field Guide.`;
+  const now = new Date();
+  const year = now.getFullYear();
+  const accessedDate = now.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const citation = `Oregon Biodiversity Information Center. ${year}. ${species.commonName} (${species.genusSpecies}) Species Account. Oregon Rare Species Field Guide. Accessed ${accessedDate}. Portland State University. Portland, Oregon, USA.`;
 
   function handleShare() {
     navigator.clipboard.writeText(window.location.href);

@@ -96,7 +96,7 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
                 src={imagePath}
                 alt={attr?.altText ?? species.commonName ?? ""}
                 fill
-                loading="eager"
+                priority
                 sizes="(max-width: 1280px) 40vw, 450px"
                 className="object-contain"
               />
