@@ -4,7 +4,7 @@ import re
 
 # Paths are defined as constants so they can be easily updated
 # if the project structure changes or Ray provides a new data file
-INPUT_CSV = "raw_data/ORBIC_List_23072026.csv"
+INPUT_CSV = "raw_data/ORBIC_List_04082026.csv"
 OUTPUT_JSON = "src/data/species.json"
 
 def generate_slug(element_id, scientific_name):
@@ -60,7 +60,21 @@ with open(INPUT_CSV, newline="", encoding="utf-8") as csvfile:
                 row[key] = None
         records.append(row)
 
-with open(OUTPUT_JSON, "w", encoding="utf-8") as jsonfile:
-    json.dump(records, jsonfile, indent=2)
+seen_slugs = set()
+deduped = []
+removed = []
+for record in records:
+    if record["slug"] not in seen_slugs:
+        seen_slugs.add(record["slug"])
+        deduped.append(record)
+    else:
+        removed.append(record)
 
-print(f"Done! {len(records)} records written to {OUTPUT_JSON}")
+with open(OUTPUT_JSON, "w", encoding="utf-8") as jsonfile:
+    json.dump(deduped, jsonfile, indent=2)
+
+if removed:
+    print(f"Warning: {len(removed)} duplicate(s) removed:")
+    for r in removed:
+        print(f"  - {r['scientificName']} (elementGlobalId: {r['elementGlobalId']})")
+print(f"Done! {len(deduped)} records written to {OUTPUT_JSON}")
