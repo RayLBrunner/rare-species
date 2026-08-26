@@ -29,7 +29,7 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
     <section className="bg-white py-3">
       <div className="flex gap-3 flex-row items-center justify-between">
         <div className="w-full lg:max-w-[620px]">
-          <p className="font-body mb-2 text-[1em] font-semibold text-[#4d4d4d]">
+          <p className="font-body mb-2 text-[11px] font-semibold text-[#4d4d4d]">
             State Rank
           </p>
 
@@ -51,17 +51,17 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
             </div>
           </div>
 
-          <p className={`font-body mt-2 text-[1em] font-semibold md:text-[1em] ${rankColor}`}>
+          <p className={`font-body mt-2 text-[11px] font-semibold md:text-[12px] ${rankColor}`}>
             {stateRank} — {rankDescription}
           </p>
         </div>
 
         <div className="hidden md:flex md:gap-2">
           <div className="min-w-[95px] border-2 border-black bg-white p-3">
-            <p className="font-body text-[12px] font-bold text-[#c71945]">
+            <p className="font-body text-sm font-bold text-[#c71945]">
               {species.globalRank}
             </p>
-            <p className="font-body mt-1 text-[12px] uppercase text-gray-500">
+            <p className="font-body mt-1 text-[11px] uppercase text-gray-500">
               Global Rank
             </p>
             <p className="font-body text-[12px] font-semibold">
@@ -71,10 +71,10 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
 
           {species.federalRank && (
             <div className="min-w-[95px] border-2 border-black bg-white p-3">
-              <p className="font-body text-[12px] font-bold text-[#d94a15]">
+              <p className="font-body text-sm font-bold text-[#d94a15]">
                 {species.federalRank}
               </p>
-              <p className="font-body mt-1 text-[12px] uppercase text-gray-500">
+              <p className="font-body mt-1 text-[11px] uppercase text-gray-500">
                 Federal ESA
               </p>
               <p className="font-body text-[12px] font-semibold">
@@ -85,10 +85,10 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
 
           {species.orbicList && (
             <div className="min-w-[95px] border-2 border-black bg-white p-3">
-              <p className="font-body text-[12px] font-bold text-[#c71945]">
+              <p className="font-body text-sm font-bold text-[#c71945]">
                 List {species.orbicList}
               </p>
-              <p className="font-body mt-1 text-[12px] uppercase text-gray-500">
+              <p className="font-body mt-1 text-[11px] uppercase text-gray-500">
                 ORBIC
               </p>
               <p className="font-body text-[12px] font-semibold">
@@ -98,6 +98,27 @@ export default function StatusRankBar({ species }: StatusRankBarProps) {
           )}
         </div>
       </div>
+
+      <p className="font-body mt-2 text-[11px] text-[#666]">
+        What do these ranks mean?{" "}
+        <a
+          href="https://inr.oregonstate.edu/rare-species/rare-species-ranking-definitions"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#16873d] hover:underline"
+        >
+          ORBIC&apos;s ranking definitions
+        </a>{" "}
+        or{" "}
+        <a
+          href="https://www.natureserve.org/nsexplorer/about-the-data/statuses/conservation-status-categories"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#16873d] hover:underline"
+        >
+          NatureServe&apos;s conservation status categories
+        </a>
+      </p>
     </section>
   );
 }
