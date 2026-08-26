@@ -7,7 +7,7 @@ export const teamMembers: TeamMember[] = [
     photoUrl: "/images/team/tanner-cheek.png",
     linkedin: "https://www.linkedin.com/in/tannercheek/",
     github: "https://github.com/tannercheek",
-    portfolio: "tannercheek.com",
+    portfolio: "https://tannercheek.github.io/portfolio/",
   },
   {
     name: "John Winborne",
