@@ -81,6 +81,32 @@ export default function SpeciesHero({ species }: SpeciesHeroProps) {
             {species.scientificName}
           </p>
 
+<div className="relative block min-h-[240px] bg-black md:hidden my-3">
+          {imagePath ? (
+            <>
+              <Image
+                src={imagePath}
+                alt={attr?.altText ?? species.commonName ?? ""}
+                fill
+                loading="eager"
+                sizes="(max-width: 1280px) 40vw, 450px"
+                className="object-contain"
+              />
+              {attr && (
+                <p className="font-body absolute bottom-0 left-0 right-0 bg-black/50 px-3 py-1.5 text-[10px] text-white">
+                  {attr.photographer} · {attr.license}
+                </p>
+              )}
+            </>
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+              <div className="relative h-24 w-24 opacity-30">
+                <Image src={categoryIcon} alt="" fill className="object-contain" />
+              </div>
+              <p className="font-body text-sm font-medium text-white/50">{categoryLabel}</p>
+            </div>
+          )}
+        </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {heroBadges.map((badge) => (
               <span
