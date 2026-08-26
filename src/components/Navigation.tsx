@@ -113,7 +113,7 @@ export default function Navigation() {
               href={link.href}
               target={link.target}
               rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
-              className="font-body text-xs bg-[#16873d] text-white px-3 py-1.5 border border-white transition hover:bg-[#1b9947]"
+              className="font-body text-center text-xs bg-[#16873d] text-white px-3 py-1.5 border border-white transition hover:bg-[#1b9947]"
             >
               {link.label}
             </Link>
