@@ -40,6 +40,8 @@ export default function CTASection() {
             </Link>
             <Link
               href={MAILING_LIST_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-body bg-white px-6 py-4 text-center text-sm font-bold text-[#16873d] transition hover:bg-[#d4f0df] sm:flex-1 md:flex-none"
             >
               Join our email list
