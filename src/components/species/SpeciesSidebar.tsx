@@ -33,7 +33,11 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
 
   const now = new Date();
   const year = now.getFullYear();
-  const accessedDate = now.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const accessedDate = now.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
   const citation = `Oregon Biodiversity Information Center. ${year}. ${species.commonName} (${species.genusSpecies}) Species Account. Oregon Rare Species Field Guide. Accessed ${accessedDate}. Portland State University. Portland, Oregon, USA.`;
 
   const hasInat =
@@ -155,11 +159,9 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
           rel="noopener noreferrer"
           className="block border-2 border-black border-b-4 bg-[#15803d] p-4 text-white transition hover:bg-[#1b9947]"
         >
-          <h2 className="font-body text-base font-bold">
-            Donate to Support →
-          </h2>
+          <h2 className="font-body text-base font-bold">Donate to Support →</h2>
           <p className="font-body mt-1 text-[12px] text-[#9ed2aa]">
-            Help protect Oregon's rare species
+            Help protect Oregon&apos;s rare species
           </p>
         </Link>
 
@@ -271,10 +273,10 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
 
         {/* Downloadable species card */}
         <section className="mt-4">
-          <h3 className="font-body mb-2 text-[1em] font-bold uppercase tracking-wide text-gray-500">
+          <h3 className="font-body mb-2 text-[11px] font-bold uppercase tracking-wide text-gray-500">
             Species card
           </h3>
-          <p className="font-body mb-3 text-[1em] text-[#4d4d4d]">
+          <p className="font-body mb-3 text-[12px] text-[#4d4d4d]">
             Download a shareable mini field guide card.
           </p>
           <div className="flex gap-2 border-2 border-[#e0ddd7] p-2">
@@ -290,7 +292,12 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
               ) : (
                 <div className="flex h-full flex-col items-center justify-center gap-1">
                   <div className="relative h-6 w-6 opacity-30">
-                    <Image src={categoryIcon} alt="" fill className="object-contain" />
+                    <Image
+                      src={categoryIcon}
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
                   </div>
                   <p className="font-body text-center text-[8px] font-medium text-white/50">
                     {categoryLabel}
@@ -299,13 +306,13 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
               )}
             </div>
             <div className="min-w-0">
-              <p className="font-heading truncate text-xs font-bold text-[#0f0f0f]">
+              <p className="font-heading truncate text-[12px] font-bold text-[#0f0f0f]">
                 {species.commonName ?? species.scientificName}
               </p>
               <p className="font-scientific truncate text-[11px] italic text-[#4d4d4d]">
                 {species.scientificName}
               </p>
-              <p className="font-body mt-0.5 text-[10px] text-[#4d4d4d]">
+              <p className="font-body mt-0.5 text-[11px] text-[#4d4d4d]">
                 {species.globalRank} · {species.stateRank}
                 {species.federalRank ? ` · ESA: ${species.federalRank}` : ""}
               </p>
@@ -314,7 +321,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
           <button
             type="button"
             onClick={handleDownloadPDF}
-            className="font-body mt-3 w-full border-2 border-[#1a1a1a] bg-white px-4 py-2 text-[1em] font-bold text-[#0f0f0f] transition hover:bg-[#f5f7f3]"
+            className="font-body mt-3 w-full border-2 border-[#1a1a1a] bg-white px-4 py-2 text-[11px] font-bold text-[#0f0f0f] transition hover:bg-[#f5f7f3]"
           >
             ⬇ Download species card
           </button>
