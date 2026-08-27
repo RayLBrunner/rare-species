@@ -96,7 +96,7 @@ export default function Footer() {
           <p>
             Site design by the{" "}
             <Link
-              href="#"
+              href="/team"
               className="underline transition hover:text-[#6fc08f]"
             >
               PSU Capstone Team

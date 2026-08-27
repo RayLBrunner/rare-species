@@ -121,23 +121,23 @@ export default function OverviewTab({ species }: OverviewTabProps) {
   return (
     <div>
       <section className="border-b border-[#e5e5e5] pb-5">
-        <h2 className="font-body mb-3 text-[1em] font-bold text-[#15803d]">
+        <h2 className="font-body mb-3 text-[13px] font-bold text-[#15803d]">
           About this species
         </h2>
 
         <SpeciesSummarySentence
           species={species}
-          className="font-body max-w-[720px] text-[1em] leading-6 text-black"
+          className="font-body max-w-[720px] text-sm leading-6 text-black"
         />
       </section>
 
       {species.habitatDescription && (
         <section className="border-b border-[#e5e5e5] py-5">
-          <h2 className="font-body mb-3 text-[1em] font-bold text-[#15803d]">
+          <h2 className="font-body mb-3 text-[13px] font-bold text-[#15803d]">
             Habitat &amp; Ecology
           </h2>
           <p
-            className="font-body max-w-[720px] text-[1em] leading-6 text-black"
+            className="font-body max-w-[720px] text-sm leading-6 text-black"
             dangerouslySetInnerHTML={{ __html: species.habitatDescription }}
           />
         </section>
@@ -145,11 +145,11 @@ export default function OverviewTab({ species }: OverviewTabProps) {
 
       {species.physicalDescription && (
         <section className="border-b border-[#e5e5e5] py-5">
-          <h2 className="font-body mb-3 text-[1em] font-bold text-[#15803d]">
+          <h2 className="font-body mb-3 text-[13px] font-bold text-[#15803d]">
             Identification
           </h2>
           <p
-            className="font-body max-w-[720px] text-[1em] leading-6 text-black"
+            className="font-body max-w-[720px] text-sm leading-6 text-black"
             dangerouslySetInnerHTML={{ __html: species.physicalDescription }}
           />
         </section>
@@ -157,11 +157,11 @@ export default function OverviewTab({ species }: OverviewTabProps) {
 
       {species.ecologyComments && (
         <section className="border-b border-[#e5e5e5] py-5">
-          <h2 className="font-body mb-3 text-[1em] font-bold text-[#15803d]">
+          <h2 className="font-body mb-3 text-[13px] font-bold text-[#15803d]">
             Ecology
           </h2>
           <p
-            className="font-body max-w-[720px] text-[1em] leading-6 text-black"
+            className="font-body max-w-[720px] text-sm leading-6 text-black"
             dangerouslySetInnerHTML={{ __html: species.ecologyComments }}
           />
         </section>
@@ -169,18 +169,18 @@ export default function OverviewTab({ species }: OverviewTabProps) {
 
       {species.globalRangeComments && (
         <section className="border-b border-[#e5e5e5] py-5">
-          <h2 className="font-body mb-3 text-[1em] font-bold text-[#15803d]">
+          <h2 className="font-body mb-3 text-[13px] font-bold text-[#15803d]">
             Global Range
           </h2>
           <p
-            className="font-body max-w-[720px] text-[1em] leading-6 text-black"
+            className="font-body max-w-[720px] text-sm leading-6 text-black"
             dangerouslySetInnerHTML={{ __html: species.globalRangeComments }}
           />
         </section>
       )}
 
       <section className="border-b border-[#e5e5e5] py-5">
-        <h2 className="font-body mb-3 text-[1em] font-bold text-[#15803d]">
+        <h2 className="font-body mb-3 text-[13px] font-bold text-[#15803d]">
           Photos
         </h2>
 
@@ -198,7 +198,7 @@ export default function OverviewTab({ species }: OverviewTabProps) {
               <div className="relative h-16 w-16 opacity-30">
                 <Image src={categoryIcon} alt="" fill className="object-contain" />
               </div>
-              <p className="font-body text-[1em] font-medium text-white/50">{categoryLabel}</p>
+              <p className="font-body text-xs font-medium text-white/50">{categoryLabel}</p>
             </div>
           )}
         </div>
@@ -222,26 +222,26 @@ export default function OverviewTab({ species }: OverviewTabProps) {
             href={DONATE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-body block w-full bg-[#15803d] px-4 py-4 text-center text-[1em] font-bold text-white transition hover:bg-[#1b9947]"
+            className="font-body block w-full bg-[#15803d] px-4 py-4 text-center text-sm font-bold text-white transition hover:bg-[#1b9947]"
           >
             Donate to Support →
           </Link>
 
           <button
             onClick={handleShare}
-            className="font-body w-full border-2 border-black bg-white px-4 py-3 text-[1em] font-bold text-black transition hover:bg-[#f5f5f5]"
+            className="font-body w-full border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black transition hover:bg-[#f5f5f5]"
           >
             {linkCopied ? "Link copied!" : "🔗 Share profile"}
           </button>
 
           <div className="border-2 border-black p-3">
-            <h3 className="font-body mb-2 text-[1em] font-bold uppercase tracking-wide text-gray-500">
+            <h3 className="font-body mb-2 text-[11px] font-bold uppercase tracking-wide text-gray-500">
               Cite this record
             </h3>
-            <p className="font-body text-[1em] italic">{citation}</p>
+            <p className="font-body text-[12px] italic">{citation}</p>
             <button
               onClick={handleCopyCitation}
-              className="font-body mt-3 border border-black px-3 py-1 text-[1em] font-bold transition hover:bg-[#f5f5f5]"
+              className="font-body mt-3 border border-black px-3 py-1 text-[12px] font-bold transition hover:bg-[#f5f5f5]"
             >
               {citationCopied ? "Copied!" : "Copy"}
             </button>

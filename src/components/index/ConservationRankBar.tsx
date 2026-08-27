@@ -35,6 +35,18 @@ export default function ConservationRankBar({
           );
         })}
       </div>
+
+      <p className="font-body mt-1 text-[11px] text-[#666]">
+        What do these ranks mean?{" "}
+        <a
+          href="https://inr.oregonstate.edu/rare-species/rare-species-ranking-definitions"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#16873d] hover:underline"
+        >
+          ORBIC&apos;s ranking definitions
+        </a>
+      </p>
     </section>
   );
 }

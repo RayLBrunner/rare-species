@@ -38,7 +38,7 @@ export default function SpeciesOverview({
                 key={tab}
                 type="button"
                 onClick={() => setActiveTab(tab)}
-                className={`cursor-pointer font-body border-r border-[#d8d8d8] py-3 text-[1em] font-bold last:border-r-0 ${
+                className={`cursor-pointer font-body border-r border-[#d8d8d8] py-3 text-[12px] font-bold last:border-r-0 ${
                   activeTab === tab
                     ? "bg-black text-white"
                     : "bg-white text-black"

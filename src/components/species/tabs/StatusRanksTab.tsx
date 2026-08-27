@@ -110,24 +110,24 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
             key={status.label}
             className="border-b border-[#d8d8d8] py-5 first:pt-0 last:border-b-0"
           >
-            <h3 className="font-body mb-1 text-[1em] font-bold text-black">
+            <h3 className="font-body mb-1 text-sm font-bold text-black">
               {status.label}
             </h3>
 
             {status.badge ? (
               <div
-                className={`font-body mt-3 inline-block px-3 py-2 text-[1em] font-bold text-white ${status.badgeColor}`}
+                className={`font-body mt-3 inline-block px-3 py-2 text-[12px] font-bold text-white ${status.badgeColor}`}
               >
                 {status.badge}
               </div>
             ) : (
-              <p className={`font-body text-[1em] ${status.color}`}>
+              <p className={`font-body text-[13px] ${status.color}`}>
                 {status.value}
               </p>
             )}
 
             {status.description && (
-              <p className="font-body mt-3 text-[1em] text-[#777]">
+              <p className="font-body mt-3 text-[13px] text-[#777]">
                 {status.description}
               </p>
             )}
@@ -136,7 +136,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
 
         {hasLinks && (
           <section className="border-b border-[#d8d8d8] py-5 last:border-b-0">
-            <h3 className="font-body mb-3 text-[1em] font-bold text-black">
+            <h3 className="font-body mb-3 text-sm font-bold text-black">
               More Information
             </h3>
             <div className="flex flex-col gap-2">
@@ -145,7 +145,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
                   href={species.iNaturalistLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[1em] text-[#15803d] underline"
+                  className="font-body text-[13px] text-[#15803d] underline"
                 >
                   iNaturalist
                 </a>
@@ -155,7 +155,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
                   href={species.nsEexplorerLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[1em] text-[#15803d] underline"
+                  className="font-body text-[13px] text-[#15803d] underline"
                 >
                   NatureServe Explorer
                 </a>
@@ -165,7 +165,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
                   href={`https://${species.odfwLink}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[1em] text-[#15803d] underline"
+                  className="font-body text-[13px] text-[#15803d] underline"
                 >
                   ODFW Wildlife Action Plan
                 </a>
@@ -175,7 +175,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
                   href={species.oregonFloraLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[1em] text-[#15803d] underline"
+                  className="font-body text-[13px] text-[#15803d] underline"
                 >
                   OregonFlora
                 </a>
@@ -191,10 +191,10 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
             key={status.desktopLabel}
             className="grid border-b border-[#d8d8d8] py-4 md:grid-cols-[220px_1fr] md:px-8"
           >
-            <h3 className="font-body text-[1em] font-bold text-[#777]">
+            <h3 className="font-body text-[13px] font-bold text-[#777]">
               {status.desktopLabel}
             </h3>
-            <p className={`font-body text-[1em] ${status.color}`}>
+            <p className={`font-body text-[13px] ${status.color}`}>
               {status.value}
             </p>
           </section>
@@ -202,7 +202,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
 
         {hasLinks && (
           <section className="grid border-b border-[#d8d8d8] py-4 md:grid-cols-[220px_1fr] md:px-8">
-            <h3 className="font-body text-[1em] font-bold text-[#777]">
+            <h3 className="font-body text-[13px] font-bold text-[#777]">
               More Information
             </h3>
             <div className="flex flex-col gap-1">
@@ -211,7 +211,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
                   href={species.iNaturalistLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[1em] text-[#15803d] underline"
+                  className="font-body text-[13px] text-[#15803d] underline"
                 >
                   iNaturalist
                 </a>
@@ -221,7 +221,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
                   href={species.nsEexplorerLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[1em] text-[#15803d] underline"
+                  className="font-body text-[13px] text-[#15803d] underline"
                 >
                   NatureServe Explorer
                 </a>
@@ -231,7 +231,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
                   href={`https://${species.odfwLink}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[1em] text-[#15803d] underline"
+                  className="font-body text-[13px] text-[#15803d] underline"
                 >
                   ODFW Wildlife Action Plan
                 </a>
@@ -241,7 +241,7 @@ export default function StatusRanksTab({ species }: StatusRanksTabProps) {
                   href={species.oregonFloraLink!}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-body text-[1em] text-[#15803d] underline"
+                  className="font-body text-[13px] text-[#15803d] underline"
                 >
                   OregonFlora
                 </a>
