@@ -227,7 +227,7 @@ function applyFilters(
 
   return species.filter((item) => {
     // SEARCH
-    if (q && !(item.commonName ?? "").toLowerCase().includes(q)) return false;
+    if (q && !(item.commonName ?? "").toLowerCase().includes(q) && !(item.scientificName ?? "").toLowerCase().includes(q)) return false;
 
     // TAXONOMY
     const taxonomyIsAll = selectedFilters.Taxonomy?.includes("All species");
