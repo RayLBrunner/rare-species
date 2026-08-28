@@ -13,7 +13,7 @@ export default function AboutPage() {
               About
             </h1>
             <p className="font-body text-gray-600 mt-2">
-              Learn more about ORBIC and the work behind this field guide. 
+              Learn more about ORBIC and the work behind this field guide.
             </p>
           </div>
           <Image
