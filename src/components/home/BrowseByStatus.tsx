@@ -21,6 +21,10 @@ export default function BrowseByStatus() {
           </Link>
         ))}
       </div>
+
+      <p className="font-body mt-1 text-center text-[13px] text-gray-500 sm:hidden">
+        ← swipe for more →
+      </p>
     </section>
   );
 }
