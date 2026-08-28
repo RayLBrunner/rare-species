@@ -87,13 +87,13 @@ export default function FeaturedSpeciesCarousel({
                           key={status.label}
                           className="h-[140px] border border-white bg-white/5 p-3"
                         >
-                          <div className="flex items-start justify-between gap-2">
-                            <span className="font-body text-[15px] font-semibold uppercase tracking-wide text-white/70">
+                          <div className="flex min-w-0 items-start justify-between gap-2">
+                            <span className="font-body min-w-0 text-[15px] font-semibold uppercase tracking-wide text-white/70">
                               {status.label}
                             </span>
 
                             <span
-                              className={`font-body shrink-0 px-2 py-1 text-xs font-bold text-white ${status.color}`}
+                              className={`font-body shrink max-w-[50%] px-2 py-1 text-xs font-bold text-white ${status.color}`}
                             >
                               {status.value}
                             </span>
