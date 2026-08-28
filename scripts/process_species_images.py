@@ -7,7 +7,7 @@ from PIL import Image
 # Configuration
 RAW_DIR="raw_images/ForWeb"
 OUTPUT_DIR = "public/images/species"
-INDEX_FILE = "TaxonImagesIndex (1).xlsx"
+INDEX_FILE = "TaxonImagesIndex.xlsx"
 ATTR_JSON_PATH = "src/data/photoAttribution.json"
 LOG_DIR = "logs"
 VALID_EXTENSIONS = ('.jpeg', '.jpg', '.png', '.jfif')
