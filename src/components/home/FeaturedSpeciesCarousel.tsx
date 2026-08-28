@@ -1,0 +1,124 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import Slider, { Settings } from "react-slick";
+import { getCategoryIcon, getCategoryLabel } from "@/lib/speciesImage";
+
+export interface FeaturedSpeciesStatus {
+  label: string;
+  value: string;
+  description: string;
+  color: string;
+}
+
+export interface FeaturedSpeciesItem {
+  name: string;
+  scientificName: string;
+  slug: string;
+  list: string;
+  image: string | null;
+  statuses: FeaturedSpeciesStatus[];
+}
+
+export default function FeaturedSpeciesCarousel({
+  species,
+}: {
+  species: FeaturedSpeciesItem[];
+}) {
+  const settings: Settings = {
+    dots: false,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    accessibility: true,
+    adaptiveHeight: false,
+  };
+
+  return (
+    <div className="featured-species-slider relative">
+      <Slider {...settings}>
+        {species.map((species) => (
+          <div key={species.slug}>
+            <article className="grid min-h-[320px] overflow-hidden bg-[#032014] text-white md:grid-cols-[42%_58%]">
+              <div className="min-h-[280px] p-5 md:min-h-[320px] md:p-7">
+                <div className="relative h-full min-h-[240px] w-full overflow-hidden border border-white/40 bg-black text-black md:min-h-[264px]">
+                  {species.image ? (
+                    <Image
+                      src={species.image}
+                      alt={species.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 42vw"
+                      className="object-contain"
+                    />
+                  ) : (
+                    <div className="flex h-full flex-col items-center justify-center gap-3">
+                      <div className="relative h-20 w-20 opacity-30">
+                        <Image src={getCategoryIcon(species.list)} alt="" fill className="object-contain" />
+                      </div>
+                      <p className="font-body text-sm font-medium text-white/50">{getCategoryLabel(species.list)}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="flex min-h-[280px] flex-col justify-between p-6 md:min-h-[320px] md:p-8">
+                <div>
+                  <h3 className="font-heading text-2xl font-bold leading-tight md:text-3xl">
+                    {species.name}
+                  </h3>
+
+                  <p className="font-scientific mt-2 text-sm italic text-[#b8dfc5]">
+                    {species.scientificName}
+                  </p>
+
+                  <div
+                    className="mt-4"
+                    aria-label={`${species.name} conservation status`}
+                  >
+                    <p className="font-body text-[20px] font-semibold uppercase tracking-widest text-white">
+                      Status at a glance
+                    </p>
+
+                    <div className="mt-3 grid grid-cols-2 gap-3">
+                      {species.statuses.map((status) => (
+                        <div
+                          key={status.label}
+                          className="h-[140px] border border-white bg-white/5 p-3"
+                        >
+                          <div className="flex min-w-0 items-start justify-between gap-2">
+                            <span className="font-body min-w-0 text-[15px] font-semibold uppercase tracking-wide text-white/70">
+                              {status.label}
+                            </span>
+
+                            <span
+                              className={`font-body shrink max-w-[50%] px-2 py-1 text-xs font-bold text-white ${status.color}`}
+                            >
+                              {status.value}
+                            </span>
+                          </div>
+
+                          <p className="font-body mt-2 text-xs leading-snug text-white/80">
+                            {status.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <Link
+                  href={`/species/${species.slug}`}
+                  className="font-body mt-6 w-fit border-2 border-white px-4 py-2 text-sm font-semibold hover:bg-white hover:text-[#032014]"
+                >
+                  View species →
+                </Link>
+              </div>
+            </article>
+          </div>
+        ))}
+      </Slider>
+    </div>
+  );
+}
