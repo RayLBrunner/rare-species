@@ -96,7 +96,7 @@ export const questions: QuizQuestion[] = [
         value: "eastSideSteppe",
         detail: "Big skies and room to roam",
         image:
-          "/images/eco-region/BlueMountains_IMG_20160905_073837231_HDR.webp",
+          "/images/eco-region/BasinRange_PXL_20220527_181021987.webp",
         ecoregionCodes: ["CB", "BR"],
       },
     ],
