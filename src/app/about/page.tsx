@@ -262,7 +262,7 @@ export default function AboutPage() {
           </h2>
           <div className="font-body text-gray-600 mt-4 space-y-4 text-base leading-relaxed">
             <p>
-              Please contact{" "}
+              Contact{" "}
               <a
                 href="https://inr.oregonstate.edu/directory/jesse-laney"
                 target="_blank"
@@ -271,7 +271,7 @@ export default function AboutPage() {
               >
                 Jesse Laney
               </a>{" "}
-              for animal inquiries,{" "}
+              for animal inquiries, and{" "}
               <a
                 href="https://inr.oregonstate.edu/directory/nora-dunkirk"
                 target="_blank"
@@ -280,16 +280,16 @@ export default function AboutPage() {
               >
                 Nora Dunkirk
               </a>{" "}
-              for plants and fungi inquiries, or{" "}
+              for plant and fungi inquiries. Please use our{" "}
               <a
-                href="https://inr.oregonstate.edu/directory/eleanor-gaines"
+                href="https://www.pdx.edu/institute-natural-resources/contact/contact-us"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#16873d] hover:underline"
               >
-                Eleanor Gaines
+                contact form
               </a>{" "}
-              for general inquiries.
+              for all other inquiries.
             </p>
           </div>
         </section>
