@@ -69,7 +69,7 @@ export const questions: QuizQuestion[] = [
         value: "eastSide",
         detail: "High and dry",
         image:
-          "/images/eco-region/BasinRange_IMG_20200627_112438_RBrunner.webp",
+          "/images/eco-region/BasinRange_IMG_20200627_112438_RBrunner_narrow.webp",
         ecoregionCodes: [],
       },
     ],
@@ -96,7 +96,7 @@ export const questions: QuizQuestion[] = [
         value: "eastSideSteppe",
         detail: "Big skies and room to roam",
         image:
-          "/images/eco-region/BasinRange_PXL_20220527_181021987.webp",
+          "/images/eco-region/BasinRange_PXL_20220527_181021987_narrow.webp",
         ecoregionCodes: ["CB", "BR"],
       },
     ],
