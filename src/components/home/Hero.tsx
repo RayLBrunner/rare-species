@@ -38,6 +38,7 @@ export default function Hero() {
           <div className="mt-3 flex flex-col items-start gap-3 sm:mt-5 md:mt-7 md:flex-row md:items-center md:gap-5">
             <Link
               href="/quiz"
+              prefetch={false}
               className="font-body group block w-full border border-white bg-[#16873d] px-4 py-3 text-left transition hover:bg-[#1b9947] sm:w-auto sm:px-5 sm:py-4"
             >
               <div className="text-[15px] font-semibold sm:text-[18px]">
@@ -51,6 +52,7 @@ export default function Hero() {
 
             <Link
               href="/species"
+              prefetch={false}
               className="font-body text-sm text-[#7fc49b] transition hover:text-white"
             >
               Browse all {speciesCount} →
