@@ -143,6 +143,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
       <div className="space-y-3 lg:hidden">
         <Link
           href={DONATE_URL}
+          prefetch={false}
           target="_blank"
           rel="noopener noreferrer"
           className="font-body block w-full border-b-4 border-black bg-[#15803d] px-4 py-4 text-center text-sm font-bold text-white"
@@ -155,6 +156,7 @@ export default function SpeciesSidebar({ species }: SpeciesSidebarProps) {
       <aside className="hidden border-[#d8d8d8] bg-white pl-6 pb-10 lg:block">
         <Link
           href={DONATE_URL}
+          prefetch={false}
           target="_blank"
           rel="noopener noreferrer"
           className="block border-2 border-black border-b-4 bg-[#15803d] p-4 text-white transition hover:bg-[#1b9947]"
