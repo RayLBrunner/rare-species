@@ -220,6 +220,7 @@ export default function OverviewTab({ species }: OverviewTabProps) {
         <div className="mt-6 space-y-3 lg:hidden">
           <Link
             href={DONATE_URL}
+            prefetch={false}
             target="_blank"
             rel="noopener noreferrer"
             className="font-body block w-full bg-[#15803d] px-4 py-4 text-center text-sm font-bold text-white transition hover:bg-[#1b9947]"
