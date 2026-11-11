@@ -40,6 +40,7 @@ export default function SpeciesIndexCard({
   return (
     <Link
       href={`/species/${slug}`}
+      prefetch={false}
       className="group block border-[3px] border-black bg-white shadow-[2px_2px_0_#222] transition hover:-translate-y-0.5 hover:bg-[#032014] sm:border-4 sm:shadow-[4px_4px_0_#222]"
     >
       <div className="relative h-[86px] bg-black sm:h-40">
