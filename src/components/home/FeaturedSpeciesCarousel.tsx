@@ -110,6 +110,7 @@ export default function FeaturedSpeciesCarousel({
 
                 <Link
                   href={`/species/${species.slug}`}
+                  prefetch={false}
                   className="font-body mt-6 w-fit border-2 border-white px-4 py-2 text-sm font-semibold hover:bg-white hover:text-[#032014]"
                 >
                   View species →
