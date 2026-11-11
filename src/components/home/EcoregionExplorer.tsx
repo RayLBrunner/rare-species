@@ -120,6 +120,7 @@ export default function EcoregionExplorer({
                   <li key={code}>
                     <Link
                       href={regionHref(code)}
+                      prefetch={false}
                       aria-label={`${name}, ${counts[code] ?? 0} species`}
                       onMouseEnter={() => setActiveRegion(code)}
                       onMouseLeave={() => setActiveRegion(null)}
