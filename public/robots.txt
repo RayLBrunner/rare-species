@@ -1,0 +1,22 @@
+# Allow search engines to index everything
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block aggressive AI crawlers and commercial scrapers that consume high bandwidth
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Anthropic-ai
+User-agent: MJ12bot
+User-agent: AhrefsBot
+User-agent: SemrushBot
+Disallow: /
+
+# General rule for all other crawlers
+User-agent: *
+Allow: /
+Crawl-delay: 2
