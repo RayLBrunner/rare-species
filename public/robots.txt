@@ -14,6 +14,7 @@ User-agent: Anthropic-ai
 User-agent: MJ12bot
 User-agent: AhrefsBot
 User-agent: SemrushBot
+User-agent: Google-Extended
 Disallow: /
 
 # General rule for all other crawlers
