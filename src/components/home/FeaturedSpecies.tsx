@@ -46,6 +46,7 @@ export default function FeaturedSpecies() {
 
         <Link
           href="/species"
+          prefetch = {false}
           className="font-body z-40 cursor-pointer text-[13px]"
         >
           View all →

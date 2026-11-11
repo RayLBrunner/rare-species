@@ -44,6 +44,7 @@ export default function SpeciesCategories() {
         <p className="font-heading text-lg font-bold">Browse by Species</p>
         <Link
           href="/species"
+          prefetch={false}
           className="font-body z-40 cursor-pointer text-[13px]"
         >
           View all →
@@ -55,6 +56,7 @@ export default function SpeciesCategories() {
           <Link
             key={category.list}
             href={`/species?list=${category.list}`}
+            prefetch={false}
             className="min-w-[140px] sm:min-w-0"
           >
             <SpeciesCard

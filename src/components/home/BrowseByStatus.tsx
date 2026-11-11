@@ -11,6 +11,7 @@ export default function BrowseByStatus() {
           <Link
             key={rank.short}
             href={`/species?rank=${rank.short}`}
+            prefetch={false}
             className="min-w-[150px] sm:min-w-0"
           >
             <StatusCard

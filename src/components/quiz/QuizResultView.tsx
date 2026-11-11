@@ -309,6 +309,7 @@ export default function QuizResultView({
             <div className="mt-6 flex flex-wrap items-start gap-3">
               <Link
                 href={`/species/${result.slug}`}
+                prefetch={false}
                 className="font-body rounded-md bg-[#16873d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#1b9947] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-400"
               >
                 See full species profile →

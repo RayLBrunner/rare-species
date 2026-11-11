@@ -48,6 +48,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
+                    prefetch={false}
                     target={link.target}
                     rel={
                       link.target === "_blank"
@@ -72,6 +73,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
+                    prefetch={false}
                     target={link.target}
                     rel={
                       link.target === "_blank"
@@ -97,6 +99,7 @@ export default function Footer() {
             Site design by the{" "}
             <Link
               href="/team"
+              prefetch={false}
               className="underline transition hover:text-[#6fc08f]"
             >
               PSU Capstone Team

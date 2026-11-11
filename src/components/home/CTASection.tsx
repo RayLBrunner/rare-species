@@ -32,6 +32,7 @@ export default function CTASection() {
           <div className="flex flex-col gap-3 sm:flex-row md:flex-col md:min-w-[200px] lg:flex-row lg:items-center">
             <Link
               href={DONATE_URL}
+              prefetch={false}
               target="_blank"
               rel="noopener noreferrer"
               className="font-body px-6 py-4 text-center text-sm bg-[#16873d] font-semibold text-white transition hover:bg-[#1b9947] sm:flex-1 md:flex-none"
@@ -40,6 +41,7 @@ export default function CTASection() {
             </Link>
             <Link
               href={MAILING_LIST_URL}
+              prefetch={false}
               target="_blank"
               rel="noopener noreferrer"
               className="font-body bg-white px-6 py-4 text-center text-sm font-bold text-[#16873d] transition hover:bg-[#d4f0df] sm:flex-1 md:flex-none"

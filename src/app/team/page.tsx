@@ -58,6 +58,7 @@ export default function TeamPage() {
           </p>
           <Link
             href="/contact"
+            prefetch={false}
             className="font-body mt-6 inline-block bg-[#16873d] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1b9947]"
           >
             Contact ORBIC →

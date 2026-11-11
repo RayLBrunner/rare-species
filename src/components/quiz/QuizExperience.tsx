@@ -345,6 +345,7 @@ export default function QuizExperience() {
               </button>
               <Link
                 href="/"
+                prefetch={false}
                 className="font-body rounded-full bg-[#16873d] px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-[#1b9947]"
               >
                 Exit quiz
